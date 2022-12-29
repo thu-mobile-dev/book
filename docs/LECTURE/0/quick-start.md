@@ -12,9 +12,6 @@
 
 - [声明式和命令式的区别](https://docs.flutter.dev/get-started/flutter-for/declarative)
     - 声明式是 Flutter 框架的一大特色。如果你以前使用的是命令式开发框架，最好看一下这篇文章。
-- [英文文档链接](https://docs.flutter.dev)
-    - 这个阶段不需要详细读，链接用浏览器打开加一个书签以后有问题随时查阅
-    - [中文文档链接](https://flutter.cn/docs) 更推荐阅读英文文档
 
 ## 在 Windows 或 macOS 上安装 Flutter
 
@@ -23,6 +20,7 @@
     - 安装好后打开命令行执行命令 `flutter --version` 的输出应该包含 `Flutter 3.x.x`
 - [安装编辑器 VS Code](https://code.visualstudio.com)
     - `VS Code` 是一款非常经典好用的编辑器，这也是有 `Flutter` 官方支持的一款编辑器。
+    - 使用方法可以参考 <https://docs.flutter.dev/development/tools/vs-code>
 - [安装调试工具 Chrome](https://www.google.com/chrome/)
     - `Flutter` 主要的任务是在一块 `height*width` 的屏幕上渲染你构建的应用，UI 部分和具体的平台没太大的关系。`Flutter` 是跨平台的框架，不仅支持移动端、桌面端，还支持网页端，因此我们选择大家电脑上可能已经有的 `Chrome` 进行调试即可。
     - 虽然课程聚焦移动应用开发，但是如果要使用 `Android` 或者 `iOS` 的模拟器运行应用，需要进行的安装非常麻烦。可以入门之后再安装对应的 `IDE` 和模拟器。
@@ -74,17 +72,20 @@
 
 ## 看 Flutter 官方文档
 
-[英文文档链接](https://docs.flutter.dev)，左侧边栏中：
+[英文文档链接](https://docs.flutter.dev)（[中文文档链接](https://flutter.cn/docs) 更推荐阅读英文文档），左侧边栏中：
 
 - `Development / User interface` 下需要都看一下
-- `Development / Data & backend / State management` 也是很重要的一个点
+    - 包含 `Introductoins to widgets` `Building layouts` `Adding interactivity` `Assets and images` `Navigatoin & routing` `Animations` `Advanced UI`
+- `Development / Data & backend / State management` 状态管理是很重要的一个点
 - 其他部分的文档可以挑感兴趣的看
 
 ## 常用 Widgets
 
 `Flutter` 的所有界面元素都是 `Widget`，你需要熟悉一些常用的 `Widget`s 才能构建出你希望的 UI。
 
-[Widget catalog](https://docs.flutter.dev/development/ui/widgets) 中包含了常用的 `Widget`s 列表。
+[Widget catalog](https://docs.flutter.dev/development/ui/widgets) 中包含了 `Flutter` 中常用的 `Widget`s 列表。
+
+犹豫 `Flutter` 中使用 `Material Design` 比较普遍，也推荐了解 [Material Design](https://m3.material.io/components) 中的常见 UI 组件。[Material 3 updates](https://docs.flutter.dev/development/ui/material3-updates) 这一篇也可以看一下。
 
 ## 一些常见的实际案例
 
@@ -99,3 +100,4 @@
 恭喜，如果你认真看完了上面的所有链接文档，也自己实际动手跑了上面的一些例程，那么基本上已经算是入门 `Flutter` 开发了。
 
 接下来你可以查看 `Flutter` 官方文档中的其他部分，你也可以实际动手构建你想构建的应用来练手。
+``
