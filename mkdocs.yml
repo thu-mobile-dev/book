@@ -9,7 +9,10 @@ nav:
   - 讲稿:
     - LECTURE/index.md
     - 前言:
-      - LECTURE/Introduction/0.md
+      - LECTURE/0/0.md
+      - LECTURE/0/quick-start.md
+      - LECTURE/0/contact-us.md
+      - LECTURE/0/welcome-edit.md
     - 第一讲:
       - LECTURE/1/simulator-chrome.md
       - LECTURE/1/simulator-windows-android.md
