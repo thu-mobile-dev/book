@@ -9,7 +9,7 @@ nav:
   - 讲稿:
     - LECTURE/index.md
     - 前言:
-      - LECTURE/0/main.md
+      - LECTURE/0/introduction.md
       - LECTURE/0/quick-start.md
       - LECTURE/0/contact-us.md
       - LECTURE/0/welcome-edit.md
@@ -47,12 +47,9 @@ nav:
       - LECTURE/7/main-b.md
       - LECTURE/7/main-c.md
       - LECTURE/7/homework.md
-    - 后记:
-      - LECTURE/Postscript/main.md
-      - LECTURE/Postscript/221120-consideration.md
   - 其他:
     - OTHERS/index.md
-    - OTHERS/main.md
+    - OTHERS/221120-consideration.md
 
 # [Extensions]
 plugins:
@@ -107,16 +104,7 @@ edit_uri: edit/main/docs # 编辑按钮跳转的链接
 repo_url: https://gitee.com/thu-flutter-dev/book # 右上角点击跳转的链接
 repo_name: thu-flutter-dev/book # 右上角的名字
 ## [bottom-left corner]
-copyright: Copyright &copy; 2022 杨希杰 # 左下角的版权声明
-## [bottom-right corner]
-# extra:
-#   social: # icons
-#     - icon: fontawesome/brands/bilibili
-#       link: https://space.bilibili.com/24502827
-#       name: Bilibili | 我不是小杰 # 鼠标悬浮提示
-#     - icon: fontawesome/brands/github
-#       link: https://github.com/Yang-Xijie
-#       name: GitHub | Yang-Xijie
+copyright: THU 移动应用开发 课程团队 &copy; Creative Commons Attribution 4.0 # 左下角的版权声明
 
 extra_javascript:
   # latex支持
