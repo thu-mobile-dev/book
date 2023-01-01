@@ -1,6 +1,6 @@
 # [Info]
 site_name: THU 移动应用开发 Flutter 教程 # 左上角标题
-site_url: https://thu-flutter-dev.gitee.io/book
+site_url: https://thu-flutter-dev.github.io/book
 site_author: 杨希杰
 site_description: THU 移动应用开发 Flutter 教程
 
@@ -98,10 +98,10 @@ theme:
     - search.highlight # 搜索出的文章关键词加入高亮
   language: zh # 一些提示性的文字会变成中文
   icon:
-    repo: fontawesome/brands/git-alt
+    repo: fontawesome/brands/github
 edit_uri: edit/main/docs # 编辑按钮跳转的链接
 ## [top-right corner]
-repo_url: https://gitee.com/thu-flutter-dev/book # 右上角点击跳转的链接
+repo_url: https://github.com/thu-flutter-dev/book # 右上角点击跳转的链接
 repo_name: thu-flutter-dev/book # 右上角的名字
 ## [bottom-left corner]
 copyright: THU 移动应用开发 课程团队 &copy; Creative Commons Attribution 4.0 # 左下角的版权声明
