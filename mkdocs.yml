@@ -17,6 +17,7 @@ nav:
       - LECTURE/1/main.md
       - LECTURE/1/homework.md
       - 补充:
+        - LECTURE/1/flutter-installation.md
         - LECTURE/1/simulator-chrome.md
         - LECTURE/1/simulator-windows-android.md
         - LECTURE/1/simulator-macos-android.md
@@ -66,7 +67,7 @@ markdown_extensions:
       permalink: true # 固定标题位置为当前位置
   - pymdownx.highlight: # 代码块高亮
       linenums: true # 显示行号
-      # auto_title: true # 显示编程语言名称
+      auto_title: true # 显示编程语言名称
   - pymdownx.superfences # 代码块高亮插件
   # - meta # 支持Markdown文件上方自定义标题标签等
   - admonition # https://squidfunk.github.io/mkdocs-material/reference/admonitions/#inline-blocks
@@ -104,7 +105,7 @@ edit_uri: edit/main/docs # 编辑按钮跳转的链接
 repo_url: https://github.com/thu-flutter-dev/book # 右上角点击跳转的链接
 repo_name: thu-flutter-dev/book # 右上角的名字
 ## [bottom-left corner]
-copyright: THU 移动应用开发 课程团队 &copy; Creative Commons Attribution 4.0 # 左下角的版权声明
+copyright: THU 移动应用开发 课程团队 / Creative Commons Attribution 4.0 # 左下角的版权声明
 
 extra_javascript:
   # latex支持
