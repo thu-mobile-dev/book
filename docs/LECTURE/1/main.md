@@ -1,4 +1,4 @@
-# TodoApp设计开发全流程
+# TodoApp 设计开发全流程
 
 这一节课我们将通过开发一个完整的应用 TodoApp 来快速了解 Flutter 构建应用的全流程。
 
@@ -8,15 +8,15 @@ TodoApp 大家可能也用过，类似备忘录的软件。一般可以把一些
 
 在实际动手开发之前，我们需要先想清楚应用中都有哪些数据。
 
-对于一条 todo 而言，用户在输入框中输入待办事项可以创建一条。那么这一条 todo 至少要包含一个 content，类型是字符串。在展示多条 todo 的时候，我们需要对它们进行排序，这里比较方便的是使用创建时间进行排序，因此我们还需要添加一个 createdAt 的时间戳。因为每一条 todo 都是唯一的，所以我们再添加一个 UUID，以后查找某一条 todo 就可以通过 UUID 来找。
+对于一条 `Todo` 而言，用户在输入框中输入待办事项可以创建一条。那么这一条 `Todo` 至少要包含一个 `content`，类型是字符串。在展示多条 `Todo` 的时候，我们需要对它们进行排序，这里比较方便的是使用创建时间进行排序，因此我们还需要添加一个 `createdAt` 的时间戳。因为每一条 `Todo` 都是唯一的，所以我们再添加一个 `UUID`，以后查找某一条 `Todo` 就可以通过 `UUID` 来找。
 
 <!-- TODO 这里最好添加一下 UUID 的定义 -->
 
-但是我们第一节课演示不需要这么复杂，我们只需要 content 和 number 这两个值就可以了。
+但是我们第一节课演示不需要这么复杂，我们只需要 `content` 和 `number` 这两个值就可以了。
 
-在使用 Flutter 构建应用程序的过程中，我们使用的语言是 Dart。这是 Google 创造的一门新语言，说的是对应用开发专门优化过。Dart 是一门面向对象的语言，因为面向对象是很适合 UI 构建的；Dart 也和诸多现代语言一样支持函数编程等多种便捷的操作。
+在使用 Flutter 构建应用程序的过程中，我们使用的语言是 Dart。这是 Google 创造的一门新语言，说的是对应用开发专门优化过。Dart 是一门面向对象的语言，因为面向对象是很适合 UI 构建的；Dart 也和诸多现代语言一样支持函数编程、协议扩展等多种便捷的操作。
 
-使用 Dart 定义一个 Todo 类如下：
+使用 Dart 定义一个 `Todo` 类如下：
 
 ```dart
 class Todo {
@@ -53,7 +53,7 @@ void main(List<String> arguments) {
 // 1 看课件预习
 ```
 
-继续考虑数据结构，要展示多条 Todo，还需要一个数组来存放现有的 Todo。
+继续考虑数据结构，要展示多条 `Todo`，还需要一个数组来存放现有的 `Todo`。
 
 ```dart
 class Todo {
@@ -120,7 +120,7 @@ void main(List<String> arguments) {
 ```
 
 - `data.add(...)`: `add()` 方法可以给数组末尾添加一个新值。
-- `data.removeWhere((todo) { return todo.number == number; });` 这里 `removeWhere()` 函数的参数是一个函数，这个函数的输入为一个 Todo，输出为 bool 值。如果 bool 值为 True，那么这个值就会被移除掉。这里算是函数式编程的思想，往函数中传递一个函数。
+- `data.removeWhere((todo) { return todo.number == number; });` 这里 `removeWhere()` 函数的参数是一个函数，这个函数的输入为一个 `Todo`，输出为 `bool` 值；如果 `bool` 值为 `True`，那么这个值就会被移除掉。这里算是函数式编程的思想，往函数中传递一个函数。
 - `for (final todo in data) { ... }` 一个标记为 `final` 的变量只能被赋值一次。这里只读取出数组中的数据进行显示。
 
 ## UI/UX 设计
@@ -150,7 +150,7 @@ void main(List<String> arguments) {
 - 用 `cmd / ctrl G` 来让有关系的组件成组，方便后续查看和修改。
 - 注意层级遮挡关系，在左侧可以看到当前界面所有的元素，在上方的组件会遮挡下方的组件。
 
-同理，我们画出一个 `Todo`，然后成组，然后复制出另一个 `Todo`。这里我们希望 Todo 更多，于是选中两个现有的 `Todo`，再次进行复制移动。可是这里间距不一致，我们可以使用 Figma 提供的排版工具，`Tidy up` 一下就整齐了。
+同理，我们画出一个 Todo，然后成组，然后复制出另一个 Todo。这里我们希望有更多的 Todo，于是选中两个现有的 Todo，再次进行复制移动。可是这里间距不一致，我们可以使用 Figma 提供的排版工具，`Tidy up` 一下就整齐了。
 
 ![](images-main/figma-3.png)
 
@@ -160,13 +160,13 @@ void main(List<String> arguments) {
 
 ## 安装 Flutter 准备开发环境
 
-画好 UI，想好 UX 之后，我们开始用 Flutter 来做 TodoApp。
+画好 UI、想好 UX 之后，我们开始用 Flutter 来做 TodoApp。
 
 Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前端 React 框架的思想，将用户界面视为 App 中所有状态的映射，也即，用这些状态渲染出当前的界面 UI。下一节课我们会详细讲讲 Flutter 背后的一些原理，这节课我们只要知道 Flutter 一个大致的用法就行了。
 
 安装请查看 [安装 Flutter](./flutter-installation.md) 这篇文章。
 
-安装成功后，你还需要一款编辑器，这里推荐使用 VS Code，打开后还需要安装 Dart 和 Flutter 这两款官方的插件。
+安装成功后，你还需要一款编辑器，这里推荐使用 [VS Code](https://code.visualstudio.com)，打开后还需要安装 Dart 和 Flutter 这两款官方的插件。
 
 同时你需要安装模拟器方便在开发的过程中查看应用的效果。请查看：
 

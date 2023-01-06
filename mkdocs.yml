@@ -14,6 +14,7 @@ nav:
       - LECTURE/0/contact-us.md
       - LECTURE/0/welcome-edit.md
     - 第一讲:
+      - LECTURE/1/introduction.md
       - LECTURE/1/main.md
       - LECTURE/1/homework.md
       - 补充:
@@ -23,31 +24,39 @@ nav:
         - LECTURE/1/simulator-macos-android.md
         - LECTURE/1/simulator-macos-ios.md
     - 第二讲:
+      - LECTURE/2/introduction.md
       - LECTURE/2/main-a.md
       - LECTURE/2/main-b.md
       - LECTURE/2/homework.md
     - 第三讲:
+      - LECTURE/3/introduction.md
       - LECTURE/3/main.md
       - LECTURE/3/homework.md
     - 第四讲:
+      - LECTURE/4/introduction.md
       - LECTURE/4/main-a.md
       - LECTURE/4/main-b.md
       - LECTURE/4/main-c.md
       - LECTURE/4/homework.md
     - 第五讲:
+      - LECTURE/5/introduction.md
       - LECTURE/5/main-a.md
       - LECTURE/5/main-b.md
       - LECTURE/5/main-c.md
       - LECTURE/5/homework.md
     - 第六讲:
+      - LECTURE/6/introduction.md
       - LECTURE/6/main-a.md
       - LECTURE/6/main-b.md
       - LECTURE/6/homework.md
     - 第七讲:
+      - LECTURE/7/introduction.md
       - LECTURE/7/main-a.md
       - LECTURE/7/main-b.md
       - LECTURE/7/main-c.md
       - LECTURE/7/homework.md
+    - 后记:
+      - LECTURE/9/introduction.md
   - 其他:
     - OTHERS/index.md
     - OTHERS/221120-consideration.md
