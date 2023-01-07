@@ -180,12 +180,145 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 
 ## 创建项目
 
+使用 `flutter create todoapp` 在当前工作目录创建名为 `todoapp` 的 Flutter 项目，用 `code todoapp` 即可在 VS Code 中打开改项目。
 
+打开之后我们最好先用 Git 初始化一下（`.gitignore` 文件在创建项目的时候已经创建了），结合 VS Code 的源代码管理能够看到代码的修改情况。 `git init` `git add` `git commit -m "init"`。
 
+### 项目结构
 
-### Hello world
+项目的结构如下：
 
-讲一下 scaffold和materialapp
+```
+.
+├── .dart_tool/
+├── .git/
+├── .gitignore
+├── .idea/
+├── .metadata
+├── README.md
+├── analysis_options.yaml
+├── android/
+├── ios/
+├── lib/
+├── linux/
+├── macos/
+├── pubspec.lock
+├── pubspec.yaml
+├── test/
+├── todoapp.iml
+├── web/
+└── windows/
+```
+
+- `lib/` 中是程序的源代码，也是之后我们添加代码主要的地方。应用从 `lib/main.dart` 的 `main()` 函数开始执行。
+- `test/` 中是测试文件，我们可以直接删除 `test/widget_test.dart` 这个文件。
+- `android/` `ios/` `windows/` `macos/` `linux/` `web/` 是各个目标平台特有的代码，在需要定制一些目标平台的项目时需要将目标平台的原生代码放到这些目录下，或者打开对应的项目进行修改。
+- `pubspec.yaml` 项目配置和依赖管理。
+- `analysis_options.yaml` Dart 语言 linter 配置。
+
+### 关于 analysis_options
+
+新建项目之后，在 `analysis_options.yaml` 的 `linter > rules` 下面添加 `prefer_const_*` 以防止 `Dart` 不停提示添加或移除 `const`：
+
+```yaml
+linter:
+  rules:
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_const_constructors: false
+    prefer_const_constructors_in_immutables: false
+    prefer_const_literals_to_create_immutables: false
+```
+
+在学习阶段，我很推荐这么做。否则你会在 VS Code 中看到大片蓝色波浪线，且不断看到下面的提示：`Prefer const with constant constructors.`。甚至按照提示加了 `const` 关键字之后再修改还会直接导致代码出错。
+
+在项目实际需要发布的时候，将这三条新加的 rules 删除或注释掉，添加这些 `const` 关键字使得不会变的 `Widget`s 只被创建一次，提高应用的性能。
+
+### Hello, world!
+
+接下来我们创建一个显示 `Hello, world!` 的应用。我们删除掉 `lib/main.dart` 中的全部内容，替换为下面的内容：
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "TodoApp",
+      home: Scaffold(body: ContentWidget()),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("Hello, world!"),
+    );
+  }
+}
+```
+
+#### 运行
+
+先别管里面写了什么，保存文件，`ctrl J / cmd J` 调出 VS Code 的终端。先输入 `flutter devices` 查看本机连接的设备：
+
+```
+Chrome (web) • chrome • web-javascript • Google Chrome
+```
+
+我们使用 Chrome 来运行 `Hello, world!` 程序，在终端输入 `flutter run -d chrome --web-renderer html` 回车稍等片刻即可看到运行的应用了。
+
+- `-d` 后面跟的是目标平台，只要输入 `flutter devices` 结果中的前几个字母就行了，可以匹配
+- `flutter run -d chrome` 运行得到的程序对 Unicode 的支持很差，这里我们选择另一种构建方式。关于网页应用两种构建方式的区别见 https://docs.flutter.dev/development/platform-integration/web/renderers
+
+![](images-main/todoapp-0.png)
+
+- 拖拽 Chrome 边框，可以看到 `Hello, world!` 总是在屏幕中心。
+- 修改 `Text("Hello, world!")` 中的字符串为任意内容，在终端按 `r` 或 `R` 即可热更新，Chrome 呈现的应用会更新显示内容。
+- 在终端按 `q` 即可结束应用运行，也可以直接点击关闭或者退出结束应用。
+
+#### 代码讲解
+
+- L1
+    - `import 'package:flutter/material.dart';` 导入了官方的 `material` 包。Material Design 是 Google 官方制定的一套设计标准，其中各种常用的包含 UI 组件、UX 交互、主题样式等信息。Flutter 支持使用 Material Design，这能够减少我们重复造轮子。
+- L3
+    - `void main()` 程序从这里开始运行
+- L4
+    - 鼠标放到 `runApp` 上方，可以看到函数原型是 `void runApp(Widget app)`。在 Flutter 中，所有的界面元素都是一个 `Widget`。这里我们实例化一个 `MyApp()` 传入 `runApp()`。
+- L7
+    - `extends` 关键字表示继承。`MyApp` 是 `StatelessWidget` 的一个子类。
+    - 在 Flutter 中，Widget 都由两种基类继承而来：`StatelessWidget` 和 `StatefulWidget`，无状态 Widget 和有状态 Widget。
+- L8
+    - 关于 key，可以查看 <https://docs.flutter.dev/development/ui/widgets-intro> 的 Keys 部分。
+- L10
+    - `@override` 表示下面的函数重写父类的方法
+- L11
+    - `Widget build(BuildContext context)` 这个函数，也就是 `build()` 函数，是 Flutter 中构建用户界面的关键。可以看到 `build()` 函数的返回值是一个 `Widget`。你可以配合各种参数使用一些基础的组件来构建出一个新的 Widget，然后返回即可。
+    - `context` 中有一些 Widget 之间传递的信息，这一节课我们暂时不用考虑。
+- L12-L16
+    - `MaterialApp` 可以说是一个 Widget。我们传入了三个参数：
+        - `title` 应用展示的名称。可能出现在浏览器标签栏，或者在任务管理器。
+        - `home` 当前应用的主页，打开应用之后呈现这个界面。
+        - `debugShowCheckedModeBanner` 是否显示右上角的开发提示。这里我们关闭。
+    - 一般使用 Flutter 构建应用我们都会使用 `MaterialApp` 作为应用的「根」，即使你可能并不使用 Material Design，其中实现了很多大多数都需要的功能，比如主题管理、字体样式管理等。按照需求传递参数进行配置即可，十分方便。
+- L14
+    - `Scaffold(body: ContentWidget())` 这里 `Scaffold` 可以理解为「一页」，或者说这是对传入 `body` 的界面的一个升级，在这「一页」添加了一些 Material Design 常用的视觉元素和视觉效果。
+- L25-L27
+    - `Center` 也是一个 `Widget`，可以说，Flutter 中不论是 UI 组件还是布局，通通都是 `Widget`，
+    - `child` 参数传入另一个 Widget，也就是需要 `Center` 这个 Widget 居中的 Widget，这样就组成了一个树状结构。结合上面的代码，现在的结构是：MaterialApp > Scaffold > Center > Text。
+    - `Text` Widget 的第一个参数是要显示的文字，还有很多参数可以配置。比如我们这里尝试将 `Hello, world!` 调大一些：在 `Text` 的初始化列表中添加 `style: TextStyle(fontSize: 36)`，终端按 `r` 或 `R` 刷新，就可以看到放大后的字体了。
 
 ## StatelessWidget 呈现整个 UI
 
@@ -207,7 +340,7 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 
 ### 网页版
 
-关于网页应用两种构建方式的区别  见 https://docs.flutter.dev/development/platform-integration/web/renderers
+
 
 ## 可改进的地方
 
