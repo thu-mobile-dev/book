@@ -317,37 +317,664 @@ Chrome (web) • chrome • web-javascript • Google Chrome
     - `Scaffold(body: ContentWidget())` 这里 `Scaffold` 可以理解为「一页」，或者说这是对传入 `body` 的界面的一个升级，在这「一页」添加了一些 Material Design 常用的视觉元素和视觉效果。
 - L25-L27
     - `Center` 也是一个 `Widget`，可以说，Flutter 中不论是 UI 组件还是布局，通通都是 `Widget`，
-    - `child` 参数传入另一个 Widget，也就是需要 `Center` 这个 Widget 居中的 Widget，这样就组成了一个树状结构。结合上面的代码，现在的结构是：MaterialApp > Scaffold > Center > Text。
+    - `child` 参数传入另一个 Widget，也就是需要 `Center` 这个 Widget 居中的 Widget，这样就组成了一个树状结构。结合上面的代码，现在的结构是：`MaterialApp` > `Scaffold` > `ContentWidget` > `Center` > `Text`。
     - `Text` Widget 的第一个参数是要显示的文字，还有很多参数可以配置。比如我们这里尝试将 `Hello, world!` 调大一些：在 `Text` 的初始化列表中添加 `style: TextStyle(fontSize: 36)`，终端按 `r` 或 `R` 刷新，就可以看到放大后的字体了。
 
 ## StatelessWidget 呈现整个 UI
 
+### Column
+
+接下来我们就需要用 Flutter 来构建 TodoApp 了。
+
+在 `lib/` 下新建一个文件，名为 `model.dart`，我们需要将之前定义的数据结构拿过来：
+
+```dart
+class Todo {
+  int number = 0;
+  String content = "";
+
+  Todo(this.number, this.content);
+}
+
+class TodoList {
+  List<Todo> data = [];
+  int count = 0;
+
+  TodoList(List<String> contents) {
+    List<Todo> data = [];
+    for (int i = 0; i < contents.length; i++) {
+      data.add(Todo(i, contents[i]));
+    }
+    this.data = data;
+  }
+
+  void insert(String content) {
+    data.add(Todo(count, content));
+    count += 1;
+  }
+
+  void delete(int number) {
+    data.removeWhere((todo) {
+      return todo.number == number;
+    });
+  }
+}
+
+TodoList todoList = TodoList([
+  "完成课堂作业",
+  "看课件预习",
+]);
+```
+
+- L12-18
+    - 这里对构造函数有了一些修改，我们可以通过传入一个字符串数组来初始化 `data`。
+- L32
+    - 这里直接将 `todoList` 声明为全局变量，在第一节课的演示中，这是可以的；但事实上这是一种很不好的编程习惯，我们在后面会通过状态管理解决这个问题。
+
+接下来我们修改 `lib/main.dart` 来显示这两条 Todo：
+
+```dart
+import 'package:flutter/material.dart';
+import 'model.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "TodoApp",
+      home: Scaffold(body: ContentWidget()),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          TodoWidget(content: todoList.data[0].content),
+          TodoWidget(content: todoList.data[1].content),
+        ],
+      ),
+    );
+  }
+}
+
+class TodoWidget extends StatelessWidget {
+  final String content;
+
+  TodoWidget({super.key, this.content = ""});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.circle_outlined,
+          size: 36,
+        ),
+        Text(
+          content,
+          style: TextStyle(fontSize: 36),
+        ),
+      ],
+    );
+  }
+}
+```
+
+效果：
+
+![](./images-main/todoapp-1.png)
+
+代码解释：
+
+- L37-57
+    - 这里新定义了一个 `TodoWidget` 用来显示一条 `Todo`。按照之前 UI 稿上画的样式，我们用 `Row` 的参数 `children` 将左侧的圆圈和右侧的文字放在一起即可。
+    - L38 这里使用了 `final` 关键字，这是因为 `TodoWidget` 接收到的 `content` 是不会变的。这里有同学可能会问，明明可以传入不同的 `content` 啊。这里就要说到 Flutter 的渲染机制了。对于一个 `StatelessWidget` 来说，如果参数改变，那么这个 `StatelessWidget` 会重新绘制，也就是说，把之前的对象析构掉，然后创建一个新的。又有同学会问，不停销毁创建不会有性能上的问题吗？事实上 Flutter 对 `build()` 函数做了很多优化，可以确保这一个过程足够快。
+- L27-32
+    - 这里我们的 `todoList`只有两个，直接使用 `Column` 进行呈现。
+    - 可以看到，因为我们提前定义了 `TodoWidget`，所以在 `ContentWidget` 中就可以直接使用 `TodoWidget`，层级结构更清晰，也减少了重复的代码量。
+    - 注意 Dart 是编译型语言，我们可以不按照使用的先后顺序来放置类或函数，反方向按照应用的层级结构放置代码更清晰一些。
+
+### ListView
+
+我们继续增加 Todo 的数量。`lib/model.dart`：
+
+```dart
+TodoList todoList = TodoList([
+  "Todo0",
+  "Todo1",
+  "Todo2",
+  "Todo3",
+  "Todo4",
+  "Todo5",
+  "Todo6",
+  "Todo7",
+  "Todo8",
+  "Todo9",
+  "Todo10",
+  "Todo11",
+  "Todo12",
+  "Todo13",
+  "Todo14",
+  "Todo15",
+  "Todo16",
+  "Todo17",
+  "Todo18",
+  "Todo19",
+  "Todo20",
+  "Todo21",
+  "Todo22",
+  "Todo23",
+  "Todo24",
+]);
+```
+
+这时我们希望在 `Column` 中将这些 `Todo` 全部显示，修改 `lib/main.dart` 中的 `ContentWidget`：
+
+```dart
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children:
+            todoList.data.map((e) => TodoWidget(content: e.content)).toList(),
+      ),
+    );
+  }
+}
+```
+
+修改好后保存按 `R` 热加载，可以看到下面的情况：
+
+![](images-main/todoapp-2.png)
+
+这是因为 `Column` 这个 Widget 是不支持滚动的，超过显示范围的话就无法显示了。这里我们换用 `ListView` 这个 Widget：直接将上面代码的 `Column` 换成 `ListView` 即可，它们都有 `children` 这个参数。
+
+修改好后再次运行发现已经可以上下滑动看到所有的 Todo 了。
+
+## 添加输入框
+
+输入文字内容是一个很必要的交互，下面我们添加一个输入框 `TextField`，继续修改 `ContentView`：
+
+```dart
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: todoList.data
+                .map((e) => TodoWidget(content: e.content))
+                .toList(),
+          ),
+        ),
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: '添加一条新的Todo',
+          ),
+        )
+      ],
+    );
+  }
+}
+```
+
+- 因为上方的展示列表和下方的输入框是上下关系，所以我们将它们放到一个 `Column` 里面。但是这里如果直接使用 `ListView`，运行应用你会发现持续在报错。原因可以查看<https://stackoverflow.com/questions/45669202/how-to-add-a-listview-to-a-column-in-flutter>。解决方案是我们需要限制 `ListView` 的高度，加上一个 `Expanded` 将 `ListView` 包起来即可。
+- 这里的 `TextField` 其实只是一个装饰，用户现在确实可以往里面填文字，但是我们没法拿到里面的文字。
+
+运行应用，可以看到下方的效果：
+
+![](images-main/todoapp-3.png)
+
+![](images-main/todoapp-4.png)
+
+## 添加新增 Todo
+
+我们需要往下方添加的内容开始增多，我们选择将下方的这个 `Widget` 单独提出来命名为 `AddTodoWidget`（注：在 VS Code `中敲stl` 回车就可以选择快速补全 `StatelessWidget`）：
+
+```dart
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: todoList.data
+                .map((e) => TodoWidget(content: e.content))
+                .toList(),
+          ),
+        ),
+        AddTodoWidget()
+      ],
+    );
+  }
+}
+```
+
+```dart
+class AddTodoWidget extends StatelessWidget {
+  AddTodoWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '新 Todo 的内容',
+            ),
+          ),
+        ),
+        TextButton(
+            onPressed: () {
+              debugPrint("添加按钮按下");
+            },
+            child: Text(
+              "添加",
+              style: TextStyle(fontSize: 24),
+            ))
+      ],
+    );
+  }
+}
+```
+
+这里也用到了 `Expanded` 这个 `Widget`，否则 `TextField` 的宽度会无限增长导致界面无法显示。这里 `TextButton` 是一种效果最简单的 `Button`，在点击这个按钮时，控制台会输出「添加按钮按下」。
+
+![](images-main/todoapp-5.png)
+
+然后我们需要将输入框和「添加」按钮关联起来，这里我们用一个 `Controller` 拿出 `TextField` 的文字值，然后按下 `TextButton` 的时候将新的 Todo 添加到 `todoList.data` 中：
+
+这里我们删除刚刚创建的 StatelessWidget `AddTodoWidget`，新建一个 StatefulWidget `AddTodoWidget`（注：在 VS Code 中敲 `stf` 回车就可以快速补全 `StatefulWidget`）：
+
+```dart
+
+class AddTodoWidget extends StatefulWidget {
+  AddTodoWidget({super.key});
+
+  @override
+  State<AddTodoWidget> createState() => _AddTodoWidgetState();
+}
+
+class _AddTodoWidgetState extends State<AddTodoWidget> {
+  final textFieldController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    textFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: textFieldController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '新 Todo 的内容',
+            ),
+          ),
+        ),
+        TextButton(
+            onPressed: () {
+              debugPrint("添加按钮按下 内容为${textFieldController.text}");
+            },
+            child: Text(
+              "添加",
+              style: TextStyle(fontSize: 24),
+            ))
+      ],
+    );
+  }
+}
+```
+
+- Dart 使用 `$` 进行字符串差值，比如 `print("i=$i");` `内容为${textFieldController.text}`；简单变量可以不加大括号。
+- 这里我们给 `TextField` 添加了一个 controller `textFieldController`，使用 `textFieldController.text` 即可拿到 `TextField` 的当前值。
+- 我们之前用的都是 `StatelessWidget`，这里因为需要一个跟随 `Widget` 的变量——`textFieldController`，因此我们需要将 `AddTodoWidget` 改为 `StatefulWidget`。
+    - 在 Flutter 中，`StatefulWidget` 可以有很多个变量作为 Widget 的状态，每当这些状态有变化的时候，Widget 会对应「刷新」——但是不会销毁之前的 Widget 而重新创建。对比 `StatelessWidget`，尽管其可以传入参数，当参数改变的时候，其也会「刷新」，但是这里的「刷新」是指销毁之前的 Widget，然后重新创建一个。
+    - 考虑到 `TextField` 的使用场景，你希望有一个变量能够记录 `TextField` 当前的文字值，每当这个文字值改变的时候 `TextField` 要「刷新」显示新的文字值，但是你不希望在刷新这个过程中重新创建 `TextField` 让用户的输入清零。
+    - `StatefulWidget` 的写法有些复杂，这是由 Dart 的特性和其功能决定的。本身写法比较约定俗成，记得使用 `stf` 回车自动补全。
+
+接下来我们添加逻辑，在 `debugPrint("添加按钮按下 内容为${textFieldController.text}");` 后回车加入：
+
+```dart
+todoList.insert(textFieldController.text);
+print(todoList.data.length);
+textFieldController.text = "";
+```
+
+逻辑很简单，添加一条 Todo 然后把输入框清空。重新运行程序，让我们意外的事情发生了——输入框是清空了，但是界面上没有显示出新的 Todo。这里用常理推断，程序肯定正常运行了，也就是 `todoList.data` 确实得到了添加，因为 `todoList.data.length` 一直在增加。
+
+那么问题就出在数据源 `todoList.data` 和 Flutter 框架构建的 UI 并没有建立某种联系。我们希望 `todoList.data` 被改动时 UI 也能进行刷新。一听这个需求，这不就是 `StatefulWidget` 做的事情吗？接下来我们将 `todoList` 改为 `StatefulWidget` 里面的一个变量/状态。
+
 ## StatefullWidget 呈现 todoList
 
-## 添加按钮
+首先我们需要考虑什么东西是变的：不是 `todoList`，而是 `todoList.data` 和 `todoList.count`；但是在 Flutter 框架中，为了简洁我们不需要声明两个变量/状态（`List<String>` 和 `int`），我们只需要一个状态 `todoList` 就可以了。
 
-## 完成按钮
+既然 `todoList` 是一个状态，那它肯定要放到 `StatefulWidget` 里面，而不能是一个全局变量。而每次对 `todoList` 的修改，我们不仅仅需要修改数据本身，还要告诉 Flutter 框架需要更新用户界面，因此像 `insert()` 这种修改的函数，我们放到 `StatefulWidget` 里去写。
+
+注：下面的代码非常繁琐，事实上我们之后会用更简单的方式去添加应用的状态，这部分简单看看即可。
+
+**lib/model.dart**
+
+```dart
+class Todo {
+  int number = 0;
+  String content = "";
+
+  Todo(this.number, this.content);
+}
+
+class TodoList {
+  List<Todo> data = [];
+  int count = 0;
+
+  TodoList(List<String> contents) {
+    List<Todo> data = [];
+    for (int i = 0; i < contents.length; i++) {
+      data.add(Todo(i, contents[i]));
+    }
+    this.data = data;
+  }
+}
+
+List<String> defaultTodoContents = [
+  "Todo0",
+  "Todo1",
+  "Todo2",
+  "Todo3",
+  "Todo4",
+  "Todo5",
+  "Todo6",
+  "Todo7",
+  "Todo8",
+  "Todo9",
+  "Todo10",
+  "Todo11",
+  "Todo12",
+  "Todo13",
+  "Todo14",
+  "Todo15",
+  "Todo16",
+  "Todo17",
+  "Todo18",
+  "Todo19",
+  "Todo20",
+  "Todo21",
+  "Todo22",
+  "Todo23",
+  "Todo24",
+];
+```
+
+- 可以看到只保留了 `Todo` 和 `TodoList` 的数据结构，移除了操作函数 `insert()`（这里 `delete()` 被略去）。
+- 为了简洁，我们将字符串数字 `defaultTodoContents` 单独放出来成为一个全局变量，方便我们调试。
+
+**lib/main.dart**
+
+```dart
+import 'package:flutter/material.dart';
+import 'model.dart';
+
+void main() {
+  runApp(MyApp(defaultTodoContents: defaultTodoContents));
+}
+
+class MyApp extends StatefulWidget {
+  final List<String> defaultTodoContents;
+
+  MyApp({super.key, required this.defaultTodoContents});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late TodoList todoList;
+
+  @override
+  initState() {
+    super.initState();
+
+    todoList = TodoList(widget.defaultTodoContents);
+  }
+
+  void insert(String content) {
+    setState(() {
+      todoList.data.add(Todo(todoList.count, content));
+    });
+    todoList.count += 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "TodoApp",
+      home: Scaffold(
+          body: ContentWidget(
+        todoList: todoList,
+        insert: insert,
+      )),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ContentWidget extends StatelessWidget {
+  final TodoList todoList;
+  final ValueChanged<String> insert;
+
+  ContentWidget({super.key, required this.todoList, required this.insert});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: todoList.data
+                .map((e) => TodoWidget(content: e.content))
+                .toList(),
+          ),
+        ),
+        AddTodoWidget(
+          todoList: todoList,
+          insert: insert,
+        )
+      ],
+    );
+  }
+}
+
+class AddTodoWidget extends StatefulWidget {
+  final TodoList todoList;
+  final ValueChanged<String> insert;
+
+  AddTodoWidget({super.key, required this.todoList, required this.insert});
+
+  @override
+  State<AddTodoWidget> createState() => _AddTodoWidgetState();
+}
+
+class _AddTodoWidgetState extends State<AddTodoWidget> {
+  final textFieldController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    textFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: textFieldController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '新 Todo 的内容',
+            ),
+          ),
+        ),
+        TextButton(
+            onPressed: () {
+              debugPrint("添加按钮按下 内容为${textFieldController.text}");
+              widget.insert(textFieldController.text);
+              textFieldController.text = "";
+            },
+            child: Text(
+              "添加",
+              style: TextStyle(fontSize: 24),
+            ))
+      ],
+    );
+  }
+}
+
+class TodoWidget extends StatelessWidget {
+  final String content;
+
+  TodoWidget({super.key, this.content = ""});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.circle_outlined,
+          size: 36,
+        ),
+        Text(
+          content,
+          style: TextStyle(fontSize: 36),
+        ),
+      ],
+    );
+  }
+}
+```
+
+- L8-17
+    - 我们需要添加一个状态，类型是 `TodoList`，这个状态属于 TodoApp，而不仅仅属于一个小的局部的 Widget（对比 `AddTodoWidget` 的 `textFieldController`）。因此我们将 `MyApp` 从 StatelessWidget 改为 StatefulWidget。
+- L18-L25
+    - `TodoList todoList;` 这里创建了 `todoList` 作为 `MyApp` 的一个状态。
+    - `initState()` 中对 `todoList` 这个状态进行了初始化。
+    - `late` 关键字：如果不加的话，会报错 `Non-nullable instance field 'todoList' must be initialized. Try adding an initializer expression, or a generative constructor that initializes it, or mark it 'late'. dart(not_initialized_non_nullable_instance_field)`
+- L27-32
+    - 逻辑上和之前的 `insert()` 一样。但是这里加入了 `setState()`，其参数是一个函数，在这个函数对状态进行修改，Flutter 就可以对界面进行更新。
+    - `todoList.count += 1;` 并没有放入 `setState()`，这是因为我们暂时没有在 UI 中用到 `count` 这个变量。
+    - `todoList` 是 `MyApp` 的一个状态，我们只能将 `insert()` 放入 `_MyAppState` 中。
+- L48-49
+    - 注意 `ContentWidget` 仍然是 `StatelessWidget`，这说明 `final TodoList todoList;` 这里 `todoList` 不是状态，只是一个参数。每次传入的 `todoList` 发生变化，`ContentWidget` 会被销毁并重新创建。
+- L110
+    - 当「添加」按钮被按下时，我们需要修改 `MyApp` 中的状态 `todoList`，也就是调用 `_MyAppState` 中的 `insert()`。
+    - 这是一件相当麻烦的事情，因为在子 Widget 中调用父 Widget 中的函数，我们只能将其作为回调函数来传递。
+        - L110 的 `widget.insert()` 调用了 L76 的 `final ValueChanged<String> insert;`
+        - L78 的 `required this.insert` 由 L67 传入
+        - L67 使用的是 L50 的 `final ValueChanged<String> insert;`
+        - L52 的 `required this.insert` 由 L41 传入
+    - 关于 ValueChanged
+        - 首先明确，在 Dart 中，函数和变量的地位是一样的。变量可以作为函数的参数，函数一样可以作为函数的参数。
+        - 变量由类型，函数也有类型，这个类型是 `Function`。
+        - 这里所有的 `insert()` 的类型是 `void Function(T value)`，参数为类型为 `T` 的值 `value`，无返回值（返回值为 `void`）。
+        - 为了简化这种比较常用的函数类型，Dart 做了一个 `typedef`：`typedef ValueChanged<T> = void Function(T value);`
+            - Signature for callbacks that report that an underlying value has changed.
+            - https://api.flutter.dev/flutter/foundation/ValueChanged.html
+            - https://stackoverflow.com/a/62799524/14298786
+
+这时我们再运行，可以看到添加之后的内容已经成为新的 Todo 显示在上方了。
+
+上面的方式异常繁琐，牵扯到父 Widget 和子 Widget 来回传递数据。我们现在的 TodoApp 只有一个状态，就已经变得这么麻烦，很难想象单纯有上面的方式创建一个现代的应用有多么复杂。
+
+事实上，我们现在多少了解了 Flutter 的声明式特性：
+
+- 界面是什么样子的，你只需要用树形的结构使用代码将界面声明出来。
+- 界面呈现的数据，不变的内容用常量，可变的内容用状态。
 
 ## Provider 状态管理
 
-## SQLite 持久存储
+为了管理应用中各种复杂的状态，一些状态管理框架应运而生。这其中官方推荐的框架是 `Provider`。
 
-发现问题，退出app之后再打开记录的东西都没了，引出持久存储
+在谈到 Provider 之前，我们先说说有哪些 State：
+
+- 首先是一个 Widget 的状态，比如我们需要存储一个文本框的文字状态、存储一个开关的状态，这些与整个应用的关系不大，继续使用 `StatefulWidget` 即可。
+- 其次是属于应用的状态，比如 TodoApp 中的 `todoList`，它存储了用户数据，我们最好将其抽出来统一管理，而不是和用户界面混在一起。对于这种状态，我们使用 Provider 进行管理。
+
+要在项目中加入 Provider，我们在 `pubspec.yaml` 中的 `dependencies` 中加入 `provider: ^6.0.5`，保存即可。
+
+
+
+
+
+
+
+
+## 完成按钮
+
+
 
 ## 发布应用
 
 ### 安卓 APK
 
+
+
 ### 网页版
 
 
 
+## SQLite 持久存储
+
+TODO 发现问题，退出app之后再打开记录的东西都没了，引出持久存储，可以放到之后再讲
+
 ## 可改进的地方
 
 - 给 `Todo` 加上 `createdAt` 的时间戳还有唯一标志 `UUID`。
-- 用户添加一条 `Todo` 之后无法修改，这是个比较糟糕的事情。
+- 用户添加一条 `Todo` 之后无法修改，这是个比较糟糕的事情
 - 添加动画
-    - 添加一条 `Todo` 之后，滑至最下方
+    - 添加一条 `Todo` 之后，滑至最下方（给 `ListView` 添加 `controller`）
     - 删除一条 `Todo` 之后，让 `Todo` 消失的自然一些，比如从上方滑出，从左侧滑出
 - 更好的 UI 设计？
-    - 用浮动的一个加号表示添加，而不是时刻都在最下方显示输入框。
+    - 添加各种 `Padding`
+    - 
+
+## References
+
+- https://dart.dev/guides/language/language-tour#lists
+- https://api.flutter.dev/flutter/material/TextField-class.html
+- https://docs.flutter.dev/cookbook/forms/text-input
+- https://docs.flutter.dev/cookbook/forms/text-field-changes
+- https://docs.flutter.dev/cookbook/forms/retrieve-input
+- https://stackoverflow.com/questions/45669202/how-to-add-a-listview-to-a-column-in-flutter
