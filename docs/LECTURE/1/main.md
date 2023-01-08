@@ -934,16 +934,258 @@ class TodoWidget extends StatelessWidget {
 
 要在项目中加入 Provider，我们在 `pubspec.yaml` 中的 `dependencies` 中加入 `provider: ^6.0.5`，保存即可。
 
+**lib/model.dart**
 
+```dart
+import 'package:flutter/material.dart';
 
+class Todo {
+  int number = 0;
+  String content = "";
 
+  Todo(this.number, this.content);
+}
 
+class TodoListModel extends ChangeNotifier {
+  // source of states
+  List<Todo> data = [];
+  int count = 0;
 
+  TodoListModel(List<String> contents) {
+    List<Todo> data = [];
+    for (int i = 0; i < contents.length; i++) {
+      data.add(Todo(i, contents[i]));
+    }
+    this.data = data;
+  }
 
+  void insert(String content) {
+    data.add(Todo(count, content));
+    count += 1;
+    notifyListeners(); // re-build widgets
+  }
+
+  void delete(int number) {
+    data.removeWhere((todo) {
+      return todo.number == number;
+    });
+    notifyListeners(); // re-build widgets
+  }
+}
+
+List<String> defaultTodoContents = [
+  "Todo0",
+  "Todo1",
+  "Todo2",
+  "Todo3",
+  "Todo4",
+  "Todo5",
+  "Todo6",
+  "Todo7",
+  "Todo8",
+  "Todo9",
+  "Todo10",
+  "Todo11",
+  "Todo12",
+  "Todo13",
+  "Todo14",
+  "Todo15",
+  "Todo16",
+  "Todo17",
+  "Todo18",
+  "Todo19",
+  "Todo20",
+  "Todo21",
+  "Todo22",
+  "Todo23",
+  "Todo24",
+];
+```
+
+- 可以看到之前的数据结构 `TodoList` 变为了 `TodoListModel`，是 `ChangeNotifier` 的一个子类。
+- 在 `insert()` 和 `delete()` 中，我们使用 `notifyListeners()` 来告知所有和 `TodoListModel` 有关联的界面都要刷新，因为内部的数据变了。
+
+**lib/main.dart**
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'model.dart';
+
+void main() {
+  runApp(MyApp(defaultTodoContents: defaultTodoContents));
+}
+
+class MyApp extends StatelessWidget {
+  final List<String> defaultTodoContents;
+  const MyApp({super.key, required this.defaultTodoContents});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "TodoApp",
+      home: Scaffold(
+          body: ChangeNotifierProvider(
+        create: (context) => TodoListModel(defaultTodoContents),
+        child: ContentWidget(),
+      )),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Consumer<TodoListModel>(builder: (context, model, child) {
+            return ListView(
+              children: model.data
+                  .map((todo) => TodoWidget(content: todo.content))
+                  .toList(),
+            );
+          }),
+        ),
+        AddTodoWidget()
+      ],
+    );
+  }
+}
+
+class AddTodoWidget extends StatefulWidget {
+  AddTodoWidget({super.key});
+
+  @override
+  State<AddTodoWidget> createState() => _AddTodoWidgetState();
+}
+
+class _AddTodoWidgetState extends State<AddTodoWidget> {
+  final textFieldController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    textFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: textFieldController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '新 Todo 的内容',
+            ),
+          ),
+        ),
+        Consumer<TodoListModel>(builder: (context, model, child) {
+          return TextButton(
+              onPressed: () {
+                debugPrint("添加按钮按下 内容为${textFieldController.text}");
+                model.insert(textFieldController.text);
+                textFieldController.text = "";
+              },
+              child: Text(
+                "添加",
+                style: TextStyle(fontSize: 24),
+              ));
+        })
+      ],
+    );
+  }
+}
+
+class TodoWidget extends StatelessWidget {
+  final String content;
+
+  TodoWidget({super.key, this.content = ""});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.circle_outlined,
+          size: 36,
+        ),
+        Text(
+          content,
+          style: TextStyle(fontSize: 36),
+        ),
+      ],
+    );
+  }
+}
+```
+
+- L18-21
+    - 在 Flutter 中，几乎所有东西都是 Widget。这里 `ChangeNotifierProvider` 也是一个 Widget，所以其作为 `Scaffold` 的 `body` 传入。
+    - 就作用来说，`ChangeNotifierProvider` 在 `ContentWidget` 上包了一层，在 `create()` 中初始化了 `TodoListModel`，这让所有 `ContentWidget` 的子 Widget 都能拿到 `TodoListModel`。
+- L35-41
+    - 这里我们就要去使用之前创建的 `TodoListModel` 了。这里用了类型判断的思想将 `TodoListModel` 传到子 Widget。`Consumer<TodoListModel>` 表示如果子 Widget 接收到了父 Widget 传来的类型为 `TodoListModel` 的 `ChangeNotifier`，那就会接收。
+    - 在 `builder()` 中，我们使用 `model.data` 就可以拿出对应的 `TodoListModel` 中的数据了。
+- L79-90
+    - 与之前 `ListView` 同理，我们给 `TextButton` 包上一层 `Consumer<TodoListModel>`。这样我们就可以使用 `model.insert()` 了。
+
+运行没问题，界面在添加后得到了刷新。
+
+- "Put `ChangeNotifierProvider` above the widgets that need to access it." 可以感觉到，这里 `ChangeNotifierProvider` 类似一个全局变量，因为其内容会传给所有的子 Widget，我们尽量把它放到靠近向下（向子 Widget）的位置。
+- 包裹某一个 Widget 的方法：右键 Widget，在弹出的菜单中选择 `Refactor...`，继续选择 `Wrap with xxx` 即可。
 
 ## 完成按钮
 
+最后添加完成按钮，修改 `lib/main.dart` 中的 `TodoWidget`：
 
+```dart
+class TodoWidget extends StatelessWidget {
+  final Todo todo;
+
+  TodoWidget({super.key, required this.todo});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Consumer<TodoListModel>(builder: (context, model, child) {
+          return TextButton(
+              onPressed: () {
+                model.delete(todo.number);
+              },
+              child: Icon(
+                Icons.circle_outlined,
+                size: 36,
+              ));
+        }),
+        Text(
+          todo.content,
+          style: TextStyle(fontSize: 36),
+        ),
+      ],
+    );
+  }
+}
+```
+
+这里我们将 `TodoWidget` 的参数变为 `todo`，方便获取到 `todo` 的序号。因此要对应修改 `ListView` 的参数。
+
+```dart
+ListView(
+  children:
+    model.data.map((todo) => TodoWidget(todo: todo)).toList(),
+)
+```
+
+再次运行，可以看到应用已经可以完成我们想要的功能了。
+
+![](./images-main/todoapp-6.png)
 
 ## 发布应用
 
@@ -961,14 +1203,19 @@ TODO 发现问题，退出app之后再打开记录的东西都没了，引出持
 
 ## 可改进的地方
 
-- 给 `Todo` 加上 `createdAt` 的时间戳还有唯一标志 `UUID`。
-- 用户添加一条 `Todo` 之后无法修改，这是个比较糟糕的事情
-- 添加动画
-    - 添加一条 `Todo` 之后，滑至最下方（给 `ListView` 添加 `controller`）
-    - 删除一条 `Todo` 之后，让 `Todo` 消失的自然一些，比如从上方滑出，从左侧滑出
-- 更好的 UI 设计？
+- 一些小 bug
+    - 当文字为空的时候，不应添加新的 Todo
+- 更好的数据设计
+    - 将 count 的属性从 `int` 变为 `UUID` 方便管理
+    - 给 Todo 加上 `createdAt` 的时间戳方便用户知道自己添加 Todo 的时间
+    - 给 Todo 添加 deadline 属性
+- 更好的 UI / UX 设计？
+    - 好像和最初的设计稿差别还有点大...或者说最初的设计稿画的也不太行？
     - 添加各种 `Padding`
-    - 
+    - 添加动画
+        - 添加一条 `Todo` 之后，滑至最下方（给 `ListView` 添加 `controller`）
+        - 删除一条 `Todo` 之后，让 `Todo` 消失的自然一些，比如从上方滑出，从左侧滑出
+    - 用户添加一条 `Todo` 之后无法修改，这是个比较糟糕的事情
 
 ## References
 
@@ -978,3 +1225,6 @@ TODO 发现问题，退出app之后再打开记录的东西都没了，引出持
 - https://docs.flutter.dev/cookbook/forms/text-field-changes
 - https://docs.flutter.dev/cookbook/forms/retrieve-input
 - https://stackoverflow.com/questions/45669202/how-to-add-a-listview-to-a-column-in-flutter
+- https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
+- https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
+- https://pub.dev/packages/provider
