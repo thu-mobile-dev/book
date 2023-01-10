@@ -203,7 +203,17 @@ Material Design 中的组件主要分为六种：
 - Containment: 存放信息或小组件的框架
 - Navigation: 承载各个页面和页面之间关系的框架
 
-TODO 贴图
+![](images-material/material-components-actions.png)
+
+![](images-material/material-components-textinputs.png)
+
+![](images-material/material-components-selection.png)
+
+![](images-material/material-components-communication.png)
+
+![](images-material/material-components-containment.png)
+
+![](images-material/material-components-navigation.png)
 
 ### 设计文件
 
