@@ -147,9 +147,88 @@
 
 当后续发版不断变多，自动化的思想也需要被添加进来，这也就是常说的 CD（continues delivery 持续交付）。比如每次修改了 Git 仓库主分支的标签时，应用自动被构建，得到的各平台安装包分别推送到各平台的应用商店供用户下载。
 
-## Material Design
+## 设计准则
 
+接下来我们介绍两种设计准则：Google 推出的 Material Design 和 Apple 推出的 Human Interface Guidelines。
 
+我们经常说，不要重复造轮子。这一点在代码开发上一定成立、在设计上一样成立。这两种主流的设计规范阐释了很多应用开发需要注意的点，对应提出了经验性的解决方案，和目标平台的习惯也很相近。同时，结合这两种设计准则的设计套件和开发框架也非常易用，在自己设计开发的应用定制化需求并不强时，优先考虑这两种设计准则是很好的。
+
+### Material Design
+
+> What's Material?
+> 
+> Material Design is a design system built and supported by Google designers and developers. Material.io includes in-depth UX guidance and UI component implementations for Android, Flutter, and the Web. 
+>
+> The latest version, Material 3, enables personal, adaptive, and expressive experiences – from dynamic color and enhanced accessibility, to foundations for large screen layouts and design tokens.
+> 
+> <https://m3.material.io/get-started>
+
+### 准则
+
+打开 <https://m3.material.io/foundations>，我们可以看到下面的一些话题：
+
+- Accessibility: 让更多人满足的设计
+- Adaptive design: 针对不同设备做不同的适配
+- Cutomizing Material: 应用基于 Material Design 的个性化
+- Interaction states: 交互时的状态
+- Design Tokens: Material Design 使用的一些一些名词
+
+在 <https://m3.material.io/styles> 中也有很多关于设计的内容：
+
+- Color
+- Elavation
+- Icons
+- Motion
+- Shape
+- Typography
+
+这些页面中都有很多关于 Material Design 的介绍、使用。比如从 Interaction states 和 Elavation 你会了解到 Material Design 比较核心的概念是「抬升 Elavation」，结合「状态层 state layers」呈现出动画。
+
+![](images-material/material-design-styles.png)
+
+这部分内容对于专门学设计的同学可能很熟悉。非设计专业的同学只需要简单了解就可以了。
+
+### 组件
+
+对于开发来说，使用组件能够极大加快开发速度。举个例子，输入框：其实从零实现一个输入框是非常复杂的事情，首先你需要接收用户输入、这牵扯到键盘事件的监听，其次你需要显示用户输入的内容，需要考虑输入内容的长度、是否为密码、数据是否有效等，当然还要考虑光标的移动、组件的动画、多平台的适配等等。
+
+但如果使用 Material Design 与 Flutter 开发框架，你只需要把 TextField 这个 Widget 放到代码中，填入你需要的参数就可以了。可以说，这一些常用的、通用的组件极大的简化了应用设计和开发。
+
+Material Design 中的组件主要分为六种：
+
+- Actions: 可点击的交互组件
+- Text inputs: 用户编辑文字的组件
+- Selection: 提供选项供用户选择的组件
+- Communication: 显示应用当前状态的组件
+- Containment: 存放信息或小组件的框架
+- Navigation: 承载各个页面和页面之间关系的框架
+
+TODO 贴图
+
+### 设计文件
+
+之前提到，开发之前是设计，如果要使用 Material Design，那么设计稿里面当然也要有 Material Design 的风格、主题和组件。Google 提供了 Figma 的 Design Kit，我们可以打开 <https://www.figma.com/community/file/1035203688168086460> 点击右上角的 Get a Copy 将这份文件存到自己 Figma 账户下使用。
+
+### 开发
+
+打开 <https://m3.material.io/develop> 可以看到 Material Design 在 MDC-Android（安卓原生开发（应该是））、Jetpack Compose 和 Flutter 这三个框架中得到了支持（Web 端的支持在计划中）。这意味着，在这三个框架中，你可以用少量代码快速应用 Material Design，让你的应用整体看起来统一舒适。
+
+在 <https://docs.flutter.dev/development/ui/widgets/material> 可以快速找到 Flutter 中 Material Design 的组件。在 <https://docs.flutter.dev/cookbook> 的 Design 部分也有这在 Flutter 中使用 Material Design 的一些说明。
+
+![](images-material/flutter-material-components-0.png)
+
+![](images-material/flutter-material-components-1.png)
+
+![](images-material/flutter-material-components-2.png)
+
+### 应用质量评估
+
+这部分不全是 Material Design 提供的准则，也有 Google 对于 Android 平台提出的一些要求。在设计应用和优化迭代时查看准则，提高应用的质量，让应用能够触及更多人。
+
+- 核心的应用质量 <https://developer.android.com/docs/quality-guidelines/core-app-quality>
+- 让应用被更多人使用 <https://developer.android.com/docs/quality-guidelines/build-for-billions>
+- 大屏安卓设备 <https://developer.android.com/docs/quality-guidelines/large-screen-app-quality>
+- 游戏 <https://developers.google.com/games/services/checklist>
 
 ## Human Interface Guidelines
 
