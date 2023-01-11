@@ -81,7 +81,7 @@
 
 #### 什么是设计
 
-苹果公司为什么成功？是硬件软件的科技嘛？其实更多的是**设计**。很多人都说 苹果算是全球数一数二的设计公司。好的设计让苹果把软硬件结合起来 实现了更人性化的系统。
+Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**设计**。很多人都说 Apple 算是全球数一数二的设计公司。好的设计让 Apple 把软硬件结合起来 实现了更人性化的系统。
 
 回到现实中，盖楼、建房子的时候没有图纸怎么盖啊？第一步一定是画图纸。
 
@@ -98,7 +98,7 @@
 - 交互 UX：符合直觉的交互、或者简明的交互不至于让用户在你的应用中迷路。
 - 代码组织 Project Management：基本上就是几个人如何合作的问题，因为开发应用很难是一个人的事情。在代码细节上，更多是哪些文件要放到哪些文件夹，项目到底有几份可执行文件，Git 使用的规范是怎样的……等等。这些都会影响实际的开发效率。如果组织的好，打开工程看到的就是清楚的思路和逻辑；组织的不好，想修一个 bug 半天都找不见要改的地方在哪里。
 
-设计其实是一个整体规划，如果不知道从哪里下手，可以先看看官方的一些设计文档。下面我们也会讲到 Google 推出的一种设计规则 Material Design 和苹果提出的 Human Interface Guidelines。
+设计其实是一个整体规划，如果不知道从哪里下手，可以先看看官方的一些设计文档。下面我们也会讲到 Google 推出的一种设计规则 Material Design 和 Apple 提出的 Human Interface Guidelines。
 
 #### 设计工具
 
@@ -153,7 +153,11 @@
 
 我们经常说，不要重复造轮子。这一点在代码开发上一定成立、在设计上一样成立。这两种主流的设计规范阐释了很多应用开发需要注意的点，对应提出了经验性的解决方案，和目标平台的习惯也很相近。同时，结合这两种设计准则的设计套件和开发框架也非常易用，在自己设计开发的应用定制化需求并不强时，优先考虑这两种设计准则是很好的。
 
+个人非常推荐在入门应用设计开发前，通读一两遍 Material Design 或者 Human Interface Guidelines，这能让你在设计开发应用时有一些范式可以参考，从而获得更高效的设计开发速度，应用的用户体验也会更好。
+
 ### Material Design
+
+官网：<https://m3.material.io>
 
 > What's Material?
 > 
@@ -242,8 +246,142 @@ Material Design 中的组件主要分为六种：
 
 ## Human Interface Guidelines
 
+官网：<https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/>
 
+Human Interface Guidelines (HIG) 是 Apple 为自家的所有平台的应用设计提出的指导，里面涵盖的内容比 Material Design 要更丰富一些。但是无所谓设计准则熟优孰劣，各有特色。
+
+如果你有苹果设备，你也可以在 App Store 下载 Developer，其中主要内容是开发相关，也有不少设计相关的内容，形式是视频和文章。
+
+### 平台特色
+
+Apple 有着软硬件融合的 iOS、iPadOS、macOS、tvOS、watchOS 平台，Apple 更了解各个平台的异同。在 HIG 的 Platforms 中，Apple 描述了各个平台应用开发需要注意的事项，给出了很多建议（best practices）。
+
+![](images-hig/hig-overview-platforms.png)
+
+下面是简单总结的一些平台特色：
+
+**电脑**
+
+- Flexible
+    - 窗口大小可调整
+    - 一个操作可以从右键、菜单栏、工具栏等多种方法调出
+- Expansive
+    - 一般电脑的屏幕是很大的 有时还会外接显示器
+    - 全屏模式适配
+- Capable
+    - 一个小的操作背后是专业的处理
+- Focused
+    - 电脑是生产力工具 设计UI时需要考虑让用户保持专注
+
+**手机**
+
+- themes
+    - Clarity
+        - 凸显重要内容
+    - Deference
+        - 动画呈现页面、元素间的逻辑
+    - Depth
+        - 用深度呈现层级（注：Material Design 强调的是 Elavation）
+- principles
+    - Aesthetic Integrity
+        - 有冲击力
+    - Consistency
+        - 应用内组件交互呈现一致性
+        - 尽量与系统的组件和交互一致
+    - Direct Manipulation
+        - 即时处理用户的输入
+    - Feedback
+        - 动画
+    - Metaphors
+        - 与真实世界物理形成类比
+    - User Control
+        - 给用户足够的指引和说明
+
+**平板**
+
+> Discover the building blocks for designing a great iPad app: Learn how to **minimize use of modal interfaces** and leverage the **new sidebar** to increase efficiency by streamlining navigation and facilitating powerful drag and drop interactions. See how to take advantage of iPad's versatile interaction opportunities by **supporting multitouch, pencil, keyboard, and trackpad**. And create adaptive layouts that respond to all size classes and orientation to support a great **multitasking experience**. These techniques will not only improve your iPad app - they'll make it easier to create a Mac Catalyst app that truly feels right at home on macOS. -- [WWDC20 | Designed for iPad](https://developer.apple.com/wwdc20/10206)
+
+WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布一些开发和设计上的新引导。在 WWDC20 上，iPadOS 端的交互得到了比较多的更新，集中体现在上面的这个视频中了。最早的 iPadOS 其实就是 iOS，交互方式和组件与手机端操作差不多。但是逐渐 Apple 想让 iPad 承载用户更多的期待，于是 iPadOS 端逐渐更新，变的与 iOS 不同。
+
+- minimize use of modal interfaces: 让一个小的 Alert 放到大屏 iPad 的最中间而阻碍其他空间很奇怪，应该尽量少使用遮挡全屏幕的模态窗口。
+- new sidebar: 之前 iPadOS 的导航主要用的是屏幕下方的 Tabs，但是存在大屏很难点击的问题。现在新的 Sidebar 将导航内容放到左侧，这成为了 iPad 的一种新的导航方式。
+- supporting multitouch, pencil, keyboard, and trackpad: iPadOS 的交互方式很多，像多点触控、Apple Pencil，甚至还可以接入键盘和触控板。应用需要对这些输入进行适配来让用户获得更好的体验。
+- multitasking experience: 多任务，也就是在 iPadOS 上引入的多窗口，这要求应用支持各种动态的比例和尺寸。
+- ...
+
+### 设计基础
+
+![](images-hig/hig-sidebar-foundations.png)
+
+可以看到这部分基本上是纯设计。总结几点：
+
+- 应用上架的时候一定要准备一个好看简洁能令用户印象深刻应用图标。
+- 想让应用接触更多用户，考虑 Accessibility 和 Inclusion 中的内容。
+- SF Symbols 是 Apple 设计的图标库，涵盖了绝大多数常用的图标。
+
+### 交互模式
+
+![](images-hig/hig-sidebar-patterns-0.png)
+
+![](images-hig/hig-sidebar-patterns-1.png)
+
+交互方式里面说的挺全面的，基本上将很多 UX 都总结了出来。
+
+#### 输入方式
+
+![](images-hig/hig-sidebar-inputs.png)
+
+这里列举了一些输入用的硬件设备。Apple 平台独特的输入方式应该有两个，一个是 macOS 端的触控板、另一个是 iPadOS 端的 Apple Pencil。在开发这两个平台的应用的时候可以注意对这两种输入方式的适配。
+
+### 界面组件
+
+注：筛选 iOS and iPadOS
+
+![](images-hig/hig-sidebar-components.png)
+
+- Menus and actions: 可点击的交互组件（Material Design - Actions）
+- Selection and input: 用户选择和输入（Material Design - Text inputs、Selection）
+- Content: 内容呈现
+- Status: 状态呈现（Material Design - Communication）
+- Presentation: 存放信息或小组件的框架（Material Design - Containment）
+- Layout and organization: （Material Design - Navigation、Communication）
+- Navigation and search: 承载各个页面和页面之间关系的框架（Material Design - Navigation）
+- System experiences: 与系统相关的组件
+
+组件具体有如下的多种：
+
+![](images-hig/hig-components-menus-and-actions.png)
+
+![](images-hig/hig-components-selection-and-input.png)
+
+![](images-hig/hig-components-content.png)
+
+![](images-hig/hig-components-status.png)
+
+![](images-hig/hig-components-presentation.png)
+
+![](images-hig/hig-components-layout-and-organization.png)
+
+![](images-hig/hig-components-navigation-and-search.png)
+
+![](images-hig/hig-components-system-experiences.png)
+
+### 技术
+
+可以看到，Apple 的 HIG 还提供了很多「科技」，Apple 认为这也是应用功能设计的一部分。Apple 同时为这些「科技」提供了可以调用的 API 或 SDK 为开发者提供便利。
+
+![](images-hig/hig-sidebar-technologies-0.png)
+
+![](images-hig/hig-sidebar-technologies-1.png)
 
 ## Figma 入门
 
+知识点：
 
+- Figma自带的基础组件 矢量图标复制粘贴
+- 层级遮挡关系
+- 成组
+- 设置一个组件为symbol 使用symbol
+- 导出（给出PNG或者文档链接）
+
+TODO
