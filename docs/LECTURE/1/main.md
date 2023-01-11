@@ -1189,17 +1189,175 @@ ListView(
 
 ## 发布应用
 
+### 完善应用
+
+在发布应用之前，我们稍微再对应用做一些完善。
+
+#### 清除调试数据
+
+我们之前生命了一个全局变量 `defaultTodoContents` 用来调试查看效果，但是发布应用时我们肯定不希望用户看到这些。我们可以在启动应用之前对数据列表进行不同的初始化来实现这一点。
+
+在 `lib/main.dart` 中引入 `kDebugMode`:
+
+```dart
+import 'package:flutter/foundation.dart' show kDebugMode;
+```
+
+再将 `main()` 修改为:
+
+```dart
+void main() {
+  if (kDebugMode) {
+    runApp(MyApp(defaultTodoContents: defaultTodoContents));
+  } else {
+    runApp(MyApp(defaultTodoContents: []));
+  }
+}
+```
+
+这时我们使用 `flutter run -d chrome --web-renderer html` 可以看到应用刚刚打开可以看到有多条 Todo 方便调试。但使用 `flutter run -d chrome --web-renderer html --release` 可以看到打开应用之后一条 Todo 也没有了。
+
+![](images-main/todoapp-7.png)
+
+#### 展示使用提示
+
+但是上图看起来非常的单薄，我们最好添加一个提示信息，否则用户打开 TodoApp 之后可能完全不知道干什么。事实上，还需要考虑用户完成所有 Todo 时的 UI 显示，我们同样需要给出提示。
+
+修改 `lib/main.dart` 的 `ContentWidget`:
+
+```dart
+class ContentWidget extends StatelessWidget {
+  ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Consumer<TodoListModel>(builder: (context, model, child) {
+            if (model.data.isNotEmpty) {
+              return ListView(
+                children:
+                    model.data.map((todo) => TodoWidget(todo: todo)).toList(),
+              );
+            } else {
+              return Center(
+                  child: Text(
+                "欢迎使用 TodoApp\n你可以在下方输入新的 Todo",
+                style: TextStyle(fontSize: 36),
+                textAlign: TextAlign.center,
+              ));
+            }
+          }),
+        ),
+        AddTodoWidget()
+      ],
+    );
+  }
+}
+```
+
+可以看到这里用 `if-else` 判断 `model.data` 是否为空，从而返回不同的 Widget。
+
+![](images-main/todoapp-8.png)
+
+#### 设计应用图标
+
+最后呢，我们最好给应用设计一个图标。在 Flutter 中设置应用图标可以参考下面的资料：
+
+- Android <https://docs.flutter.dev/deployment/android#adding-a-launcher-icon>
+- iOS <https://docs.flutter.dev/deployment/ios#add-an-app-icon>
+- Web <https://stackoverflow.com/questions/56745525/how-to-configure-icon-for-my-flutter-web-application>
+
+添加应用图标的过程比较复杂，而且涉及到对应平台的一些知识，我们就不给 TodoApp 添加图标了。
+
+注：其实还需要修改应用的各种名称...管理版本号...这里就不多说了。
+
 ### 安卓 APK
 
-
+我们用 `flutter build apk` 即可构建出 APK。构建结束得到的 APK 文件在 `build/app/outputs/apk/release/app-release.apk`。我们可以直接将这个文件拷贝出来发送到 Android 手机，然后安装即可。
 
 ### 网页版
 
+我们用 `flutter build web --web-renderer html` 即可构建出网页端应用。构建结束的网页应用就在 `build/web/` 下。
 
+本地查看可以用 `cd build/web/ && python3 -m http.server 8000` 将应用部署到本机的 `8000` 端口。打开浏览器输入 `localhost:8000` 就可以访问应用了。
 
-## SQLite 持久存储
+部署到服务器的话也只需要将这个文件夹打包拷贝到服务器再做 Nginx 的设置即可。
 
-TODO 发现问题，退出app之后再打开记录的东西都没了，引出持久存储，可以放到之后再讲
+### GitHub workflow
+
+我们也可以将 APK 的构建和网页版的部署变为自动化的流程。这里我们使用 GitHub 的 workflow 进行演示。
+
+新建 `.github/workflows/` 文件夹，在其中新建文件 `deploy-apk-and-web.yml`，添加如下内容：
+
+```yml
+# Reference: https://github.com/subosito/flutter-action
+
+name: Deploy - GitHub Pages
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+    - run: flutter --version
+    - run: flutter pub get
+    - run: flutter build web --web-renderer html
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/web
+    - run: flutter build apk
+    - uses: actions/upload-artifact@v2
+      with:
+        name: CI-apk
+        path: ./build/app/outputs/apk/release/app-release.apk
+```
+
+这个配置文件让 GitHub 在每次有新的代码在主分支提交的时候，自动构建网页版并部署到 GitHub Pages、自动构建 APK 并上传到 GitHub 可以下载。
+
+然后需要对网页端做一些配置，打开 `web/index.html`，将 L17 `<base href="$FLUTTER_BASE_HREF">` 改为 GitHub 上的仓库名字，这里我使用的仓库名字是 `todoapp`，因此就改为 `<base href="/todoapp/">`。这样做的原因官方在 `web/index.html` 的注释中也给出了说明：
+
+> If you are serving your web app in a path other than the root, change the href value below to reflect the base path you are serving from.
+> 
+> The path provided below has to start and end with a slash "/" in order for it to work correctly.
+> 
+> For more details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+> 
+> This is a placeholder for base href that will be replaced by the value of the `--base-href` argument provided to `flutter build`.
+
+之后提交上传至 GitHub，可以看到工作流已经开始执行。
+
+执行完毕之后，我们需要在 Settings 中打开 GitHub Pages 服务，选择 `gh-pages` 分支。然后稍等片刻，即可得到网页端部署的网址。
+
+![](images-main/github-ci-web.png)
+
+在工作流的历史界面可以看到构建好的 APK 文件，点击即可下载。
+
+![](images-main/github-ci-apk.png)
+
+## 持久存储
+
+将 APK 安装到 Android 手机短暂试用之后，我们会发现一个非常大的 bug：添加完 Todo 之后，退出应用，再次打开数据没了。
+
+emmm 这其实就牵扯到持久存储的东西了。我们之前的 todoList 是在内存中存储的，应用结束，内存被操作系统回收，数据自然会丢失。要想持久存储，我们需要借助文件系统来存储用户数据。最方便的方式是直接使用一个生产数据库。这里本地存储比较推荐 SQLite。
+
+网页端也是一样的道理。但是这里持久存储是无法存储到本机的（除非你让用户每次关闭应用前保存文件到电脑、每次开启应用时导入数据），你需要有一个后端的服务器来存储用户数据，当然多用户使用的话这又牵扯到登录验证了。
+
+这些内容我们之后在第六课都会讲到，并且会配有详细的案例，现在只需要了解持久化存储的概念即可。
 
 ## 可改进的地方
 
