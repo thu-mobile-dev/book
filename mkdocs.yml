@@ -11,6 +11,7 @@ nav:
     - LECTURE/0/quick-start.md
     - LECTURE/0/contact-us.md
     - LECTURE/0/welcome-edit.md
+    - LECTURE/0/homework-requirements.md
   - 第一讲:
     - LECTURE/1/introduction.md
     - LECTURE/1/main.md
@@ -56,7 +57,7 @@ nav:
   - 后记:
     - LECTURE/9/introduction.md
   - 其他:
-    - OTHERS/221120-consideration.md
+    - LECTURE/10/221120-consideration.md
 
 # [Extensions]
 plugins:
