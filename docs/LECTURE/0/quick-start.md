@@ -63,8 +63,9 @@
 
 如果你之前有移动端原生开发的经验，可以看官方提供的教程：
 
-- 熟悉 Android 原生开发看 <https://docs.flutter.dev/get-started/flutter-for/android-devs>
-- 熟悉 iOS 原生开发 UIKit 看 <https://docs.flutter.dev/get-started/flutter-for/ios-devs>
+- 熟悉 Android 原生开发 <https://docs.flutter.dev/get-started/flutter-for/android-devs>
+- 熟悉 iOS UIKit 开发 <https://docs.flutter.dev/get-started/flutter-for/ios-devs>
+- 熟悉 iOS SwiftUI 开发 <https://docs.flutter.dev/get-started/flutter-for/swiftui-devs>
 
 ## Dart 是 Flutter 使用的编程语言
 
