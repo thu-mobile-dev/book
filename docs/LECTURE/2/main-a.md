@@ -151,9 +151,9 @@ flutter devices
 # 以调试模式使用 Chrome 运行应用
 flutter run -d chrome
 flutter run -d chrome --web-renderer html
-
 # 以发布模式使用 Chrome 运行应用
 flutter run -d chrome --release
+# 注：-d 后接已连接设备的名称的前几个字母即可
 
 # 构建应用（subcommands: apk web）
 flutter build <subcommand>
