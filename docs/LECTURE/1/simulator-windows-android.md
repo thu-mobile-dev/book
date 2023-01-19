@@ -1,3 +1,3 @@
-# 在 Windows 上创建打开 Android 模拟器进行调试
+# Windows 创建 Android 模拟器
 
 TODO

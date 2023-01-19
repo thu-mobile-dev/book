@@ -1,4 +1,4 @@
-# 在 macOS 上创建打开 Android 模拟器进行调试
+# macOS 创建 Android 模拟器
 
 安装 `Android Studio` 并打开。
 

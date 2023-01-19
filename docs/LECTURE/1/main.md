@@ -174,7 +174,7 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 - [在 macOS 上创建打开 Android 模拟器进行调试](./simulator-macos-android.md)
 - [在 macOS 上创建打开 iOS 模拟器进行调试](./simulator-macos-ios.md)
 
-开模拟器对电脑性能有着不小的开销……我这里使用 Chrome 进行调试，查看 [使用 Chrome 进行调试](./simulator-chrome.md)。
+开模拟器对电脑性能有着不小的开销……我这里使用 Chrome 进行调试。
 
 有同学会问，我们不是移动应用开发课程吗，为什么会用到 Chrome 呢？这就要说到 Flutter 的跨平台特性了。Flutter 现在支持的发布渠道有 Android、iOS、Windows、macOS、Linux、网页端，能支持全平台的原因是，Flutter 框架做的事情只是在一块 `height*width` 的画布上渲染出 UI。因此我们只要把 Chrome 拉成竖屏的分辨率，其实在开发阶段是会方便一些的。当然最终也需要在模拟器和真机上运行，这样才能确保应用实际可用（比如在电脑端输入就不会从下方弹出键盘占界面）。当然你也可以直接发布成网页版在手机浏览器中打开。
 
