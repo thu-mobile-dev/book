@@ -8,6 +8,10 @@ TODO
 - 一些常用的 widgets
 - 为了让跨平台的 Flutter 能够调用各种操作系统的功能
 
+## 使用方法
+
+TODO 或者用 flutter pub add 或者在 .yml 中添加
+
 ## 常用插件
 
 ### Flutter Favorite packages
@@ -18,11 +22,27 @@ TODO 说明 https://docs.flutter.dev/development/packages-and-plugins/favorites
 
 ### 个人推荐
 
+TODO 可以简单分个类
+
+#### cupertino_icons
+
+<https://pub.dev/packages/cupertino_icons>
+
+```dart
+import 'package:flutter/cupertino.dart';
+```
+
+```dart
+Icon(
+  CupertinoIcons.heart_fill,
+)
+```
+
+可以在 <https://api.flutter.dev/flutter/cupertino/CupertinoIcons-class.html#constants> 查看所有的图标。
+
+#### google_fonts
+
 TODO
-
-## 使用方法
-
-TODO 或者用 flutter pub add 或者在 .yml 中添加
 
 ## 创建插件
 
