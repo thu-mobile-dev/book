@@ -448,6 +448,10 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
 
 构建上面的应用，在 Android 手机安装，打开之后输入 Todo 再关闭应用打开看到之前的数据，这说明数据已经持久存储了。
 
+## 进阶
+
+进一步的本地存储需求可以查看 <https://docs.flutter.dev/development/packages-and-plugins/happy-paths/recommended#structured-local-storage->，其中提到了两个插件 [drift](https://pub.dev/packages/drift) 和 [hive](https://pub.dev/packages/hive)。
+
 ## References
 
 - https://docs.flutter.dev/cookbook/persistence/reading-writing-files

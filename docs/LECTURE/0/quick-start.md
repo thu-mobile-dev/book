@@ -66,6 +66,7 @@
 - 熟悉 Android 原生开发 <https://docs.flutter.dev/get-started/flutter-for/android-devs>
 - 熟悉 iOS UIKit 开发 <https://docs.flutter.dev/get-started/flutter-for/ios-devs>
 - 熟悉 iOS SwiftUI 开发 <https://docs.flutter.dev/get-started/flutter-for/swiftui-devs>
+- 熟悉 Web 开发 <https://docs.flutter.dev/get-started/flutter-for/web-devs>
 
 ## Dart 是 Flutter 使用的编程语言
 
