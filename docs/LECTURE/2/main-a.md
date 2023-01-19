@@ -122,6 +122,47 @@ Flutter 使用了下面多种编程范式（不分先后顺序）：
 - 并发（concurrent）：使用并发和异步的方法来处理需要长时间执行的函数。
 - 约束（constraint）：使用约束而不是坐标构建用户界面。
 
+## Flutter 常用命令
+
+你可以通过 [flutter: The Flutter command-line tool](https://docs.flutter.dev/reference/flutter-cli#flutter-commands) 查看 flutter 命令行工具的所有参数及其说明。
+
+常用的命令如下：
+
+```sh
+# 查看命令行帮助
+flutter --help
+
+# 检查 Flutter 的安装环境
+flutter doctor
+
+# 查看 Flutter 开发套件的版本
+flutter --version
+# 升级 Flutter
+flutter upgrade
+```
+
+```sh
+# 创建一个新的 Flutter 项目
+flutter create <project_name>
+
+# 列出已连接的设备
+flutter devices
+
+# 以调试模式使用 Chrome 运行应用
+flutter run -d chrome
+flutter run -d chrome --web-renderer html
+
+# 以发布模式使用 Chrome 运行应用
+flutter run -d chrome --release
+
+# 构建应用（subcommands: apk web）
+flutter build <subcommand>
+flutter build <subcommand> --release
+
+# 清理当前的工程（删除缓存和构建文件）
+flutter clean
+```
+
 ## Dart 语言
 
 > [FAQ | Why did Flutter choose to use Dart?](https://docs.flutter.dev/resources/faq#why-did-flutter-choose-to-use-dart)
