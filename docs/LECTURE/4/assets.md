@@ -99,4 +99,3 @@ Image(image: AssetImage('assets/a.png'))
 - https://docs.flutter.dev/development/ui/assets-and-images
 - https://stackoverflow.com/questions/47114639/yellow-lines-under-text-widgets-in-flutter
 - https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html
-- 
