@@ -34,7 +34,7 @@ void main() {
 
 ## StatelessWidget
 
-编写一个 Flutter 应用，我们主要会使用 `StatelessWidget` 和 `StatefulWidget`。Widget 有着自己的状态时选择 `StatefulWidget`，否则选择 `StatelessWidget`。`StatelessWidget` 最大的作用是封装成组，例如下面的例子：
+编写一个 Flutter 应用，我们主要会使用 `StatelessWidget` 和 `StatefulWidget`。Widget 有着自己的状态时选择 `StatefulWidget`（下节课介绍），否则选择 `StatelessWidget`。`StatelessWidget` 最大的作用是封装成组，例如下面的例子：
 
 > 提示：在 VS Code 中敲 `stl` 即可自动补全 `StatelessWidget`。
 
@@ -67,17 +67,17 @@ class MyApp extends StatelessWidget {
 
 一个 Widget 主要的功能体现在 `build()` 中，这个函数描述该组件如何组合更底层的组件从而构建自己。
 
-context（类型 BuildContext） 在各个 Widgets 的层级结构中传递着一些参数，比如当前的显示状态、默认文字样式等等，有一点类似于全局变量。我们之后会用到。
+`context`（类型 `BuildContext`） 在各个 Widgets 的层级结构中传递着一些参数，比如当前的显示状态、默认文字样式等等，有一点类似于全局变量。我们之后会用到。
 
 ## MaterialApp
 
 Flutter 主要使用的设计语言是 Material Design，里面包含动画、主题、很多便捷的 UI/UX 组件，我们在第二节课已经介绍过。这一节课我们主要聚焦于如何在 Flutter 中使用 Material Design。
 
-Material Design 在 Flutter 中最关键的两个 Widget 是 MaterialApp 和 Scaffold。
+Material Design 在 Flutter 中最关键的两个 Widget 是 `MaterialApp` 和 `Scaffold`。
 
-- MaterialApp 是一个最顶层的 Widget，如果你希望你的应用使用 Material Design，最好在 runApp() 中传入 MaterialApp。
-    - 与 MaterialApp 类似，还有使用了 Human Interface Guidelines 设计的 CupertinoApp 用来向 iOS 用户提供与系统应用类似的体验。课程只关注 Material Design。
-- Scaffold 可以直观理解为应用的一页，但更准确的理解是其可以为 Material 组件提供一个动画层，进一步呈现各种动画效果。
+- `MaterialApp` 是一个最顶层的 Widget，如果你希望你的应用使用 Material Design，最好在 `runApp()` 中传入 `MaterialApp`。
+    - 与 `MaterialApp` 类似，还有使用了 Human Interface Guidelines 设计的 `CupertinoApp` 用来向 iOS 用户提供与系统应用类似的体验。课程只关注 Material Design。
+- `Scaffold` 可以直观理解为应用的一页，但更准确的理解是其可以为 Material 组件提供一个动画层，进一步呈现各种动画效果。
 
 下面的这个例子使用了一些 Material Design 的基础组件：
 
@@ -131,27 +131,39 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-- 从应用结构上来说，使用 MaterialApp 包含一个 Scaffold，很容易看出这是一个单页的应用，结构更加清楚。
-- 在 Scaffold 中添加了 AppBar 和 floatingActionButton，运行应用可以看到界面和较多现有应用保持一致，这有助于给用户带来熟悉感。
-- 在动画效果上，floatingActionButton 和 SnackBar 的添加让界面看起来更流畅。
-- 可以看到，在使用 Text 这个 Widget 时，我们不需要再指定文字方向和字体颜色了，这是因为 MaterialApp 中包含一些通过 context 传递的参数，相当于一个默认值。
+- 从应用结构上来说，使用 `MaterialApp` 包含一个 `Scaffold`，很容易看出这是一个单页的应用，结构更加清楚。
+- 在 `Scaffold` 中添加了 `AppBar` 和 `floatingActionButton`，运行应用可以看到界面和较多现有应用保持一致，这有助于给用户带来熟悉感。
+- 在动画效果上，`floatingActionButton` 和 `SnackBar` 的动画效果添加让界面看起来更流畅。
+- 可以看到，在使用 `Text` 这个 Widget 时，我们不需要再指定文字方向和字体颜色了，这是因为 `MaterialApp` 中包含一些通过 `context` 传递的参数，相当于一个默认值。
 
 注意，使用 Flutter 框架不意味着必须要使用 Material Design，因为 Flutter 本身已经提供了足够多的基础组件，但使用 Material Design 会省去很多麻烦，极大提高开发应用的效率。在后续的学习过程中，我们也不区分 Flutter 原生的组件与 Material Design 的组件。
 
 ### 设置项
 
-MaterialApp 中也有一些可以配置的项，比如：设置主题（theme）、应用的地域（locale）；一些与调试相关的选项：`debugShowCheckedModeBanner` 是否显示右上角的调试按钮、`debugShowMaterialGrid` 显示网格、`showSemanticsDebugger` 调试。
+`MaterialApp` 中也有一些可以配置的项，比如：设置主题（`theme`）、应用的地域（`locale`）；一些与调试相关的选项：`debugShowCheckedModeBanner` 是否显示右上角的调试按钮、`debugShowMaterialGrid` 显示网格、`showSemanticsDebugger` 调试。
 
 ## 常用展示组件
 
 ### 嵌入式
 
-- [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)
-    - [DefaultTextStyle](https://api.flutter.dev/flutter/widgets/DefaultTextStyle-class.html)
-    - [RichText](https://api.flutter.dev/flutter/widgets/RichText-class.html)
 - [Icon](https://api.flutter.dev/flutter/widgets/Icon-class.html)
+    - 显示图标
+- [Text](https://api.flutter.dev/flutter/widgets/Text-class.html)
+    - 显示纯文本
+    - [DefaultTextStyle](https://api.flutter.dev/flutter/widgets/DefaultTextStyle-class.html)
+        - 设置默认的文字样式。在使用 `MaterialApp` 时不推荐使用，因为 `MaterialApp` 有默认样式，通过主题来修改是更好的选择。
+    - [RichText](https://api.flutter.dev/flutter/widgets/RichText-class.html)
+        - 显示富文本。
 - [Image](https://api.flutter.dev/flutter/widgets/Image-class.html)
+    - 显示图片
 - [Placeholder](https://api.flutter.dev/flutter/widgets/Placeholder-class.html)
+    - 在开发中临时占位代表未添加的组件。
+
+TODO （H4小标题）添加 Icon 的两种 Icons.xxx 和 Cupertino icons
+
+TODO （H4小标题）添加 Text 的各种参数的意义，（H5小标题）解释size的计算
+
+TODO （H4小标题）介绍 Image 显示图片的多种方式（网络、本地路径、AssetBundle（引到[添加 Assets](./assets.md)））
 
 ### 弹出式
 
@@ -164,16 +176,22 @@ MaterialApp 中也有一些可以配置的项，比如：设置主题（theme）
 - [SimpleDialog](https://api.flutter.dev/flutter/material/SimpleDialog-class.html)
     - 用于解释或提供一个用户输入的界面
 
+TODO H4小标题 加图和用法
+
 ### 信息呈现
 
 - [Card](https://api.flutter.dev/flutter/material/Card-class.html)
 - [Chip](https://api.flutter.dev/flutter/material/Chip-class.html)
 - [DataTable](https://api.flutter.dev/flutter/material/DataTable-class.html)
 
+TODO H4小标题 加图和用法
+
 ### 进度展示
 
 - [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html)
 - [LinearProgressIndicator](https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
+
+TODO H4小标题 加图和用法
 
 ### 几何形状
 
@@ -184,6 +202,8 @@ MaterialApp 中也有一些可以配置的项，比如：设置主题（theme）
 ### 文字输入
 
 [TextField](https://api.flutter.dev/flutter/material/TextField-class.html)
+
+TODO 添加用法  记得有两种样式、可以放两张图
 
 ### 选择
 
@@ -197,6 +217,8 @@ MaterialApp 中也有一些可以配置的项，比如：设置主题（theme）
     - 滑动条
 - [showDatePicker()](https://api.flutter.dev/flutter/material/showDatePicker.html)
     - 日期时间选择器
+
+TODO 加图、获取选择的数据 都用最简单的例子
 
 ### 按钮
 
@@ -243,6 +265,8 @@ class MyWidget extends StatelessWidget {
 - [FloatingActionButton](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
     - 作为应用的一个主要操作入口的悬浮按钮
 
+TODO 放一个图呈现一下这几种就行了
+
 ### 其他手势
 
 [GestureDetector](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html)
@@ -266,17 +290,28 @@ class MyWidget extends StatelessWidget {
 ### 菜单
 
 - [DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
-- [PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)
+    - [PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)
+
+TODO 加图 简单说一下其中的参数
 
 ## 常用布局组件
 
 ### 容器
 
 - [Row](https://api.flutter.dev/flutter/widgets/Row-class.html) & [Column](https://api.flutter.dev/flutter/widgets/Column-class.html)
-    - Expanded
-    - Divider
-- Stack
-    - Positioned
+    - 使用 children 横向和竖向组织 Widgets。
+    - [Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html)
+        - 让 Row 和 Column 中的 Widget 占尽可能大的地方
+    - [Divider](https://api.flutter.dev/flutter/material/Divider-class.html)
+        - 水平分割线，可以自定义粗细、颜色、padding。
+- [Stack](https://api.flutter.dev/flutter/widgets/Stack-class.html)
+    - 使用 children 纵向组织 Widgets。
+    - [Positioned](https://api.flutter.dev/flutter/widgets/Positioned-class.html)
+        - 添加 Stack 中的 Widget 的位置信息。
+
+TODO 结合 Icon 简单说一下用法（开启下面这个查看效果）
+import 'package:flutter/rendering.dart';
+debugPaintSizeEnabled = true;
 
 ### 相对位置
 
@@ -287,12 +322,16 @@ class MyWidget extends StatelessWidget {
     - [Center](https://api.flutter.dev/flutter/widgets/Center-class.html)
 - [AspectRatio](https://api.flutter.dev/flutter/widgets/AspectRatio-class.html)
 
+TODO 加图 加用法
+
 ### 滑动
 
 - [ListView](https://api.flutter.dev/flutter/widgets/ListView-class.html)
 - [GridView](https://api.flutter.dev/flutter/widgets/GridView-class.html)
 - [PageView](https://api.flutter.dev/flutter/widgets/PageView-class.html)
 - [SingleChildScrollView](https://api.flutter.dev/flutter/widgets/SingleChildScrollView-class.html)
+
+TODO 加图加用法
 
 ### 平面滑动
 
@@ -349,20 +388,103 @@ class MyWidget extends StatelessWidget {
 
 ### 获取布局信息
 
-https://api.flutter.dev/flutter/widgets/MediaQuery-class.html  主要是长和宽什么的
+主要使用 [MediaQuery](https://api.flutter.dev/flutter/widgets/MediaQuery-class.html)。例如，从当前的 BuildContext 中获取屏幕宽度和高度（`double`）：
+
+```dart
+MediaQuery.of(context).size.width;
+MediaQuery.of(context).size.height;
+```
+
+更多可以获取的值可以查看 [MediaQueryData 的文档](https://api.flutter.dev/flutter/widgets/MediaQueryData-class.html)。
 
 ## 常用的导航组件
 
-- [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html)
-- [BottomNavigationBar](https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html)
-- [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html)
-- [TabBarView](https://api.flutter.dev/flutter/material/TabBarView-class.html)
+首先要明确导航所做的事情是在不同的界面中进行跳转。
 
 ### Navigator
 
-要使用 Navigator，应用需要有 MaterialApp 或 CupertinoApp 包裹，它们都使用了 WidgetsApp 来提供导航。
+简单的导航方式使用一个栈来记录历史的页面，栈顶的页面始终为当前的界面。跳转到新的界面则需要在栈中 push 这个页面，返回之前的页面即弹出栈顶的当前页面。这种导航在 Flutter 中使用 `Navigator` 实现，一个页面为一个 `Route`。要使用 `Navigator`，应用需要有 `MaterialApp` 或 `CupertinoApp` 包裹，它们都使用了 `WidgetsApp` 来提供导航功能。
 
-https://docs.flutter.dev/development/ui/navigation 讲 Navigator 的用法（什么 deep linking 不讲）
+下面的案例来自 [Flutter cookbook | Navigate to a new screen and back](https://docs.flutter.dev/cookbook/navigation/navigation-basics)：
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    title: 'Navigation Basics',
+    home: FirstRoute(),
+  ));
+}
+
+class FirstRoute extends StatelessWidget {
+  const FirstRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('First Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Open route'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SecondRoute()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+```
+
+![](image-widgets/navigator-1.png)
+
+![](image-widgets/navigator-2.png)
+
+- 使用 `Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondRoute()))` 来创建 Route 并跳转到新的界面。
+- 使用 `Navigator.pop(context);` 返回上级界面。
+- 可以看到，在第二个页面的 AppBar 中自动出现了一个返回的箭头，可以说这是 MaterialApp 的功劳，我们不需要额外配置；当然不使用 MaterialApp 也可以手动添加，但是相对麻烦。
+
+### Material
+
+Material Design 也提供了很多其他的导航方式：
+
+- [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html)
+    - 在 `AppBar` 中可以放置返回按钮等辅助导航。
+- [BottomNavigationBar](https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html)
+    - 现代应用比较常见的一种导航方式，通过点击下方的按钮选择不同的界面进行呈现。
+- [TabBarView](https://api.flutter.dev/flutter/material/TabBarView-class.html)
+    - 与 `BottomNavigationBar` 类似，可以在上方提供 `Tab`s 进行导航。
+- [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html)
+    - 屏幕左侧滑出可以用来选择页面的组件。
+
+TODO 加图加用法
 
 ## References
 
@@ -370,3 +492,5 @@ https://docs.flutter.dev/development/ui/navigation 讲 Navigator 的用法（什
 - https://docs.flutter.dev/development/ui/assets-and-images
 - https://docs.flutter.dev/development/ui/interactive
 - https://docs.flutter.dev/development/ui/advanced/gestures
+- https://docs.flutter.dev/development/ui/navigation
+- https://docs.flutter.dev/cookbook#navigation
