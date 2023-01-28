@@ -34,6 +34,8 @@ nav:
     - LECTURE/4/main-a.md
     - LECTURE/4/main-b.md
     - LECTURE/4/homework.md
+    - 补充:
+      - LECTURE/4/assets.md
   - 第五讲 Flutter 进阶:
     - LECTURE/5/introduction.md
     - LECTURE/5/main-a.md

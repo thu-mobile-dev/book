@@ -1268,6 +1268,7 @@ class ContentWidget extends StatelessWidget {
 - Android <https://docs.flutter.dev/deployment/android#adding-a-launcher-icon>
 - iOS <https://docs.flutter.dev/deployment/ios#add-an-app-icon>
 - Web <https://stackoverflow.com/questions/56745525/how-to-configure-icon-for-my-flutter-web-application>
+- https://docs.flutter.dev/development/ui/assets-and-images#platform-assets
 
 添加应用图标的过程比较复杂，而且涉及到对应平台的一些知识，我们就不给 TodoApp 添加图标了。
 
