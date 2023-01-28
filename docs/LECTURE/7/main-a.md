@@ -20,6 +20,18 @@ TODO 使用方法
 
 TODO VSCode 断点 F5
 
+### Layout 调试
+
+> https://docs.flutter.dev/development/tools/devtools/inspector#show-guidelines
+
+```dart
+import 'package:flutter/rendering.dart';
+
+void showLayoutGuidelines() {
+  debugPaintSizeEnabled = true;
+}
+```
+
 ### 官方调试工具
 
 TODO https://docs.flutter.dev/testing/debugging https://docs.flutter.dev/testing/code-debugging

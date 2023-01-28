@@ -155,7 +155,7 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 
 个人非常推荐在入门应用设计开发前，通读一两遍 Material Design 或者 Human Interface Guidelines，这能让你在设计开发应用时有一些范式可以参考，从而获得更高效的设计开发速度，应用的用户体验也会更好。
 
-### Material Design
+## Material Design
 
 官网：<https://m3.material.io>
 
