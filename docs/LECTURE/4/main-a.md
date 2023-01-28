@@ -1,4 +1,4 @@
-# Widget
+# Widgets
 
 这节课我们会先了解 Flutter 应用的简单结构，然后介绍一些常用的用户界面组件以及一些常用的控制组件。下节课我们会说明 Flutter 中的两种 Widget 的区别与联系，重点讲述状态管理。
 
@@ -405,7 +405,7 @@ MediaQuery.of(context).size.height;
 
 简单的导航方式使用一个栈来记录历史的页面，栈顶的页面始终为当前的界面。跳转到新的界面则需要在栈中 push 这个页面，返回之前的页面即弹出栈顶的当前页面。这种导航在 Flutter 中使用 `Navigator` 实现，一个页面为一个 `Route`。要使用 `Navigator`，应用需要有 `MaterialApp` 或 `CupertinoApp` 包裹，它们都使用了 `WidgetsApp` 来提供导航功能。
 
-下面的案例来自 [Flutter cookbook | Navigate to a new screen and back](https://docs.flutter.dev/cookbook/navigation/navigation-basics)：
+下面的案例来自 [Flutter Cookbook | Navigate to a new screen and back](https://docs.flutter.dev/cookbook/navigation/navigation-basics)：
 
 ```dart
 import 'package:flutter/material.dart';

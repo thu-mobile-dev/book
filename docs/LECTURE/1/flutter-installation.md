@@ -1,4 +1,4 @@
-# 安装 Flutter
+# 安装 SDK
 
 目前 Flutter 支持安装在 Windows、macOS、Linux、Chrome OS。课程组支持的两个平台为 Windows 和 macOS。
 

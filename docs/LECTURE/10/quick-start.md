@@ -1,4 +1,4 @@
-# Flutter 快速入门指南
+# 快速入门 Flutter
 
 !!! warning
     这一份入门指南主要针对两种同学：
@@ -13,7 +13,7 @@
 - [声明式和命令式的区别](https://docs.flutter.dev/get-started/flutter-for/declarative)
     - 声明式是 Flutter 框架的一大特色。如果你以前使用的是命令式开发框架，最好看一下这篇文章。
 
-## 在 Windows 或 macOS 上安装 Flutter
+## 在 Windows 或 macOS 上安装 Flutter SDK
 
 - [安装命令行 flutter](https://docs.flutter.dev/get-started/install)
     - [使用国内镜像站](https://docs.flutter.dev/community/china)

@@ -158,13 +158,13 @@ void main(List<String> arguments) {
 
 ![](images-main/figma-4.png)
 
-## 安装 Flutter 准备开发环境
+## 安装 Flutter SDK 准备开发环境
 
 画好 UI、想好 UX 之后，我们开始用 Flutter 来做 TodoApp。
 
 Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前端 React 框架的思想，将用户界面视为 App 中所有状态的映射，也即，用这些状态渲染出当前的界面 UI。下一节课我们会详细讲讲 Flutter 背后的一些原理，这节课我们只要知道 Flutter 一个大致的用法就行了。
 
-安装请查看 [安装 Flutter](./flutter-installation.md) 这篇文章。
+安装请查看 [安装 SDK](./flutter-installation.md) 这篇文章。
 
 安装成功后，你还需要一款编辑器，这里推荐使用 [VS Code](https://code.visualstudio.com)，打开后还需要安装 Dart 和 Flutter 这两款官方的插件。
 
