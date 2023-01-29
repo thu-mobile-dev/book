@@ -46,13 +46,227 @@ UI = f(states)
 
 ### 原理
 
-TODO
+一个最简单的 `StatefulWidget` 框架如下：
+
+```dart
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+```
+
+TODO 说一下传递参数还有 widget.xxx 的语法
 
 ### 案例
 
-> 注：在 VS Code 中敲 `stf` 即可自动补全 `StatefulWidget`。
+> 注：在 VS Code 中
+> 
+> - 敲 `stf` 回车即可自动补全 `StatefulWidget`。
+> - 右键一个 `StatelessWidget` 选择 Refactor... 可以将其转换为 `StatefulWidget`。
+> - 右键一个 `StatefulWidget` 选择 Refactor... 可以将其转换为 `StatelessWidget`。
 
-TODO 用 switch 或者 多选框做例子感觉比较好。就用黑夜模式吧，单个页面的黑夜模式。
+我们用一个非常简单的黑夜模式开关的案例来对 `StatefulWidget` 进行说明。
+
+#### StatelessWidget
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: MyPage(
+          isDarkModeOn: true,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
+
+class MyPage extends StatelessWidget {
+  final bool isDarkModeOn;
+
+  MyPage({super.key, required this.isDarkModeOn});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: isDarkModeOn ? Colors.black : Colors.white,
+      child: Center(
+        child: Text(
+          "Hello, world!",
+          style: TextStyle(
+              color: isDarkModeOn ? Colors.white : Colors.black, fontSize: 48),
+        ),
+      ),
+    );
+  }
+}
+```
+
+这里展示了一个最简单的黑夜模式的开关的案例，黑夜模式开则黑底白字，关则白底黑字。
+
+由于这里 `MyPage` 是 `StatelessWidget`，可以看到其参数 `bool isDarkModeOn` 被标记为 `final`，也就是只能被赋值一次。在初始化 `MyPage` 的时候，必须传入 `isDarkModeOn` 这个参数。每当传入的参数改变时，`MyPage` 就会被重新实例化，可以说，`StatelessWidget` 的 `build()` 只会执行一次。
+
+这时我们要修改暗夜模式，只能在代码中 `MyPage` 实例化的地方进行修改，然后使用热加载重启应用。
+
+如果我们希望添加一个开关来让用户修改黑夜模式，那么我们至少需要一个变量 `isDarkModeOn`，在 Flutter 中，普通的变量难以和用户界面的刷新直接关联，最推荐的方式是将 `MyPage` 变为一个 `StatefulWidget`，然后将 `isDartModeOn` 从参数变为一个状态。
+
+#### StatefulWidget
+
+下面是用 `StatefulWidget` 重写的黑夜模式案例：
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: MyPage(
+          isDarkModeOnDefault: true,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
+
+class MyPage extends StatefulWidget {
+  final bool isDarkModeOnDefault;
+
+  MyPage({super.key, required this.isDarkModeOnDefault});
+
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  late bool isDarkModeOn;
+
+  @override
+  void initState() {
+    super.initState();
+    isDarkModeOn = widget.isDarkModeOnDefault;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isDarkModeOn = !isDarkModeOn;
+        });
+      },
+      child: Container(
+        color: isDarkModeOn ? Colors.black : Colors.white,
+        child: Center(
+          child: Text(
+            "Hello, world!",
+            style: TextStyle(
+                color: isDarkModeOn ? Colors.white : Colors.black,
+                fontSize: 48),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+- 我们首先关注 `_MyPageState` 中的变量 `bool isDarkModeOn`，它是一个状态，我们使用这个状态来控制背景和文字的颜色。
+    - 我们为 `MyPage` 添加了一个参数名为 `isDarkModeOnDefault`，这个参数只会传入一次。
+    - 在 `initState()` 中，状态 `isDarkModeOn` 的初值被赋为 `isDarkModeOnDefault`（使用 `widget.xxx` 来获取参数）。由于赋值在声明之后，我们需要使用 `late` 关键字标记 `isDarkModeOn`。
+- 在 `Container` 外部，我们使用 `GestureDetector` 添加一个点击回调函数，其中使用 `setState()` 来改变 `isDarkModeOn` 的值。
+
+事实上，我们可以发现当 `isDarkModeOn` 被作为一个状态之后，`_MyPageState` 的 `build()` 相当于一个 `StatelessWidget`，我们可以进一步做封装，变为类似上面的 `StatelessWidget` 案例的样子：
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: MyStatefulPage(
+          isDarkModeOnDefault: true,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
+
+class MyStatefulPage extends StatefulWidget {
+  final bool isDarkModeOnDefault;
+
+  MyStatefulPage({super.key, required this.isDarkModeOnDefault});
+
+  @override
+  State<MyStatefulPage> createState() => _MyStatefulPageState();
+}
+
+class _MyStatefulPageState extends State<MyStatefulPage> {
+  late bool isDarkModeOn;
+
+  @override
+  void initState() {
+    super.initState();
+    isDarkModeOn = widget.isDarkModeOnDefault;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isDarkModeOn = !isDarkModeOn;
+        });
+      },
+      child: MyStatelessPage(
+        isDarkModeOn: isDarkModeOn,
+      ),
+    );
+  }
+}
+
+class MyStatelessPage extends StatelessWidget {
+  final bool isDarkModeOn;
+
+  MyStatelessPage({super.key, required this.isDarkModeOn});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: isDarkModeOn ? Colors.black : Colors.white,
+      child: Center(
+        child: Text(
+          "Hello, world!",
+          style: TextStyle(
+              color: isDarkModeOn ? Colors.white : Colors.black, fontSize: 48),
+        ),
+      ),
+    );
+  }
+}
+```
+
+可以看到，`MyStatelessPage` 变成了可复用的 Widget，而我们的应用只是添加了一个状态层 `MyStatefulPage`，并将状态 `isDarkModeOn` 传入 `MyStatelessPage`。类似这样将状态层和无状态的用户界面分开构建应用，结构会更清晰一些。
+
+#### 备注
+
+注：上述案例将黑夜模式的设置放到应用内。但结合操作系统的黑夜模式设置，应用跟随系统设置决定是否使用黑夜模式更符合用户操作直觉一些。
 
 ## Provider
 
@@ -68,9 +282,11 @@ TODO
 
 ### 案例
 
-TODO https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple 也用黑夜模式，只不过用多个页面的黑夜模式。主要原理要讲清楚各个xxx的用法。
+TODO https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple 也用黑夜模式，只不过用多个页面的黑夜模式。主要原理要讲清楚各个xxx的作用。有两种方式：Provider.of() 或者 Consumer<>{} 都要说一下
 
 ### 进阶使用
+
+如果整个应用有很多的状态，最好将他们拆分为很多个小的状态，而不要写在一个大类中。
 
 TODO 讲一下 Multiple 和 Stream，主要内容来自 provider 的 readme。
 
