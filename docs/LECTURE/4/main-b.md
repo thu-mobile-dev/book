@@ -64,8 +64,6 @@ class _MyWidgetState extends State<MyWidget> {
 }
 ```
 
-TODO 说一下传递参数还有 widget.xxx 的语法
-
 ### 案例
 
 > 注：在 VS Code 中
@@ -190,6 +188,9 @@ class _MyPageState extends State<MyPage> {
     - 在 `initState()` 中，状态 `isDarkModeOn` 的初值被赋为 `isDarkModeOnDefault`（使用 `widget.xxx` 来获取参数）。由于赋值在声明之后，我们需要使用 `late` 关键字标记 `isDarkModeOn`。
 - 在 `Container` 外部，我们使用 `GestureDetector` 添加一个点击回调函数，其中使用 `setState()` 来改变 `isDarkModeOn` 的值。
 
+![](image-statefulwidget/dark-true.png)
+![](image-statefulwidget/dark-false.png)
+
 事实上，我们可以发现当 `isDarkModeOn` 被作为一个状态之后，`_MyPageState` 的 `build()` 相当于一个 `StatelessWidget`，我们可以进一步做封装，变为类似上面的 `StatelessWidget` 案例的样子：
 
 ```dart
@@ -278,11 +279,122 @@ class MyStatelessPage extends StatelessWidget {
 
 ### 原理
 
-TODO
+#### 创建 Model 类
+
+在 Provider 中，我们会使用一个继承 `ChangeNotifier` 的类来管理状态，这个类的方法对状态进行修改，当状态的改变需要使得界面重新渲染时，调用 `notifyListeners()` 来通知对应的 Widget 进行渲染（即重新调用 `build()`）。例如：
+
+```dart
+class MyModel extends ChangeNotifier {
+  MyState state;
+
+  void changeState(MyState newState) {
+    state = newState;
+    notifyListeners();
+  }
+}
+```
+
+#### 创建 Model 实例
+
+整个 UI 结构是一个树的结构，一个状态可能被多个 Widget 使用，那么这个状态创建的位置应该在这些 Widget 共同的上方。`ChangeNotifierProvider` 是一个 Widget，只需要将需要使用状态的 Widget 放到 `ChangeNotifierProvider` 的下方即可。创建的方式如下：
+
+```dart
+ChangeNotifierProvider(
+  create: (context) => MyModel(),
+  child: MyWidget()
+)
+```
+
+#### 使用状态
+
+对于使用（读取和修改）这个状态的 Widget，需要去订阅这个状态的更改（也即接收 `notifyListeners()` 传递的信号），同时也应该能够接收到状态的值。这两个功能由 `Consumer<MyModel>(builder: (context, model, child){ ... })` 或 `Provider.of<MyModel>(context)` 实现：
+
+```dart
+class MyPage extends StatelessWidget {
+  MyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyModel>(
+      builder: (context, model, child) {
+        return WidgetBuiltBy(model.state);
+      },
+    );
+  }
+}
+```
+
+```dart
+class MyWidget extends StatelessWidget {
+  MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return WidgetBuiltBy(Provider.of<MyModel>(context).state);
+  }
+}
+```
 
 ### 案例
 
-TODO https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple 也用黑夜模式，只不过用多个页面的黑夜模式。主要原理要讲清楚各个xxx的作用。有两种方式：Provider.of() 或者 Consumer<>{} 都要说一下
+接下来我们将上面用 `StatefulWidget` 构建的黑夜模式案例改为用 `Provider` 构建：
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: ChangeNotifierProvider(
+            create: (context) => MyPageModel(isDarkModeOnDefault: false),
+            child: MyPage()),
+      ),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
+
+class MyPageModel extends ChangeNotifier {
+  late bool isDarkModeOn;
+
+  MyPageModel({required bool isDarkModeOnDefault}) {
+    isDarkModeOn = isDarkModeOnDefault;
+  }
+
+  void toggleDarkMode() {
+    isDarkModeOn = !isDarkModeOn;
+    notifyListeners();
+  }
+}
+
+class MyPage extends StatelessWidget {
+  const MyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyPageModel>(builder: (context, model, child) {
+      return GestureDetector(
+        onTap: () {
+          model.toggleDarkMode();
+        },
+        child: Container(
+          color: model.isDarkModeOn ? Colors.black : Colors.white,
+          child: Center(
+            child: Text(
+              "Hello, world!",
+              style: TextStyle(
+                  color: model.isDarkModeOn ? Colors.white : Colors.black,
+                  fontSize: 48),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
+```
 
 ### 进阶使用
 
