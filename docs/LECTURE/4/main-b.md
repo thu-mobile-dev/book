@@ -277,6 +277,8 @@ class MyStatelessPage extends StatelessWidget {
 
 本课程选取 [Provider](https://pub.dev/packages/provider) 进行教学，这是官方推荐的一个状态管理包，对于初学者来说也足够简单易用。
 
+在项目中添加 `Provider` 需要在 `pubspec.yaml` 的 `dependencies:` 中添加 `provider:`。在对应的文件首添加 `import 'package:provider/provider.dart';`。
+
 ### 原理
 
 #### 创建 Model 类
@@ -398,9 +400,11 @@ class MyPage extends StatelessWidget {
 
 ### 进阶使用
 
-如果整个应用有很多的状态，最好将他们拆分为很多个小的状态，而不要写在一个大类中。
+更多的使用方法在 [Provider 的 README](https://pub.dev/packages/provider#usage) 中介绍的比较详细，下面简单提及。
 
-TODO 讲一下 Multiple 和 Stream，主要内容来自 provider 的 readme。
+- 如果整个应用有很多的状态，最好将他们拆分为很多个小的状态，而不要写在一个大类中。
+- 你可以使用 `MultiProvider` 从一个树结点添加多个 Model。
+- 你可以使用 [StreamProvider](https://pub.dartlang.org/documentation/provider/latest/provider/StreamProvider-class.html) 来监听流。
 
 ## References
 
