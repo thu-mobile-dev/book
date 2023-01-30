@@ -182,6 +182,8 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 
 使用 `flutter create todoapp` 在当前工作目录创建名为 `todoapp` 的 Flutter 项目，用 `code todoapp` 即可在 VS Code 中打开改项目。
 
+> 关于创建时使用的项目名称规范，可以查看 <https://dart.dev/tools/pub/pubspec#name>。
+
 打开之后我们最好先用 Git 初始化一下（`.gitignore` 文件在创建项目的时候已经创建了），结合 VS Code 的源代码管理能够看到代码的修改情况。 `git init` `git add` `git commit -m "init"`。
 
 ### 项目结构
@@ -269,6 +271,8 @@ class ContentWidget extends StatelessWidget {
   }
 }
 ```
+
+注：在手敲 Flutter 代码的时候，最好使用 VS Code 的格式化来统一代码的风格。右键可以看到 `Format Document`，默认的快捷键是 `alt shift F` 或 `opt shift F`。
 
 #### 运行
 

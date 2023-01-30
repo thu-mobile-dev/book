@@ -35,6 +35,8 @@
 - 23-27 Row / Expaned / Flexible
 - 28-29 tight constraints / loose constraints
 
+![](images-constraints/ConstrainedBox.png)
+
 ## 紧约束和松约束
 
 紧约束给出了一个确切的大小：
