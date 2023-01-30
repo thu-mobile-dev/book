@@ -176,7 +176,12 @@ TODO （H4小标题）介绍 Image 显示图片的多种方式（网络、本地
 - [SimpleDialog](https://api.flutter.dev/flutter/material/SimpleDialog-class.html)
     - 用于解释或提供一个用户输入的界面
 
-TODO H4小标题 加图和用法
+TODO H4小标题 加用法
+
+![SnackBar](image-widgets/material-SnackBar.png)
+![AlertDialog](image-widgets/material-AlertDialog.png)
+![BottomSheet](image-widgets/material-BottomSheet.png)
+![SimpleDialog](image-widgets/material-SimpleDialog.png)
 
 ### 信息呈现
 
@@ -184,14 +189,21 @@ TODO H4小标题 加图和用法
 - [Chip](https://api.flutter.dev/flutter/material/Chip-class.html)
 - [DataTable](https://api.flutter.dev/flutter/material/DataTable-class.html)
 
-TODO H4小标题 加图和用法
+TODO H4小标题 加用法
+
+![Card](image-widgets/material-Card.png)
+![Chip](image-widgets/material-Chip.png)
+![DataTable](image-widgets/material-DataTable.png)
 
 ### 进度展示
 
 - [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html)
 - [LinearProgressIndicator](https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 
-TODO H4小标题 加图和用法
+TODO H4小标题 加用法
+
+![CircularProgressIndicator](image-widgets/material-CircularProgressIndicator.png)
+![LinearProgressIndicator](image-widgets/material-LinearProgressIndicator.png)
 
 ### 几何形状
 
@@ -203,7 +215,9 @@ TODO H4小标题 加图和用法
 
 [TextField](https://api.flutter.dev/flutter/material/TextField-class.html)
 
-TODO 添加用法  记得有两种样式、可以放两张图
+TODO 添加用法 如何获取文字内容
+
+![TextField](image-widgets/material-TextField.png)
 
 ### 选择
 
@@ -218,7 +232,13 @@ TODO 添加用法  记得有两种样式、可以放两张图
 - [showDatePicker()](https://api.flutter.dev/flutter/material/showDatePicker.html)
     - 日期时间选择器
 
-TODO 加图、获取选择的数据 都用最简单的例子
+TODO 获取选择的数据 都用最简单的例子
+
+![Switch](image-widgets/material-Switch.png)
+![Radio](image-widgets/material-Radio.png)
+![Checkbox](image-widgets/material-Checkbox.png)
+![Slider](image-widgets/material-Slider.png)
+![DatePicker](image-widgets/material-DatePicker.png)
 
 ### 按钮
 
@@ -265,7 +285,11 @@ class MyWidget extends StatelessWidget {
 - [FloatingActionButton](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
     - 作为应用的一个主要操作入口的悬浮按钮
 
-TODO 放一个图呈现一下这几种就行了
+![TextButton](image-widgets/material-TextButton.png)
+![OutlinedButton](image-widgets/material-OutlinedButton.png)
+![IconButton](image-widgets/material-IconButton.png)
+![ElevatedButton](image-widgets/material-ElevatedButton.png)
+![FloatingActionButton](image-widgets/material-FloatingActionButton.png)
 
 ### 其他手势
 
@@ -292,7 +316,10 @@ TODO 放一个图呈现一下这几种就行了
 - [DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
     - [PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)
 
-TODO 加图 简单说一下其中的参数
+TODO 简单说一下其中的参数和使用方法
+
+![DropdownButton](image-widgets/material-DropdownButton.png)
+![PopupMenuButton](image-widgets/material-PopupMenuButton.png)
 
 ## 常用布局组件
 
@@ -312,6 +339,8 @@ TODO 加图 简单说一下其中的参数
 ![Row](image-widgets/Row.png)
 ![Column](image-widgets/Column.png)
 ![Stack](image-widgets/Stack.png)
+
+![Divider](image-widgets/material-Divider.png)
 
 TODO 结合 Icon 简单说一下用法（开启下面这个查看效果）
 import 'package:flutter/rendering.dart';
@@ -498,7 +527,12 @@ Material Design 也提供了很多其他的导航方式：
 - [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html)
     - 屏幕左侧滑出可以用来选择页面的组件。
 
-TODO 加图加用法
+TODO 加用法
+
+![AppBar](image-widgets/material-AppBar.png)
+![BottomNavigationBar](image-widgets/material-BottomNavigationBar.png)
+![TabBarView](image-widgets/material-TabBarView.png)
+![Drawer](image-widgets/material-Drawer.png)
 
 ## References
 
