@@ -159,17 +159,19 @@ Icon(
 - `Flow` 对子 Widget 的布局
 - 回调函数在父子 Widget 间的传递
 
-### 界面布局
+### 整体结构
 
 应用整体为单页，使用 `MaterialApp` 包裹 `PhotoWithFilterPage`。
 
-#### PhotoWithFilterPage
-
 `PhotoWithFilterPage` 使用 `Stack`，呈现出背景有颜色滤镜的图片 `PhotoWithFilterView`（目前使用项目中的资源图片），下方的选色器 `ColorSelectorView` 为一个整体。可以看到，`PhotoWithFilterPage` 是一个 `StatefulWidget`，其中状态为 `selectedColor`，`ColorSelectorView` 通过回调函数 `onColorSelected` 对状态进行修改，`PhotoWithFilterView` 对状态进行使用。
 
-#### ColorSelectorView
+### ColorSelectorView
 
 分析下方的选色器 `ColorSelectorView`，主要由三层构成：中间一层是一个可以左右滑动的 `ColorsView`，主要使用 `Scrollable`，使用与 `PageView` 类似的逻辑进行控制，从而实现每次滑动时的吸附动画效果。前面一层 `RingView` 画一个圈，表示当前选中的颜色，始终处于最下方正中间。最后一层是一个从上到下的从透明到黑色的颜色梯度 `ShadowView`，使得选取的背景图片和 `ColorsView` 在视觉上不冲突。
+
+开启 `debugPaintSizeEnabled = true;` 截图如下：
+
+![](images-photo-fliter/debug.png)
 
 #### 手势冲突
 
