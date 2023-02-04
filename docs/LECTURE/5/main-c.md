@@ -146,21 +146,79 @@ Icon(
 
 案例代码 [GitHub | photo_fliter](https://github.com/thu-flutter-dev/photo_fliter)
 
-> 此案例源自 [Flutter Cookbook | Create a photo filter carousel](https://docs.flutter.dev/cookbook/effects/photo-filter-carousel)。
+> 此案例源自 [Flutter Cookbook | Create a photo filter carousel](https://docs.flutter.dev/cookbook/effects/photo-filter-carousel)，为了呈现更加清晰的结构，修改的地方比较多。
 
 ![](images-photo-fliter/official.gif)
 
-可以看到界面主要是两层，背景是一张图片，上面在下方有一个颜色选择栏，选择对应的颜色会给图片添加滤镜。选择颜色时可以点击选择，或者左右拨动选择（电脑端不支持左右拨动）。在颜色选择的过程中，越靠近中间的颜色大小越大。
+可以看到界面主要是两层，背景是一张图片，上面在下方有一个颜色选择栏，选择对应的颜色会给图片添加滤镜。选择颜色时可以点击选择，或者左右拨动选择（电脑端不支持鼠标左右拖拽拨动，而是使用默认的滚动方式（如鼠标滚轮或触控板滑动））。在颜色选择的过程中，越靠近中间的颜色大小越大。
 
 此案例的主要知识点：
 
-- 手势信息的获取
-- 动画的构建
+- Flutter 约束和布局规则 Constraints go down. Sizes go up. Parent sets position.
+- `Scrollable` 的使用
+- `Flow` 对子 Widget 的布局
+- 回调函数在父子 Widget 间的传递
 
-### 整体结构
+### 界面布局
 
-TODO
+应用整体为单页，使用 `MaterialApp` 包裹 `PhotoWithFilterPage`。
 
-### 手势处理与动画详解
+#### PhotoWithFilterPage
 
-TODO
+`PhotoWithFilterPage` 使用 `Stack`，呈现出背景有颜色滤镜的图片 `PhotoWithFilterView`（目前使用项目中的资源图片），下方的选色器 `ColorSelectorView` 为一个整体。可以看到，`PhotoWithFilterPage` 是一个 `StatefulWidget`，其中状态为 `selectedColor`，`ColorSelectorView` 通过回调函数 `onColorSelected` 对状态进行修改，`PhotoWithFilterView` 对状态进行使用。
+
+#### ColorSelectorView
+
+分析下方的选色器 `ColorSelectorView`，主要由三层构成：中间一层是一个可以左右滑动的 `ColorsView`，主要使用 `Scrollable`，使用与 `PageView` 类似的逻辑进行控制，从而实现每次滑动时的吸附动画效果。前面一层 `RingView` 画一个圈，表示当前选中的颜色，始终处于最下方正中间。最后一层是一个从上到下的从透明到黑色的颜色梯度 `ShadowView`，使得选取的背景图片和 `ColorsView` 在视觉上不冲突。
+
+#### 手势冲突
+
+在 `ColorSelectorView` 的 `Stack` 中，`RingView` 添加了 `IgnorePointer`。这是因为从层级关系上来说，`RingView` 遮挡（拦截）了 `ColorsView` 的滑动手势。使用 `IgnorePointer` 可以使得包裹的 Widget 不接受手势。
+
+#### 使用约束确定大小
+
+这里需要注意一点，我们需要确定下方 `ColorSelectorView` 的高度。代码的逻辑是，通过 `ColorSelectorView.colorCountOnScreen` 来决定 `ColorsView` 在屏幕上呈现多少个 `ColorView`，这样的话一个 `ColorView`（含 `Padding`）的宽度应该是屏幕宽度除以 `ColorSelectorView`。我们使得 `ColorView`（含 `Padding`）的高度和宽度一致即可。为了使得整个 `ColorsView` 有通用性，我们使用 `LayoutBuilder` 拿到 `ColorSelectorView` 的约束 `constraints`，使用 `constraints.maxWidth`（上层 Widget 传给 `ColorSelectorView` 的最大宽度） 计算得到一个 `ColorView` 的高度和宽度。
+
+#### 关于 Padding
+
+`ColorsView` 和 `RingView` 都添加了上下高度为 `verticlePaddingSize` 的 `Padding`。`ShadowView` 则将 `ColorsView` 的背景填满。
+
+`ColorView` 因为要添加 `RingView`，所以添加了和 `RingView` 的圆环宽度大小一样的 `Padding`。
+
+### ColorsView
+
+接下来我们讲解比较核心的 `ColorsView`，主要是由 `Scrollable` 构成 UI，`Scrollable` 保证了全平台统一的滑动体验。
+
+#### Scrollable 的参数
+
+我们先来查看 `Scrollable` 的参数：
+
+- `controller`
+    - [`ScrollController`](https://api.flutter.dev/flutter/widgets/Scrollable/controller.html)，`ScrollController` 可以用来设置一个 `Scrollable` 的初始滚动位置 `initialScrollOffset`、读取当前的滚动位置 `offset`、或者用 `animateTo()` 来改变当前的滚动位置。
+    - 这里我们使用 `ScrollController` 的子类 `PageController`，来方便的添加 `viewportFraction`。
+    - `viewport` 可以理解为“视野”，我们希望 `Scrollable` 在屏幕中的部分呈现出 `colorCountOnScreen` 个 `ColorView`，将 `viewportFraction` 设置为 `1.0 / colorCountOnScreen`。
+- `axisDirection` 表示滑动的主轴为向右的轴。
+- `physics` 使用 `PageScrollPhysics` 使得在滑动的时候有着类似一页一页滑动的吸附效果。
+- `viewportBuilder`
+    - `viewportOffset.applyViewportDimension()` 设置 `Scrollable` 在屏幕上显示的长度。
+    - `viewportOffset.applyContentDimensions()` 设置可滑动的范围（可以通过这个去隐藏一些边缘的内容），差为内容的总长度。
+    - 根据滑动的位置（偏移量） `viewportOffset` 来确定 `Flow` 中的布局。
+
+#### Flow
+
+> [Flow](https://api.flutter.dev/flutter/widgets/Flow-class.html) sizes and positions children efficiently, according to the logic in a [FlowDelegate](https://api.flutter.dev/flutter/rendering/FlowDelegate-class.html).
+
+简单来说，`Flow` 可以对 `children` 实现自定义程度很高的布局，使用者需要对 `FlowDelegate` 中的 `paintChildren()` 进行重载。在 [YouTube | Flow (Flutter Widget of the Week)](https://www.youtube.com/watch?v=NG6pvXpnIso&t=141s) 中讲的比较直观，配合矩阵可以做出很不错的动画效果。
+
+在 `ColorsViewFlowDelegate` 中 `paintChildren` 的最后，在 `for` 循环中调用 `context.paintChild()` 实现对各个子 Widget 的绘制。具体是一些数学运算，代码中也有英文注释，感兴趣的同学可以自行查看。
+
+#### 交互逻辑
+
+在 `ColorsView` 中，有两套交互逻辑：
+
+- `PageController` 检测到用户翻页（左右滑动），需要对当前位置做四舍五入然后更新 `int _currentPage` 和 `selectedColor` 的值。
+    - 实现在 `_ColorsViewState._onPageChanged()` 中。
+    - 在 `_ColorsViewState.initState()` 中  `_pageController.addListener(_onPageChanged);` 表示每次 `_pageController` 的 `double page` 值发生改变都会调用 `_onPageChanged()`。
+- 用户点击 `ColorView` 进一步调用 `onTap`，从而改变 `int _currentPage` 和 `selectedColor` 的值。
+    - 实现在 `_ColorsViewState._onColorSelected()` 中。
+    - 在 `_pageController.animateToPage()` 中使用动画呈现滑动效果。

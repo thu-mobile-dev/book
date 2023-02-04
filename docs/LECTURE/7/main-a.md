@@ -25,7 +25,7 @@ TODO VSCode 断点 F5
 > https://docs.flutter.dev/development/tools/devtools/inspector#show-guidelines
 
 ```dart
-import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void showLayoutGuidelines() {
   debugPaintSizeEnabled = true;
