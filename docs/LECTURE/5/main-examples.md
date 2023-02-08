@@ -146,11 +146,11 @@ Icon(
 
 ## 简易照片滤镜
 
-案例代码 [GitHub | photo_fliter](https://github.com/thu-flutter-dev/photo_fliter)
+案例代码 [GitHub | photo_filter](https://github.com/thu-flutter-dev/photo_filter)
 
 > 此案例源自 [Flutter Cookbook | Create a photo filter carousel](https://docs.flutter.dev/cookbook/effects/photo-filter-carousel)，为了呈现更加清晰的结构，修改的地方比较多。
 
-![](images-photo-fliter/official.gif)
+![](images-photo-filter/official.gif)
 
 可以看到界面主要是两层，背景是一张图片，上面在下方有一个颜色选择栏，选择对应的颜色会给图片添加滤镜。选择颜色时可以点击选择，或者左右拨动选择（电脑端不支持鼠标左右拖拽拨动，而是使用默认的滚动方式（如鼠标滚轮或触控板滑动））。在颜色选择的过程中，越靠近中间的颜色大小越大。
 
@@ -173,7 +173,7 @@ Icon(
 
 开启 `debugPaintSizeEnabled = true;` 截图如下：
 
-![](images-photo-fliter/debug.png)
+![](images-photo-filter/debug.png)
 
 #### 手势冲突
 
@@ -212,7 +212,7 @@ Icon(
 
 > [Flow](https://api.flutter.dev/flutter/widgets/Flow-class.html) sizes and positions children efficiently, according to the logic in a [FlowDelegate](https://api.flutter.dev/flutter/rendering/FlowDelegate-class.html).
 
-简单来说，`Flow` 可以对 `children` 实现自定义程度很高的布局，使用者需要对 `FlowDelegate` 中的 `paintChildren()` 进行重载。在 [YouTube | Flow (Flutter Widget of the Week)](https://www.youtube.com/watch?v=NG6pvXpnIso&t=141s) 中讲的比较直观，配合矩阵可以做出很不错的动画效果。
+简单来说，`Flow` 可以对 `children` 实现自定义程度很高的布局，使用者需要对 `FlowDelegate` 中的 `paintChildren()` 进行重载。在 [YouTube | Flow (Flutter Widget of the Week)](https://www.youtube.com/watch?v=NG6pvXpnIso) 中讲的比较直观，配合矩阵可以做出很不错的动画效果。
 
 在 `ColorsViewFlowDelegate` 中 `paintChildren` 的最后，在 `for` 循环中调用 `context.paintChild()` 实现对各个子 Widget 的绘制。具体是一些数学运算，代码中也有英文注释，感兴趣的同学可以自行查看。
 
