@@ -133,6 +133,8 @@ class ClockBorderView extends StatelessWidget {
 - `ClockHandView` 使用 `Transform.rotate` 来确定秒针位置
 - 查看布局情况，可以将 `main()` 中的 `debugPaintSizeEnabled = true;` 取消注释。
 
+![](images-animation/clock.png)
+
 #### 有状态
 
 要想让界面动起来，我们需要有一个状态来存储秒数，还需要一种方式来改变秒数的值。我们需要一个 `StatefulWidget`。
