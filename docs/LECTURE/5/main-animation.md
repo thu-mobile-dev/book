@@ -7,7 +7,7 @@
 - 屏幕刷新的新一帧界面和上一帧界面不一样，画面就动了起来，可以说这是广义的动画。
 - 现在的设备普遍支持 60 帧每秒的刷新率，由于人眼的视觉暂留效果，当屏幕以 60 帧每秒的刷新率刷新，人看起来感觉很流畅。这可以说是狭义的动画，重要是流畅。
 
-## 刷新界面的动画
+## StatefulWidget 刷新
 
 在第四课入门中，我们其实已经讲过，Flutter 为声明式的 UI 框架，声明式的核心是下面的这个公式：
 
@@ -17,11 +17,11 @@ UI = f(states)
 
 对于动画来说，这个公式中有用的点为：`states` 改变时，`UI` 改变。简单来说，我们想要让画面动起来，只需要让 `states` 动起来即可。所以，在 Flutter 中做动画，使用 `StatefulWidget` 是完全足够的。
 
-### 钟表表针案例
+### 钟表秒针案例
 
 我们来制作一个钟表来感受通过改变数值来改变对动画的刷新。案例中的钟表只显示秒针，每当用户点击，秒数加一，秒针往前走一格。
 
-注：本节课的钟表表针案例代码可以在 [GitHub | thu-flutter-dev/running_clock](https://github.com/thu-flutter-dev/running_clock) 的各次 commit 中获取。
+注：本节课的所有钟表秒针案例代码可以在 [GitHub | thu-flutter-dev/running_clock](https://github.com/thu-flutter-dev/running_clock) 的 `codes/` 文件夹中获取，复制粘贴至 `lib/main.dart` 中即可运行查看效果。
 
 #### 无状态
 
@@ -175,7 +175,9 @@ class _ClickableClickViewState extends State<ClickableClickView> {
 
 但是现在的界面有一个问题，相邻的秒之间是跳变的，也就是说，每次用户点击秒针旋转的时候，我们都觉得不流畅。要想让这种变化流畅起来，我们需要每秒 60 帧的动画，下面我们就会提到。
 
-## 流畅刷新的动画
+## 流畅刷新（Explicit Animation）
+
+注：这里我们在标题中引入 Explicit Animation，但是后面讲到 Implicit Animation 是才会对比说明意思。这里暂时先只考虑「流畅刷新」。
 
 这一部分的三个重点是 `Animation<double>` `AnimationController` `AnimatedWidget`。可以先查看它们的继承关系：
 
@@ -237,11 +239,13 @@ AnimationController({double? value, Duration? duration, Duration? reverseDuratio
 AnimatedWidget({Key? key, required Listenable listenable})
 ```
 
+注：通过继承关系 `Object` > `Widget` > `StatefulWidget` > `AnimatedWidget` 和 `Object` > `Widget` > `StatefulWidget` > `AnimatedBuilder` 可以看到，`AnimatedWidget` 和 `AnimatedBuilder` 的地位相近，作用是相似的，只是写法不同。
+
 可以看到我们需要传入一个 `Lisenable`，当 `Lisenable` 改变时，`AnimatedWidget` 就可以接收到，从而刷新界面。
 
 结合上面所说的继承关系：`Object` > `Listenable` > `Animation<double>` > `AnimationController`，我们可以将 `AnimationController` 传入 `AnimatedWidget`。
 
-### 流畅的钟表表针案例
+### 流畅的钟表秒针案例
 
 刚刚的案例中，相邻两秒的秒针渲染很生硬。我们接下来会在相邻两秒的秒针旋转之间添加一秒的动画，来模拟实际旋转的情况。
 
@@ -350,16 +354,127 @@ class AnimatedClockView extends AnimatedWidget {
 
 这样我们再进行点击，可以看到相邻两秒内的动画非常流畅，时间间隔也确实是一秒。
 
-## Flutter 中包装好的动画
+### FooTransition
 
-TODO 主要再看一下官网的 tutorial，那个里面都是很常用的动画。可以尝试用 RotationTransition 来让案例更简单。或者 Implicit 什么的直接作用于 setState 更好。
+查看继承关系：
 
-- 动画原理 从底层来讲吧（帧刷新 关键帧？）
-- 动画分类
-    - https://docs.flutter.dev/development/ui/animations
-    - https://docs.flutter.dev/development/ui/animations/overview
+`Object` > `DiagnosticableTree` > `Widget` > `StatefulWidget` > `AnimatedWidget` > `FooTransition`
+
+可以看到，`FooTransition` 与 `AnimatedWidget` 的作用基本一致，但使用起来更方便，代码的层级关系和功能也更容易看出。
+
+你可以在 [`AnimatedWidget` 的文档](https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html) 中找到 Flutter 内置的所有 `FooTransition`。
+
+我们完全可以用 [`RotationTransition`](https://api.flutter.dev/flutter/widgets/RotationTransition-class.html)（`RotationTransition({Key? key, required Animation<double> turns, Alignment alignment = Alignment.center, FilterQuality? filterQuality, Widget? child})`）改写上面的案例，将 `ClockHandView` 用 `RotationTransition` 包裹，将 `AnimationController` 转为 `Animation` 传入 `turns` 参数。
+
+这里不提供具体的代码实现，在当前的案例中 `RotationTransition` 的意义不大，需要逐层传递 `animation` 或 `controller` 与直接传递 `seconds` 的思路是一样的。
+
+
+
+## Implicit Animation
+
+上面讲的所有内容，其实只是 Flutter 中众多动画的一种：Explicit Animation。那么它明确（explicit）在哪里呢？我们使用 `AnimationController` 来使动画前进或停止，这是由开发者指定的。另一种动画，Implicit Animation，则通过 Flutter 框架本身来操作动画的进展，也就是说，并不再需要开发者手动创建管理 `AnimationController` 了。
+
+### 自动的钟表秒针案例
+
+注：下面的代码省去 `ClockView` `ClockHandView` `ClockBorderView`。
+
+```dart
+import 'package:flutter/material.dart';
+import 'dart:math';
+// import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
+
+void main() {
+  // debugPaintSizeEnabled = true;
+
+  runApp(const MaterialApp(
+      home: Scaffold(
+          body: Center(
+    child: ClickableClickView(),
+  ))));
+}
+
+class ClickableClickView extends StatefulWidget {
+  const ClickableClickView({super.key});
+
+  @override
+  State<ClickableClickView> createState() => _ClickableClickViewState();
+}
+
+class _ClickableClickViewState extends State<ClickableClickView> {
+  double seconds = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: seconds),
+      duration: const Duration(seconds: 1),
+      builder: (BuildContext context, double tweenSeconds, Widget? child) {
+        return GestureDetector(
+            onTap: () {
+              setState(() {
+                seconds += 1;
+              });
+            },
+            child: ClockView(seconds: tweenSeconds));
+      },
+    );
+  }
+}
+```
+
+- 使用 `TweenAnimationBuilder`，其中 `Tween` 可以理解开头和结尾的两个值，`TweenAnimationBuilder` 负责将这两个值插值，将得到的值传递给 `builder` 的 `double`，案例中命名为 `tweenSeconds`，将这个插值得到的值直接传给 `ClockView`。
+
+运行看到效果和上面的 Explicit Animation 一模一样，但是代码量急剧减少。事实上，当需要对动画精确控制时，我们才会需要考虑 Explicit Animation，大多数的动画，只是给出一个初值、一个结束值、动画的持续时间，然后框架自动触发这个动画就好了。Implicit Animation 对平凡的开发者来说是应用动画的一大福音。
+
+### AnimatedFoo
+
+基于下面的继承关系：
+
+`Object` > `Widget` > `StatefulWidget` > `ImplicitlyAnimatedWidget` > `AnimatedFoo`
+
+完全可以用 [`AnimatedRotation`](https://api.flutter.dev/flutter/widgets/AnimatedRotation-class.html) 来对上面的案例进行改写，课程不呈现这部分代码。在大多数的时间里中，使用 Flutter 已有的 `AnimatedFoo` 能够使代码更加简洁清晰。
+
+你可以在 [`ImplicitlyAnimatedWidget` 的文档](https://api.flutter.dev/flutter/widgets/ImplicitlyAnimatedWidget-class.html) 中找到 Flutter 内置的所有 `AnimatedFoo`。
+
+## Curve
+
+我们之前提到 `Animation<double>` 从 0.0 到 1.0，使用 `AnimationController` 让其前进，通过 `animation.value` 取出其值。在这个过程中，从 0.0 到 1.0 的过程是均匀的，也就是说，变化的速度为 `(1.0 - 0.0) / controller.duration`。这被成为线性动画。
+
+现实中的动画从 0.0 到 1.0 则有着多种变化方式，在 Flutter 中，[`Curve`](https://api.flutter.dev/flutter/animation/Curve-class.html) 表述这种变化，你可以在 [`Curves`](https://api.flutter.dev/flutter/animation/Curves-class.html) 中看到多种变化的曲线，在代码中可以进行添加。
+
+你也可以自定义 `Curve`，比如下面的代码（来自 <https://youtu.be/IVTjpW3W33s>）：
+
+```dart
+class SineCurve extends Curve {
+  final double count;
+  SineCurve({this.count = 1});
+  @override
+  double transformInternal(double t) {
+    return sin(count * 2 * pi * t) * 0.5 + 0.5;
+  }
+}
+```
+
+## 动画原理
+
+TODO 看了YouTube视频最后一讲决定要不要这个
+
+## 其他动画
+
+TODO 主要是这个：https://docs.flutter.dev/development/ui/animations#common-animation-patterns
+
 - 各种动画的使用（navigation动画、三种动画）
     - https://docs.flutter.dev/development/ui/animations/tutorial
     - https://docs.flutter.dev/development/ui/animations/implicit-animations
     - https://docs.flutter.dev/development/ui/animations/hero-animations
     - https://docs.flutter.dev/development/ui/animations/staggered-animations
+
+## 绘制类动画
+
+对于 Explicit Animation 和 Implicit Animation，它们都是针对 Widget 的一些属性进行插值得到流畅的动画，但是如果一些动画很难通过 Widget 进行表达，那么在它就脱离了 Flutter 动画的框架。不过 Flutter 也提供了底层的动画接口，开发者可以通过使用一些第三方包来得到绘制类动画。课程不对此类动画做要求。
+
+## 学习资源
+
+这一节课讲动画比较抽象，同学可以查看 [Flutter 官方推出的系列视频教程](https://www.youtube.com/playlist?list=PLjxrf2q8roU2v6UqYlt_KPaXlnjbYySua) 来复习课程中提到的内容。里面还提到了动画选取的方法。
+
+[官方文档的动画部分](https://docs.flutter.dev/development/ui/animations)，同学们也可以阅读，加深对动画的理解。
