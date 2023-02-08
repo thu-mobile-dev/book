@@ -1,17 +1,5 @@
 # 动画
 
-TODO
-
-动画原理 从底层来讲吧（帧刷新 关键帧？）
-动画分类
-    https://docs.flutter.dev/development/ui/animations
-    https://docs.flutter.dev/development/ui/animations/overview
-各种动画的使用（navigation动画、三种动画）
-    https://docs.flutter.dev/development/ui/animations/tutorial
-    https://docs.flutter.dev/development/ui/animations/implicit-animations
-    https://docs.flutter.dev/development/ui/animations/hero-animations
-    https://docs.flutter.dev/development/ui/animations/staggered-animations
-
 ## 什么是动画
 
 什么是动画？这个问题非常重要。但是答案却很简单，动起来就是动画。那么什么是动起来呢？
@@ -32,6 +20,8 @@ UI = f(states)
 ### 钟表表针案例
 
 我们来制作一个钟表来感受通过改变数值来改变对动画的刷新。案例中的钟表只显示秒针，每当用户点击，秒数加一，秒针往前走一格。
+
+注：本节课的钟表表针案例代码可以在 [GitHub | thu-flutter-dev/running_clock](https://github.com/thu-flutter-dev/running_clock) 的各次 commit 中获取。
 
 #### 无状态
 
@@ -363,3 +353,13 @@ class AnimatedClockView extends AnimatedWidget {
 ## Flutter 中包装好的动画
 
 TODO 主要再看一下官网的 tutorial，那个里面都是很常用的动画。可以尝试用 RotationTransition 来让案例更简单。或者 Implicit 什么的直接作用于 setState 更好。
+
+- 动画原理 从底层来讲吧（帧刷新 关键帧？）
+- 动画分类
+    - https://docs.flutter.dev/development/ui/animations
+    - https://docs.flutter.dev/development/ui/animations/overview
+- 各种动画的使用（navigation动画、三种动画）
+    - https://docs.flutter.dev/development/ui/animations/tutorial
+    - https://docs.flutter.dev/development/ui/animations/implicit-animations
+    - https://docs.flutter.dev/development/ui/animations/hero-animations
+    - https://docs.flutter.dev/development/ui/animations/staggered-animations
