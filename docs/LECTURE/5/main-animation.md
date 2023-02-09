@@ -223,7 +223,7 @@ class _ClickableClickViewState extends State<ClickableClickView> {
 AnimationController({double? value, Duration? duration, Duration? reverseDuration, String? debugLabel, double lowerBound = 0.0, double upperBound = 1.0, AnimationBehavior animationBehavior = AnimationBehavior.normal, required TickerProvider vsync})
 ```
 
-可以看到必须要传入的参数有 `TickerProvider vsync`。对于这个参数的解释如下：对于连续刷新的动画，每秒要做到刷新 60 帧、或者 120 帧，这取决于设备屏幕的情况。我们需要有一个触发器来在每帧实际呈现在屏幕上之前、还在渲染的时候，告诉 `AnimationController` 让它根据当前的 `value` 和 设置的 `duration` 来计算出下一帧的 `value`。这个触发器就是 `vsync`。
+可以看到必须要传入的参数有 `TickerProvider vsync`。对于这个参数的解释如下：对于连续刷新的动画，每秒要做到刷新 60 帧、或者 120 帧，这取决于设备屏幕的情况。我们需要有一个触发器来在每帧实际呈现在屏幕上之前、还在渲染的时候，告诉 `AnimationController` 让它根据当前的 `value` 和 设置的 `duration` 来计算出下一帧的 `value`。这个触发器就是 `vsync`。（`Ticker` 的作用是每一帧都会进行一次触发。）
 
 关于 `vsync` 的获取，官方提供的方法是：
 
@@ -455,19 +455,19 @@ class SineCurve extends Curve {
 }
 ```
 
-## 动画原理
-
-TODO 看了YouTube视频最后一讲决定要不要这个
-
 ## 其他动画
 
-TODO 主要是这个：https://docs.flutter.dev/development/ui/animations#common-animation-patterns
+也有一些比较常用的动画，Flutter 框架做了适当的封装。比如 Hero animations 和 Staggered Animations，同学可以查看 [Flutter Animations | Common animation patterns](https://docs.flutter.dev/development/ui/animations#common-animation-patterns) 获取更多信息。
 
-- 各种动画的使用（navigation动画、三种动画）
-    - https://docs.flutter.dev/development/ui/animations/tutorial
-    - https://docs.flutter.dev/development/ui/animations/implicit-animations
-    - https://docs.flutter.dev/development/ui/animations/hero-animations
-    - https://docs.flutter.dev/development/ui/animations/staggered-animations
+### Hero Animation
+
+Hero Animation 从效果上来说，就是 macOS Keynote（如果有同学用过） 的 Magic Move。当两个场景有相同元素的时候，使用 Hero Animation 可以在两个场景之间流畅转换。
+
+一个简单的使用场景是，用户点击图库中的一张图片，然后图片放大铺满全屏幕。在这个场景中，图库中的图片需要用 `Hero` 包裹起来，全屏幕的图片也用 `Hero` 包裹起来，给它们添加相同的 `tag`，在页面切换时 Flutter 会帮你完成转换的动画。
+
+### Staggered Animation
+
+直观来说，Staggered Animation 类似分段函数，在 `Animation<double>` 0.0 到 1.0 的时间段中使用不同的曲线对不同的属性进行修改。感兴趣的同学可以查看 [Flutter Animations | Staggered animations](https://docs.flutter.dev/development/ui/animations/staggered-animations)
 
 ## 绘制类动画
 
