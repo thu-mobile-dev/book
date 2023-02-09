@@ -179,11 +179,41 @@ Icon(CupertinoIcons.multiply)
 
 #### Text
 
-TODO （H4小标题）添加 Text 的各种参数的意义，（H5小标题）解释size的计算
+```dart
+Text(
+  "Hello, world!",
+  style: TextStyle(fontSize: 48),
+)
+```
+
+```dart
+Text(
+  "Hello, world!",
+  style: Theme.of(context).textTheme.titleLarge,
+)
+```
+
+更推荐使用 `textTheme` 来获取当前环境中 Material Design 约定的字体大小，这有助于使得应用整体结构清晰。
+
+也可以在偏上层的位置包裹 [`DefaultTextStyle`](https://api.flutter.dev/flutter/widgets/DefaultTextStyle-class.html) 这个 Widget 来对默认样式进行覆盖。
+
+##### size
+
+Flutter 使用的 size 都是 logical pixels，与实际在屏幕上显示的像素数的倍数关系用 `devicePixelRatio` 表示。使用 `debugPrint("${MediaQuery.of(context).devicePixelRatio}");` 可以呈现当前设备的 `devicePixelRatio`。
+
+可以查看 [widgets/MediaQueryData/devicePixelRatio](https://api.flutter.dev/flutter/widgets/MediaQueryData/devicePixelRatio.html) 和 [dart-ui/FlutterView/devicePixelRatio](https://api.flutter.dev/flutter/dart-ui/FlutterView/devicePixelRatio.html) 获取更多信息。
 
 #### Image
 
-TODO （H4小标题）介绍 Image 显示图片的多种方式（网络、本地路径、AssetBundle（引到[添加 Assets](./assets.md)））
+在项目中使用图片，最简单的方法是在项目文件夹中添加资源，然后在代码中使用。具体方法可以参考 [添加 Assets](./assets.md)。
+
+还有一种方式是通过网络获取图片并显示，如：
+
+```dart
+Image.network('https://example.com/a.png')
+```
+
+如果是需要下载存储到应用中的图片，那么需要结合目标平台的文件系统，这种使用方法可以参考第六讲的本地持久存储。
 
 ### 弹出式
 
@@ -391,26 +421,112 @@ class BodyWidget extends StatelessWidget {
 ### 信息呈现
 
 - [Card](https://api.flutter.dev/flutter/material/Card-class.html)
+    - `Card` 在 Material Design 中是用来呈现信息的，稍微有一些抬升，看起来和真的卡片差不多。
 - [Chip](https://api.flutter.dev/flutter/material/Chip-class.html)
+    - `Chip` 多用于选择，由左侧的简介和右侧的主体内容组成。
 - [DataTable](https://api.flutter.dev/flutter/material/DataTable-class.html)
+    - `DataTable` 如其名，是呈现数据的表格，有着比较容易分辨的默认样式。
 
 #### Card
 
 ![Card](image-widgets/material-Card.png)
 
-TODO
+```dart
+Card(
+  child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text("Hello, world!"),
+  ),
+)
+```
 
 #### Chip
 
 ![Chip](image-widgets/material-Chip.png)
 
-TODO
+```dart
+Chip(
+  avatar: CircleAvatar(
+    child: Icon(Icons.check),
+  ),
+  label: const Text("Hello, world!"),
+)
+```
 
 #### DataTable
 
 ![DataTable](image-widgets/material-DataTable.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    home: Scaffold(
+      body: ContentWidget(),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DataTable(
+      columns: const <DataColumn>[
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Name',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Age',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Role',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+      ],
+      rows: const <DataRow>[
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Sarah')),
+            DataCell(Text('19')),
+            DataCell(Text('Student')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Janine')),
+            DataCell(Text('43')),
+            DataCell(Text('Professor')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('William')),
+            DataCell(Text('27')),
+            DataCell(Text('Associate Professor')),
+          ],
+        ),
+      ],
+    );
+  }
+}
+```
 
 ### 进度展示
 
@@ -421,13 +537,23 @@ TODO
 
 ![CircularProgressIndicator](image-widgets/material-CircularProgressIndicator.png)
 
-TODO
+```dart
+// 转圈到一半的指示圆
+CircularProgressIndicator(value: 0.5)
+// 一直转圈的指示圆
+CircularProgressIndicator(value: null)
+```
 
 #### LinearProgressIndicator
 
 ![LinearProgressIndicator](image-widgets/material-LinearProgressIndicator.png)
 
-TODO
+```dart
+// 走到一半的指示条
+LinearProgressIndicator(value: 0.5)
+// 一直在走的指示条
+LinearProgressIndicator(value: null)
+```
 
 ### 几何形状
 
@@ -441,7 +567,53 @@ TODO
 
 ![TextField](image-widgets/material-TextField.png)
 
-TODO 添加用法 如何获取文字内容
+在代码中，我们使用 `TextEditingController` 来获取 `TextField` 的内容，其需要被放置在 `StatefulWidget` 中。
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(home: Scaffold(body: ContentWidget())));
+}
+
+class ContentWidget extends StatefulWidget {
+  const ContentWidget({super.key});
+
+  @override
+  State<ContentWidget> createState() => _ContentWidgetState();
+}
+
+class _ContentWidgetState extends State<ContentWidget> {
+  final textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: textController,
+          ),
+        )),
+        ElevatedButton(
+            onPressed: () {
+              debugPrint("输入的文字：${textController.text}");
+              textController.text = "";
+            },
+            child: Text("提交"))
+      ],
+    );
+  }
+}
+```
 
 ### 选择
 
@@ -453,38 +625,251 @@ TODO 添加用法 如何获取文字内容
     - 多选
 - [Slider](https://api.flutter.dev/flutter/material/Slider-class.html)
     - 滑动条
-- [showDatePicker()](https://api.flutter.dev/flutter/material/showDatePicker.html)
+- [showDatePicker()](https://api.flutter.dev/flutter/material/showDatePicker.html) & [showTimePicker()](https://api.flutter.dev/flutter/material/showTimePicker.html)
     - 日期时间选择器
 
 #### Switch
 
 ![Switch](image-widgets/material-Switch.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: SwitchExample(),
+        ),
+      ),
+    ));
+
+class SwitchExample extends StatefulWidget {
+  const SwitchExample({super.key});
+
+  @override
+  State<SwitchExample> createState() => _SwitchExampleState();
+}
+
+class _SwitchExampleState extends State<SwitchExample> {
+  bool light = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      // This bool value toggles the switch.
+      value: light,
+      activeColor: Colors.red,
+      onChanged: (bool value) {
+        // This is called when the user toggles the switch.
+        setState(() {
+          light = value;
+        });
+      },
+    );
+  }
+}
+```
 
 #### Radio
 
 ![Radio](image-widgets/material-Radio.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: MyStatefulWidget(),
+        ),
+      ),
+    ));
+
+enum Choices { A, B }
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  Choices? _character = Choices.A;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('A'),
+          leading: Radio<Choices>(
+            value: Choices.A,
+            groupValue: _character,
+            onChanged: (Choices? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('B'),
+          leading: Radio<Choices>(
+            value: Choices.B,
+            groupValue: _character,
+            onChanged: (Choices? value) {
+              setState(() {
+                _character = value;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
 
 #### Checkbox
 
 ![Checkbox](image-widgets/material-Checkbox.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: MyStatefulWidget(),
+        ),
+      ),
+    ));
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.red;
+    }
+
+    return Checkbox(
+      checkColor: Colors.white,
+      fillColor: MaterialStateProperty.resolveWith(getColor),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
+      },
+    );
+  }
+}
+```
 
 #### Slider
 
 ![Slider](image-widgets/material-Slider.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
 
-#### DatePicker
+void main() => runApp(const MaterialApp(
+      home: Scaffold(body: SliderExample()),
+    ));
+
+class SliderExample extends StatefulWidget {
+  const SliderExample({super.key});
+
+  @override
+  State<SliderExample> createState() => _SliderExampleState();
+}
+
+class _SliderExampleState extends State<SliderExample> {
+  double _currentSliderValue = 20;
+
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      value: _currentSliderValue,
+      max: 100,
+      divisions: 10,
+      label: _currentSliderValue.round().toString(),
+      onChanged: (double value) {
+        setState(() {
+          _currentSliderValue = value;
+        });
+      },
+    );
+  }
+}
+```
+
+#### DatePicker & TimePicker
 
 ![DatePicker](image-widgets/material-DatePicker.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(home: Scaffold(body: Center(child: ContentWidget()))));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        OutlinedButton(
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2023),
+                      lastDate: DateTime(2024))
+                  .then((date) {
+                if (date != null) {
+                  print(date);
+                }
+              });
+            },
+            child: Text("Open Time Picker")),
+        OutlinedButton(
+            onPressed: () {
+              showTimePicker(context: context, initialTime: TimeOfDay.now())
+                  .then((time) {
+                if (time != null) {
+                  print(time);
+                }
+              });
+            },
+            child: Text("Open Date Picker")),
+      ],
+    );
+  }
+}
+```
 
 ### 按钮
 
@@ -566,13 +951,64 @@ class MyWidget extends StatelessWidget {
 
 ![DropdownButton](image-widgets/material-DropdownButton.png)
 
-TODO 简单说一下其中的参数和使用方法
+```dart
+import 'package:flutter/material.dart';
+
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: DropdownButtonExample(),
+      ),
+    ),
+  ));
+}
+
+class DropdownButtonExample extends StatefulWidget {
+  const DropdownButtonExample({super.key});
+
+  @override
+  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+}
+
+class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+  String dropdownValue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
+```
 
 #### PopupMenuButton
 
 ![PopupMenuButton](image-widgets/material-PopupMenuButton.png)
 
-TODO 简单说一下其中的参数和使用方法
+使用方法与 `DropdownButton` 完全一致。
 
 ## 常用布局组件
 
@@ -595,15 +1031,145 @@ TODO 简单说一下其中的参数和使用方法
 ![Column](image-widgets/Column.png)
 ![Divider](image-widgets/material-Divider.png)
 
-TODO 结合 Icon 简单说一下用法（开启下面这个查看效果）
+```dart
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-debugPaintSizeEnabled = true;
+
+void main() {
+  debugPaintSizeEnabled = true;
+
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(child: ContentWidget()),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  final double iconSize = 96;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+            child: Icon(
+          Icons.chat,
+          size: iconSize,
+        )),
+        Flexible(flex: 2, child: Icon(Icons.contact_page, size: iconSize)),
+        Expanded(child: Icon(Icons.circle_notifications, size: iconSize)),
+      ],
+    );
+  }
+}
+```
+
+- `Row` 的宽度不能超过给定的最大宽度（`constraints.maxWidth`），否则会报错，这时应该使用 `ListView`。
+- `Row` 通过设置 `mainAxisAlignment` 可以调整子 Widget 之间的布局，默认是左对齐的。
+- children 中使用 `Expanded` 可以让 Widget 占据所有剩余的空间，有两个及以上 `Expanded` 则所有 `Expanded` 平分剩余的空间。
+- `Flexible` 可以让某个 Widget 所占空间是其他的整数倍。
+- `Divider` 是一个 Widget，可以直接加入到 `Row` 的 children 中。
+- 通过 `import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;` 并设置 `debugPaintSizeEnabled = true;` 可以在界面中看到布局的提示。这有助于调试界面。
 
 #### Stack
 
 ![Stack](image-widgets/Stack.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(child: ContentWidget()),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+        ),
+        Container(
+          width: 90,
+          height: 90,
+          color: Colors.green,
+        ),
+        Container(
+          width: 80,
+          height: 80,
+          color: Colors.blue,
+        ),
+      ],
+    );
+  }
+}
+```
+
+- `Stack` 可以形成堆叠，children 中靠后的 Widget 后绘制，也就是会越靠近屏幕，在最上层。
+- 默认按照左上角布局，也可以通过 `alignment` 指定。
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+          child: SizedBox(width: 200, height: 200, child: ContentWidget())),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          right: 0,
+          bottom: 0,
+          child: Container(
+            width: 100,
+            height: 100,
+            color: Colors.red,
+          ),
+        ),
+        Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.green,
+            )),
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.blue,
+        ),
+      ],
+    );
+  }
+}
+```
+
+- 可以用 `Positioned` 来确定 `Stack` 的子 Widget 的位置，指定上下左右的间隔即可，但要注意条件不能彼此冲突。
 
 ### 相对位置
 
@@ -619,30 +1185,49 @@ TODO
 ![Container](image-widgets/Container.png)
 ![Padding](image-widgets/Padding.png)
 
-TODO
+```dart
+Container({Key? key, AlignmentGeometry? alignment, EdgeInsetsGeometry? padding, Color? color, Decoration? decoration, Decoration? foregroundDecoration, double? width, double? height, BoxConstraints? constraints, EdgeInsetsGeometry? margin, Matrix4? transform, AlignmentGeometry? transformAlignment, Widget? child, Clip clipBehavior = Clip.none})
+```
+
+`Container` 比较常用参数是 `padding` 和 `margin`，`padding` 向外设置空白，`margin` 向里设置空白。关于 `constraints` `width` `height` 我们会在第五讲讲到。
 
 #### SizedBox
 
 ![SizedBox](image-widgets/SizedBox.png)
 
-TODO
+```dart
+SizedBox({Key? key, double? width, double? height, Widget? child})
+```
+
+`SizedBox` 可以创建出一个固定大小的矩形，在 `Row` / `Column` 中可以有着类似 `Padding` 的作用。但要注意，`SizedBox` 不总是可以呈现出设置的大小，这是因为在 Flutter 进行布局时，还需要考虑上层 Widget 给下层 Widget 的约束。这一点在第五讲会进行介绍。
 
 #### Align
 
 ![Align](image-widgets/Align.png)
 ![Center](image-widgets/Center.png)
 
+```dart
+Align({Key? key, AlignmentGeometry alignment = Alignment.center, double? widthFactor, double? heightFactor, Widget? child})
+```
+
 #### AspectRatio
 
 ![AspectRatio](image-widgets/AspectRatio.png)
 
-TODO
+`AspectRatio` 可以对子 Widget 的长宽比做限制。
+
+```dart
+AspectRatio({Key? key, required double aspectRatio, Widget? child})
+```
 
 ### 滑动
 
 - [ListView](https://api.flutter.dev/flutter/widgets/ListView-class.html)
+    - 上下（或左右）滑动的视图，一行是一个 Widget。
 - [GridView](https://api.flutter.dev/flutter/widgets/GridView-class.html)
+    - 使用格子对子视图进行布局。
 - [PageView](https://api.flutter.dev/flutter/widgets/PageView-class.html)
+    - 按页对子视图进行排布，在滑动时有吸附效果。
 - [SingleChildScrollView](https://api.flutter.dev/flutter/widgets/SingleChildScrollView-class.html)
     - 当单一元素过大无法一次性在屏幕上显示时，可以使用 SingleChildScrollView，用户可以通过横向或纵向移动的方法看到界面的全貌。
 
@@ -650,17 +1235,147 @@ TODO
 
 ![ListView](image-widgets/ListView.png)
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: ContentWidget(),
+      ),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  final double iconSize = 96;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Icon(
+          Icons.abc,
+          size: iconSize,
+        ),
+        Icon(Icons.baby_changing_station, size: iconSize),
+        Icon(Icons.cabin, size: iconSize),
+        Icon(Icons.dangerous, size: iconSize),
+        Icon(Icons.e_mobiledata, size: iconSize),
+        Icon(Icons.face, size: iconSize),
+        Icon(Icons.g_mobiledata, size: iconSize),
+        Icon(Icons.h_mobiledata, size: iconSize),
+        Icon(Icons.ice_skating, size: iconSize),
+        Icon(Icons.javascript, size: iconSize),
+        Icon(Icons.kayaking, size: iconSize),
+        Icon(Icons.label, size: iconSize),
+        Icon(Icons.macro_off, size: iconSize),
+        Icon(Icons.nat, size: iconSize),
+      ],
+    );
+  }
+}
+```
+
+对于所有滚动的视图，其基类应该都是 `Scrollable`，我们可以通过 `ScrollController` 来获取当前的位置、并对位置进行移动。
 
 #### GridView
 
 ![GridView](image-widgets/GridView.png)
 
-TODO
+`GridView` 用的比较多的是下面的一个构造函数：
+
+```dart
+GridView.count(crossAxisCount: 3, children: [ ... ])
+```
+
+一般 `GridView` 上下滑动，`crossAxisCount` 就表示每行呈现的 Widget 数量。
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: ContentWidget(),
+      ),
+    ),
+  ));
+}
+
+class ContentWidget extends StatelessWidget {
+  const ContentWidget({super.key});
+
+  final double iconSize = 96;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      children: [
+        Icon(
+          Icons.abc,
+          size: iconSize,
+        ),
+        Icon(Icons.baby_changing_station, size: iconSize),
+        Icon(Icons.cabin, size: iconSize),
+        Icon(Icons.dangerous, size: iconSize),
+        Icon(Icons.e_mobiledata, size: iconSize),
+        Icon(Icons.face, size: iconSize),
+        Icon(Icons.g_mobiledata, size: iconSize),
+        Icon(Icons.h_mobiledata, size: iconSize),
+        Icon(Icons.ice_skating, size: iconSize),
+        Icon(Icons.javascript, size: iconSize),
+        Icon(Icons.kayaking, size: iconSize),
+        Icon(Icons.label, size: iconSize),
+        Icon(Icons.macro_off, size: iconSize),
+        Icon(Icons.nat, size: iconSize),
+      ],
+    );
+  }
+}
+```
 
 #### PageView
 
-TODO
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(
+      home: Scaffold(
+        body: const MyStatelessWidget(),
+      ),
+    ));
+
+class MyStatelessWidget extends StatelessWidget {
+  const MyStatelessWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final PageController controller = PageController();
+    return PageView(
+      /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+      /// Use [Axis.vertical] to scroll vertically.
+      controller: controller,
+      children: const <Widget>[
+        Center(
+          child: Text('First Page'),
+        ),
+        Center(
+          child: Text('Second Page'),
+        ),
+        Center(
+          child: Text('Third Page'),
+        ),
+      ],
+    );
+  }
+}
+```
 
 ### 平面滑动
 
