@@ -159,9 +159,29 @@ class MyWidget extends StatelessWidget {
 - [Placeholder](https://api.flutter.dev/flutter/widgets/Placeholder-class.html)
     - 在开发中临时占位代表未添加的组件。
 
-TODO （H4小标题）添加 Icon 的两种 Icons.xxx 和 Cupertino icons
+#### Icon
+
+一种图标是 Flutter 框架自带的 Material Design 图标，在 [Icons 文档](https://api.flutter.dev/flutter/material/Icons-class.html) 中可以查看全部的图标。使用方法：
+
+```dart
+Icon(Icons.close)
+```
+
+另一种比较推荐的是 Human Interface Guidelines 中的图标，在 [CupertinoIcons 文档](https://api.flutter.dev/flutter/cupertino/CupertinoIcons-class.html) 中可以查看全部的图标。在 `pubspec.yaml` 的 `dependecies` 中添加 `cupertino_icons`。用法如下：
+
+```dart
+import 'package:cupertino_icons/cupertino_icons.dart';
+
+Icon(CupertinoIcons.multiply)
+```
+
+图标有着非常简洁却又有着很高的表现力，非常推荐大家在寻找组件时优先在上面两个官方支持的图标库中挑选。
+
+#### Text
 
 TODO （H4小标题）添加 Text 的各种参数的意义，（H5小标题）解释size的计算
+
+#### Image
 
 TODO （H4小标题）介绍 Image 显示图片的多种方式（网络、本地路径、AssetBundle（引到[添加 Assets](./assets.md)））
 
@@ -169,19 +189,204 @@ TODO （H4小标题）介绍 Image 显示图片的多种方式（网络、本地
 
 - [SnackBar](https://api.flutter.dev/flutter/material/SnackBar-class.html)
     - 在屏幕下方呈现的简短信息条，可以添加一些辅助按钮
-- [AlertDialog](https://api.flutter.dev/flutter/material/AlertDialog-class.html)
-    - 在屏幕中间呈现的警告，让用户确认或取消其操作
 - [BottomSheet](https://api.flutter.dev/flutter/material/BottomSheet-class.html)
     - 在屏幕下方呈现多个操作栏目
+- [AlertDialog](https://api.flutter.dev/flutter/material/AlertDialog-class.html)
+    - 在屏幕中间呈现的警告，让用户确认或取消其操作
 - [SimpleDialog](https://api.flutter.dev/flutter/material/SimpleDialog-class.html)
     - 用于解释或提供一个用户输入的界面
 
-TODO H4小标题 加用法
+#### SnackBar
 
 ![SnackBar](image-widgets/material-SnackBar.png)
-![AlertDialog](image-widgets/material-AlertDialog.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Hello, world!")));
+      },
+    );
+  }
+}
+```
+
+#### BottomSheet
+
 ![BottomSheet](image-widgets/material-BottomSheet.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  const BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: const Text('showBottomSheet'),
+        onPressed: () {
+          Scaffold.of(context).showBottomSheet<void>(
+            (BuildContext context) {
+              return Container(
+                height: 200,
+                color: Colors.amber,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text('BottomSheet'),
+                      ElevatedButton(
+                        child: const Text('Close BottomSheet'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+
+#### AlertDialog
+
+![AlertDialog](image-widgets/material-AlertDialog.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('AlertDialog Title'),
+              content: SingleChildScrollView(
+                child: Text('AlertDialog Demo'),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Cancle'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}
+```
+
+#### SimpleDialog
+
 ![SimpleDialog](image-widgets/material-SimpleDialog.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  const BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: OutlinedButton(
+        onPressed: () => _dialogBuilder(context),
+        child: const Text('Open Dialog'),
+      ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Select your choice'),
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                debugPrint("chose A");
+              },
+              child: const Text('A'),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                debugPrint("chose B");
+              },
+              child: const Text('B'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+```
 
 ### 信息呈现
 
@@ -189,21 +394,40 @@ TODO H4小标题 加用法
 - [Chip](https://api.flutter.dev/flutter/material/Chip-class.html)
 - [DataTable](https://api.flutter.dev/flutter/material/DataTable-class.html)
 
-TODO H4小标题 加用法
+#### Card
 
 ![Card](image-widgets/material-Card.png)
+
+TODO
+
+#### Chip
+
 ![Chip](image-widgets/material-Chip.png)
+
+TODO
+
+#### DataTable
+
 ![DataTable](image-widgets/material-DataTable.png)
+
+TODO
 
 ### 进度展示
 
 - [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html)
 - [LinearProgressIndicator](https://api.flutter.dev/flutter/material/LinearProgressIndicator-class.html)
 
-TODO H4小标题 加用法
+#### CircularProgressIndicator
 
 ![CircularProgressIndicator](image-widgets/material-CircularProgressIndicator.png)
+
+TODO
+
+#### LinearProgressIndicator
+
 ![LinearProgressIndicator](image-widgets/material-LinearProgressIndicator.png)
+
+TODO
 
 ### 几何形状
 
@@ -215,9 +439,9 @@ TODO H4小标题 加用法
 
 [TextField](https://api.flutter.dev/flutter/material/TextField-class.html)
 
-TODO 添加用法 如何获取文字内容
-
 ![TextField](image-widgets/material-TextField.png)
+
+TODO 添加用法 如何获取文字内容
 
 ### 选择
 
@@ -232,13 +456,35 @@ TODO 添加用法 如何获取文字内容
 - [showDatePicker()](https://api.flutter.dev/flutter/material/showDatePicker.html)
     - 日期时间选择器
 
-TODO 获取选择的数据 都用最简单的例子
+#### Switch
 
 ![Switch](image-widgets/material-Switch.png)
+
+TODO
+
+#### Radio
+
 ![Radio](image-widgets/material-Radio.png)
+
+TODO
+
+#### Checkbox
+
 ![Checkbox](image-widgets/material-Checkbox.png)
+
+TODO
+
+#### Slider
+
 ![Slider](image-widgets/material-Slider.png)
+
+TODO
+
+#### DatePicker
+
 ![DatePicker](image-widgets/material-DatePicker.png)
+
+TODO
 
 ### 按钮
 
@@ -316,10 +562,17 @@ class MyWidget extends StatelessWidget {
 - [DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
     - [PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)
 
-TODO 简单说一下其中的参数和使用方法
+#### DropdownButton
 
 ![DropdownButton](image-widgets/material-DropdownButton.png)
+
+TODO 简单说一下其中的参数和使用方法
+
+#### PopupMenuButton
+
 ![PopupMenuButton](image-widgets/material-PopupMenuButton.png)
+
+TODO 简单说一下其中的参数和使用方法
 
 ## 常用布局组件
 
@@ -336,15 +589,21 @@ TODO 简单说一下其中的参数和使用方法
     - [Positioned](https://api.flutter.dev/flutter/widgets/Positioned-class.html)
         - 添加 Stack 中的 Widget 的位置信息。
 
+#### Row & Column
+
 ![Row](image-widgets/Row.png)
 ![Column](image-widgets/Column.png)
-![Stack](image-widgets/Stack.png)
-
 ![Divider](image-widgets/material-Divider.png)
 
 TODO 结合 Icon 简单说一下用法（开启下面这个查看效果）
 import 'package:flutter/rendering.dart';
 debugPaintSizeEnabled = true;
+
+#### Stack
+
+![Stack](image-widgets/Stack.png)
+
+TODO
 
 ### 相对位置
 
@@ -355,14 +614,29 @@ debugPaintSizeEnabled = true;
     - [Center](https://api.flutter.dev/flutter/widgets/Center-class.html)
 - [AspectRatio](https://api.flutter.dev/flutter/widgets/AspectRatio-class.html)
 
+#### Container
+
 ![Container](image-widgets/Container.png)
 ![Padding](image-widgets/Padding.png)
+
+TODO
+
+#### SizedBox
+
 ![SizedBox](image-widgets/SizedBox.png)
+
+TODO
+
+#### Align
+
 ![Align](image-widgets/Align.png)
 ![Center](image-widgets/Center.png)
+
+#### AspectRatio
+
 ![AspectRatio](image-widgets/AspectRatio.png)
 
-TODO 加用法
+TODO
 
 ### 滑动
 
@@ -370,11 +644,23 @@ TODO 加用法
 - [GridView](https://api.flutter.dev/flutter/widgets/GridView-class.html)
 - [PageView](https://api.flutter.dev/flutter/widgets/PageView-class.html)
 - [SingleChildScrollView](https://api.flutter.dev/flutter/widgets/SingleChildScrollView-class.html)
+    - 当单一元素过大无法一次性在屏幕上显示时，可以使用 SingleChildScrollView，用户可以通过横向或纵向移动的方法看到界面的全貌。
+
+#### ListView
 
 ![ListView](image-widgets/ListView.png)
+
+TODO
+
+#### GridView
+
 ![GridView](image-widgets/GridView.png)
 
-TODO 加用法
+TODO
+
+#### PageView
+
+TODO
 
 ### 平面滑动
 
@@ -527,12 +813,220 @@ Material Design 也提供了很多其他的导航方式：
 - [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html)
     - 屏幕左侧滑出可以用来选择页面的组件。
 
-TODO 加用法
+#### AppBar
 
 ![AppBar](image-widgets/material-AppBar.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    appBar: AppBar(title: Text("AppBar")),
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  const BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("Hello, world!"),
+    );
+  }
+}
+```
+
+#### BottomNavigationBar
+
 ![BottomNavigationBar](image-widgets/material-BottomNavigationBar.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(
+      home: MyStatefulWidget(),
+    ));
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+```
+
+#### TabBarView
+
 ![TabBarView](image-widgets/material-TabBarView.png)
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(
+      home: MyStatelessWidget(),
+    ));
+
+const List<Tab> tabs = <Tab>[
+  Tab(text: 'Zeroth'),
+  Tab(text: 'First'),
+  Tab(text: 'Second'),
+];
+
+class MyStatelessWidget extends StatelessWidget {
+  const MyStatelessWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: tabs.length,
+      // The Builder widget is used to have a different BuildContext to access
+      // closest DefaultTabController.
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context);
+        tabController.addListener(() {
+          if (!tabController.indexIsChanging) {
+            // Your code goes here.
+            // To get index of current tab use tabController.index
+          }
+        });
+        return Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: tabs,
+            ),
+          ),
+          body: TabBarView(
+            children: tabs.map((Tab tab) {
+              return Center(
+                child: Text(
+                  '${tab.text!} Tab',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              );
+            }).toList(),
+          ),
+        );
+      }),
+    );
+  }
+}
+```
+
+#### Drawer
+
 ![Drawer](image-widgets/material-Drawer.png)
+
+TODO 案例在电脑上无法验证
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    drawer: Drawer(
+        child: ListView(
+      padding: EdgeInsets.zero,
+      children: const <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.message),
+          title: Text('Messages'),
+        ),
+        ListTile(
+          leading: Icon(Icons.account_circle),
+          title: Text('Profile'),
+        ),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Settings'),
+        ),
+      ],
+    )),
+    body: BodyWidget(),
+  )));
+}
+
+class BodyWidget extends StatelessWidget {
+  const BodyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("Hello, world!"),
+    );
+  }
+}
+```
 
 ## References
 
