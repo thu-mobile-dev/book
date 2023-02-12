@@ -1,6 +1,6 @@
 # Flutter 简介
 
-> 本篇内容大部分摘自 <https://docs.flutter.dev/resources/faq>
+> 本篇内容大部分摘自 [Flutter | FAQ](https://docs.flutter.dev/resources/faq)
 
 ## Flutter 理念
 

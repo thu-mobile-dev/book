@@ -917,9 +917,13 @@ class MyWidget extends StatelessWidget {
     - 作为应用的一个主要操作入口的悬浮按钮
 
 ![TextButton](image-widgets/material-TextButton.png){width="300"}
+
 ![OutlinedButton](image-widgets/material-OutlinedButton.png){width="300"}
+
 ![IconButton](image-widgets/material-IconButton.png){width="300"}
+
 ![ElevatedButton](image-widgets/material-ElevatedButton.png){width="300"}
+
 ![FloatingActionButton](image-widgets/material-FloatingActionButton.png){width="300"}
 
 ### 其他手势
@@ -1028,7 +1032,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 #### Row & Column
 
 ![Row](image-widgets/Row.png){width="300"}
+
 ![Column](image-widgets/Column.png){width="300"}
+
 ![Divider](image-widgets/material-Divider.png){width="300"}
 
 ```dart
@@ -1379,7 +1385,7 @@ class MyStatelessWidget extends StatelessWidget {
 
 ### 平面滑动
 
-[InteractiveViewer](https://api.flutter.dev/flutter/widgets/InteractiveViewer-class.html) 提供了平面滚动，且支持了缩放的手势。参考 <https://stackoverflow.com/questions/71976826/simultaneous-2d-scrolling-in-body-of-scaffold-design-apps-miro-or-figma> 得到的案例如下：
+[InteractiveViewer](https://api.flutter.dev/flutter/widgets/InteractiveViewer-class.html) 提供了平面滚动，且支持了缩放的手势。参考 [Stack Overflow | Simultaneous 2D scrolling in body of scaffold](https://stackoverflow.com/questions/71976826/simultaneous-2d-scrolling-in-body-of-scaffold-design-apps-miro-or-figma) 得到的案例如下：
 
 ```dart
 import 'package:flutter/material.dart';

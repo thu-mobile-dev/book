@@ -23,7 +23,7 @@ clone 本仓库，进入 `book/` 之后执行：
 mkdocs serve
 ```
 
-等待构建和部署完成，浏览器打开 `http://127.0.0.1:8000/book/` 即可看到本网站。
+等待构建和部署完成，浏览器打开 <http://127.0.0.1:8000/book/> 即可看到本网站。
 
 ## 云端部署
 
@@ -33,4 +33,4 @@ mkdocs serve
 
 ### 使用 GitHub Pages
 
-本仓库已经添加 `.github/workflows/issueMySite.yml`，在仓库页的 `Settings > Pages` 选择 `gh-pages` 等待片刻即可在 <https://thu-flutter-dev.github.io/book> 看到本网站。
+本仓库已经添加 `.github/workflows/issueMySite.yml`，将仓库设置为 public，并在仓库页的 `Settings > Pages` 选择 `gh-pages` 等待片刻即可在 <https://thu-flutter-dev.github.io/book> 看到本网站。

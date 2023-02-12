@@ -440,7 +440,7 @@ class _ClickableClickViewState extends State<ClickableClickView> {
 
 现实中的动画从 0.0 到 1.0 则有着多种变化方式，在 Flutter 中，[`Curve`](https://api.flutter.dev/flutter/animation/Curve-class.html) 表述这种变化，你可以在 [`Curves`](https://api.flutter.dev/flutter/animation/Curves-class.html) 中看到多种变化的曲线，在代码中可以进行添加。
 
-你也可以自定义 `Curve`，比如下面的代码（来自 <https://youtu.be/IVTjpW3W33s>）：
+你也可以自定义 `Curve`，比如下面的代码（来自 [YouTube | Animation Basics with Implicit Animations](https://youtu.be/IVTjpW3W33s)）：
 
 ```dart
 class SineCurve extends Curve {

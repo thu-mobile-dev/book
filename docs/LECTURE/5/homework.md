@@ -172,4 +172,4 @@ class ClockBorderView extends StatelessWidget {
 ### 提示
 
 - 你可能需要一些 Android 或 iOS 的原生开发知识以修改一些工程文件来取得调用摄像头或访问系统图库的权限。
-- 可选用的第三方库 <https://docs.flutter.dev/cookbook/plugins/picture-using-camera>
+- 可选用的第三方库 [Flutter | Cookbook: Take a picture using the camera](https://docs.flutter.dev/cookbook/plugins/picture-using-camera)

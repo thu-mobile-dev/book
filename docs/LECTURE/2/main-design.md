@@ -157,7 +157,7 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 
 ## Material Design
 
-官网：<https://m3.material.io>
+[Material 3 官网](https://m3.material.io)
 
 > What's Material?
 > 
@@ -165,11 +165,11 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 >
 > The latest version, Material 3, enables personal, adaptive, and expressive experiences – from dynamic color and enhanced accessibility, to foundations for large screen layouts and design tokens.
 > 
-> <https://m3.material.io/get-started>
+> -- [Material 3 | Get Started](https://m3.material.io/get-started)
 
 ### 准则
 
-打开 <https://m3.material.io/foundations>，我们可以看到下面的一些话题：
+打开 [Material 3 | Foundations](https://m3.material.io/foundations)，我们可以看到下面的一些话题：
 
 - Accessibility: 让更多人满足的设计
 - Adaptive design: 针对不同设备做不同的适配
@@ -177,7 +177,7 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 - Interaction states: 交互时的状态
 - Design Tokens: Material Design 使用的一些一些名词
 
-在 <https://m3.material.io/styles> 中也有很多关于设计的内容：
+在 [Material 3 | Styles](https://m3.material.io/styles) 中也有很多关于设计的内容：
 
 - Color
 - Elavation
@@ -221,13 +221,13 @@ Material Design 中的组件主要分为六种：
 
 ### 设计文件
 
-之前提到，开发之前是设计，如果要使用 Material Design，那么设计稿里面当然也要有 Material Design 的风格、主题和组件。Google 提供了 Figma 的 Design Kit，我们可以打开 <https://www.figma.com/community/file/1035203688168086460> 点击右上角的 Get a Copy 将这份文件存到自己 Figma 账户下使用。
+之前提到，开发之前是设计，如果要使用 Material Design，那么设计稿里面当然也要有 Material Design 的风格、主题和组件。Google 提供了 Figma 的 Design Kit，我们可以打开 [Figma | Material 3 Design Kit](https://www.figma.com/community/file/1035203688168086460) 点击右上角的 Get a Copy 将这份文件存到自己 Figma 账户下使用。
 
 ### 开发
 
-打开 <https://m3.material.io/develop> 可以看到 Material Design 在 MDC-Android（安卓原生开发（应该是））、Jetpack Compose 和 Flutter 这三个框架中得到了支持（Web 端的支持在计划中）。这意味着，在这三个框架中，你可以用少量代码快速应用 Material Design，让你的应用整体看起来统一舒适。
+打开 [Material 3 | Develop](https://m3.material.io/develop) 可以看到 Material Design 在 MDC-Android（安卓原生开发（应该是））、Jetpack Compose 和 Flutter 这三个框架中得到了支持（Web 端的支持在计划中）。这意味着，在这三个框架中，你可以用少量代码快速应用 Material Design，让你的应用整体看起来统一舒适。
 
-在 <https://docs.flutter.dev/development/ui/widgets/material> 可以快速找到 Flutter 中 Material Design 的组件。在 <https://docs.flutter.dev/cookbook> 的 Design 部分也有这在 Flutter 中使用 Material Design 的一些说明。
+在 [Flutter | Material Components widgets](https://docs.flutter.dev/development/ui/widgets/material) 可以快速找到 Flutter 中 Material Design 的组件。在 [Flutter | Cookbook](https://docs.flutter.dev/cookbook) 的 Design 部分也有这在 Flutter 中使用 Material Design 的一些说明。
 
 ![](images-material/flutter-material-components-0.png)
 
@@ -239,14 +239,14 @@ Material Design 中的组件主要分为六种：
 
 这部分不全是 Material Design 提供的准则，也有 Google 对于 Android 平台提出的一些要求。在设计应用和优化迭代时查看准则，提高应用的质量，让应用能够触及更多人。
 
-- 核心的应用质量 <https://developer.android.com/docs/quality-guidelines/core-app-quality>
-- 让应用被更多人使用 <https://developer.android.com/docs/quality-guidelines/build-for-billions>
-- 大屏安卓设备 <https://developer.android.com/docs/quality-guidelines/large-screen-app-quality>
-- 游戏 <https://developers.google.com/games/services/checklist>
+- 核心的应用质量 [Android Developers | Core app quality](https://developer.android.com/docs/quality-guidelines/core-app-quality)
+- 让应用被更多人使用 [Android Developers | Build for billions](https://developer.android.com/docs/quality-guidelines/build-for-billions)
+- 大屏安卓设备 [Android Developers | Large screen app quality](https://developer.android.com/docs/quality-guidelines/large-screen-app-quality)
+- 游戏 [Google Developers | Quality Checklist for Google Play Games Services](https://developers.google.com/games/services/checklist)
 
 ## Human Interface Guidelines
 
-官网：<https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/>
+[Apple Develop | Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/)
 
 Human Interface Guidelines (HIG) 是 Apple 为自家的所有平台的应用设计提出的指导，里面涵盖的内容比 Material Design 要更丰富一些。但是无所谓设计准则熟优孰劣，各有特色。
 

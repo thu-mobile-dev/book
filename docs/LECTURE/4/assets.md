@@ -92,7 +92,7 @@ Image(image: AssetImage('assets/a.png'))
 
 ## 使用包来管理资源
 
-你可以将资源打包发布为一个 Dart 第三方包，方便在多个项目中使用。具体可以参考 <https://docs.flutter.dev/development/ui/assets-and-images#from-packages>。
+你可以将资源打包发布为一个 Dart 第三方包，方便在多个项目中使用。具体可以参考 [Flutter | Adding assets and images: Asset images in package dependencies](https://docs.flutter.dev/development/ui/assets-and-images#from-packages)。
 
 ## References
 

@@ -18,10 +18,10 @@
 - [安装命令行 flutter](https://docs.flutter.dev/get-started/install)
     - [使用国内镜像站](https://docs.flutter.dev/community/china)
     - 安装好后打开命令行执行命令 `flutter --version` 的输出应该包含 `Flutter 3.x.x`
-- [安装编辑器 VS Code](https://code.visualstudio.com)
+- 安装编辑器 [VS Code](https://code.visualstudio.com)
     - `VS Code` 是一款非常经典好用的编辑器，这也是有 `Flutter` 官方支持的一款编辑器。
-    - 使用方法可以参考 <https://docs.flutter.dev/development/tools/vs-code>
-- [安装调试工具 Chrome](https://www.google.com/chrome/)
+    - 使用方法可以参考 [Flutter | Tools: Visual Studio Code](https://docs.flutter.dev/development/tools/vs-code)
+- 安装调试工具 [Chrome](https://www.google.com/chrome/)
     - `Flutter` 主要的任务是在一块 `height*width` 的屏幕上渲染你构建的应用，UI 部分和具体的平台没太大的关系。`Flutter` 是跨平台的框架，不仅支持移动端、桌面端，还支持网页端，因此我们选择大家电脑上可能已经有的 `Chrome` 进行调试即可。
     - 虽然课程聚焦移动应用开发，但是如果要使用 `Android` 或者 `iOS` 的模拟器运行应用，需要进行的安装非常麻烦。可以入门之后再安装对应的 `IDE` 和模拟器。
 - 打开 `VS Code` 安装插件
@@ -57,20 +57,20 @@
     - `flutter build web --web-renderer html`
     - `cd build/web && python3 -m http.server 8000`
     - 浏览器打开 `localhost:8000` 即可看到应用
-- 关于网页应用两种构建方式的区别  见<https://docs.flutter.dev/development/platform-integration/web/renderers>。使用 `--web-renderer html` 这种渲染方式是因为另一种默认的渲染方式似乎无法显示文字。
+- 关于网页应用两种构建方式的区别  见[Flutter | Web renderers](https://docs.flutter.dev/development/platform-integration/web/renderers)。使用 `--web-renderer html` 这种渲染方式是因为另一种默认的渲染方式似乎无法显示文字。
 
 ## 有应用开发经验
 
 如果你之前有移动端原生开发的经验，可以看官方提供的教程：
 
-- 熟悉 Android 原生开发 <https://docs.flutter.dev/get-started/flutter-for/android-devs>
-- 熟悉 iOS UIKit 开发 <https://docs.flutter.dev/get-started/flutter-for/ios-devs>
-- 熟悉 iOS SwiftUI 开发 <https://docs.flutter.dev/get-started/flutter-for/swiftui-devs>
-- 熟悉 Web 开发 <https://docs.flutter.dev/get-started/flutter-for/web-devs>
+- 熟悉 Android 原生开发 [Flutter | Flutter for Android developers](https://docs.flutter.dev/get-started/flutter-for/android-devs)
+- 熟悉 iOS UIKit 开发 [Flutter | Flutter for UIKit developers](https://docs.flutter.dev/get-started/flutter-for/uikit-devs)
+- 熟悉 iOS SwiftUI 开发 [Flutter | Flutter for SwiftUI Developers](https://docs.flutter.dev/get-started/flutter-for/swiftui-devs)
+- 熟悉 Web 开发 [Flutter | Flutter for web developers](https://docs.flutter.dev/get-started/flutter-for/web-devs)
 
 ## Dart 是 Flutter 使用的编程语言
 
-- 有 `C`/`C++`/`Python` 编程的基础只需要看 [A tour of the Dart language](https://dart.dev/guides/language/language-tour) 这一篇就行了
+- 有 `C`/`C++`/`Python` 编程的基础只需要看 [Dart | A tour of the Dart language](https://dart.dev/guides/language/language-tour) 这一篇就行了
 
 ## 看 Flutter 官方文档
 

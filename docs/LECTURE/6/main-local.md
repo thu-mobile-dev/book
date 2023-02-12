@@ -136,9 +136,7 @@ final success = await prefs.remove('counter');
 
 ### 复习 SQL
 
-相信大多数人已经学过数据库相关的知识了，对 SQL 也很熟悉了，这里课堂不提及。需要学习或者复习 SQL 的同学可以戳下面的链接：
-
-<https://www.w3schools.com/sql/>
+相信大多数人已经学过数据库相关的知识了，对 SQL 也很熟悉了，这里课堂不提及。需要学习或者复习 SQL 的同学可以打开 [W3 Schools | SQL Tutorial](https://www.w3schools.com/sql/)。
 
 ### sqflite
 
@@ -450,7 +448,7 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
 
 ## 进阶
 
-进一步的本地存储需求可以查看 <https://docs.flutter.dev/development/packages-and-plugins/happy-paths/recommended#structured-local-storage->，其中提到了两个插件 [drift](https://pub.dev/packages/drift) 和 [hive](https://pub.dev/packages/hive)。
+进一步的本地存储需求可以查看 [Flutter | Structured local storage](https://docs.flutter.dev/development/packages-and-plugins/happy-paths/recommended#structured-local-storage-)，其中提到了两个插件 [drift](https://pub.dev/packages/drift) 和 [hive](https://pub.dev/packages/hive)。
 
 ## References
 

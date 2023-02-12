@@ -26,7 +26,7 @@ TODO 可以简单分个类
 
 #### cupertino_icons
 
-<https://pub.dev/packages/cupertino_icons>
+[Flutter Packages | cupertino_icons](https://pub.dev/packages/cupertino_icons)
 
 ```dart
 import 'package:flutter/cupertino.dart';
@@ -38,7 +38,7 @@ Icon(
 )
 ```
 
-可以在 <https://api.flutter.dev/flutter/cupertino/CupertinoIcons-class.html#constants> 查看所有的图标。
+可以在 [Flutter API | CupertinoIcons class](https://api.flutter.dev/flutter/cupertino/CupertinoIcons-class.html#constants) 查看所有的图标。
 
 #### google_fonts
 

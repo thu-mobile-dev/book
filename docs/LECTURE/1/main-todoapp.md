@@ -182,7 +182,7 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 
 使用 `flutter create todoapp` 在当前工作目录创建名为 `todoapp` 的 Flutter 项目，用 `code todoapp` 即可在 VS Code 中打开改项目。
 
-> 关于创建时使用的项目名称规范，可以查看 <https://dart.dev/tools/pub/pubspec#name>。
+> 关于创建时使用的项目名称规范，可以查看 [Dart | The pubspec file: name](https://dart.dev/tools/pub/pubspec#name)。
 
 打开之后我们最好先用 Git 初始化一下（`.gitignore` 文件在创建项目的时候已经创建了），结合 VS Code 的源代码管理能够看到代码的修改情况。 `git init` `git add` `git commit -m "init"`。
 
@@ -305,7 +305,7 @@ Chrome (web) • chrome • web-javascript • Google Chrome
     - `extends` 关键字表示继承。`MyApp` 是 `StatelessWidget` 的一个子类。
     - 在 Flutter 中，Widget 都由两种基类继承而来：`StatelessWidget` 和 `StatefulWidget`，无状态 Widget 和有状态 Widget。
 - L8
-    - 关于 key，可以查看 <https://docs.flutter.dev/development/ui/widgets-intro> 的 Keys 部分。
+    - 关于 key，可以查看 [Flutter | Introduction to widgets](https://docs.flutter.dev/development/ui/widgets-intro) 的 Keys 部分。
 - L10
     - `@override` 表示下面的函数重写父类的方法
 - L11
@@ -542,7 +542,7 @@ class ContentWidget extends StatelessWidget {
 }
 ```
 
-- 因为上方的展示列表和下方的输入框是上下关系，所以我们将它们放到一个 `Column` 里面。但是这里如果直接使用 `ListView`，运行应用你会发现持续在报错。原因可以查看<https://stackoverflow.com/questions/45669202/how-to-add-a-listview-to-a-column-in-flutter>。解决方案是我们需要限制 `ListView` 的高度，加上一个 `Expanded` 将 `ListView` 包起来即可。
+- 因为上方的展示列表和下方的输入框是上下关系，所以我们将它们放到一个 `Column` 里面。但是这里如果直接使用 `ListView`，运行应用你会发现持续在报错。原因可以查看[Stack Overflow | How to add a ListView to a Column in Flutter?](https://stackoverflow.com/questions/45669202/how-to-add-a-listview-to-a-column-in-flutter)。解决方案是我们需要限制 `ListView` 的高度，加上一个 `Expanded` 将 `ListView` 包起来即可。
 - 这里的 `TextField` 其实只是一个装饰，用户现在确实可以往里面填文字，但是我们没法拿到里面的文字。
 
 运行应用，可以看到下方的效果：
@@ -915,8 +915,8 @@ class TodoWidget extends StatelessWidget {
         - 这里所有的 `insert()` 的类型是 `void Function(T value)`，参数为类型为 `T` 的值 `value`，无返回值（返回值为 `void`）。
         - 为了简化这种比较常用的函数类型，Dart 做了一个 `typedef`：`typedef ValueChanged<T> = void Function(T value);`
             - Signature for callbacks that report that an underlying value has changed.
-            - https://api.flutter.dev/flutter/foundation/ValueChanged.html
-            - https://stackoverflow.com/a/62799524/14298786
+            - [Flutter API | ValueChanged<T> typedef](https://api.flutter.dev/flutter/foundation/ValueChanged.html)
+            - [Stack Overflow | When to use Valuechanged<> versus Valuesetter<> in flutter](https://stackoverflow.com/a/62799524/14298786)
 
 这时我们再运行，可以看到添加之后的内容已经成为新的 Todo 显示在上方了。
 
@@ -1269,10 +1269,10 @@ class ContentWidget extends StatelessWidget {
 
 最后呢，我们最好给应用设计一个图标。在 Flutter 中设置应用图标可以参考下面的资料：
 
-- Android <https://docs.flutter.dev/deployment/android#adding-a-launcher-icon>
-- iOS <https://docs.flutter.dev/deployment/ios#add-an-app-icon>
-- Web <https://stackoverflow.com/questions/56745525/how-to-configure-icon-for-my-flutter-web-application>
-- https://docs.flutter.dev/development/ui/assets-and-images#platform-assets
+- Android [Flutter | Build and release an Android app: Adding a launcher icon](https://docs.flutter.dev/deployment/android#adding-a-launcher-icon)
+- iOS [Flutter | Build and release an iOS app: Add an app icon](https://docs.flutter.dev/deployment/ios#add-an-app-icon)
+- Web [Stack Overflow | How to configure icon for my flutter web application?](https://stackoverflow.com/questions/56745525/how-to-configure-icon-for-my-flutter-web-application)
+- [Flutter | Adding assets and images: Updating the app icon](https://docs.flutter.dev/development/ui/assets-and-images#updating-the-app-icon)
 
 添加应用图标的过程比较复杂，而且涉及到对应平台的一些知识，我们就不给 TodoApp 添加图标了。
 
