@@ -209,7 +209,7 @@ Material Design 中的组件主要分为六种：
 
 ![](images-material/material-components-actions.png)
 
-![](images-material/material-components-textinputs.png)
+![](images-material/material-components-textinputs.png){width="400"}
 
 ![](images-material/material-components-selection.png)
 
@@ -311,7 +311,7 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 ### 设计基础
 
-![](images-hig/hig-sidebar-foundations.png)
+![](images-hig/hig-sidebar-foundations.png){width="200"}
 
 可以看到这部分基本上是纯设计。总结几点：
 
@@ -321,15 +321,15 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 ### 交互模式
 
-![](images-hig/hig-sidebar-patterns-0.png)
+![](images-hig/hig-sidebar-patterns-0.png){width="300"}
 
-![](images-hig/hig-sidebar-patterns-1.png)
+![](images-hig/hig-sidebar-patterns-1.png){width="300"}
 
 交互方式里面说的挺全面的，基本上将很多 UX 都总结了出来。
 
 #### 输入方式
 
-![](images-hig/hig-sidebar-inputs.png)
+![](images-hig/hig-sidebar-inputs.png){width="300"}
 
 这里列举了一些输入用的硬件设备。Apple 平台独特的输入方式应该有两个，一个是 macOS 端的触控板、另一个是 iPadOS 端的 Apple Pencil。在开发这两个平台的应用的时候可以注意对这两种输入方式的适配。
 
@@ -337,7 +337,7 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 注：筛选 iOS and iPadOS
 
-![](images-hig/hig-sidebar-components.png)
+![](images-hig/hig-sidebar-components.png){width="300"}
 
 - Menus and actions: 可点击的交互组件（Material Design - Actions）
 - Selection and input: 用户选择和输入（Material Design - Text inputs、Selection）
@@ -370,9 +370,9 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 可以看到，Apple 的 HIG 还提供了很多「科技」，Apple 认为这也是应用功能设计的一部分。Apple 同时为这些「科技」提供了可以调用的 API 或 SDK 为开发者提供便利。
 
-![](images-hig/hig-sidebar-technologies-0.png)
+![](images-hig/hig-sidebar-technologies-0.png){width="300"}
 
-![](images-hig/hig-sidebar-technologies-1.png)
+![](images-hig/hig-sidebar-technologies-1.png){width="300"}
 
 ## Figma 入门
 

@@ -76,11 +76,11 @@ class _MyTextWidgetState extends State<MyTextWidget> {
 
 显示效果如下：
 
-![](images-assets/1.png)
+![](images-assets/1.png){width="300"}
 
 将 `a.txt` 修改为不存在的 `b.txt`，结果如下：
 
-![](images-assets/2.png)
+![](images-assets/2.png){width="300"}
 
 ## 实例：图片
 

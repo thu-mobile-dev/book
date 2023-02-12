@@ -228,7 +228,7 @@ Image.network('https://example.com/a.png')
 
 #### SnackBar
 
-![SnackBar](image-widgets/material-SnackBar.png)
+![SnackBar](image-widgets/material-SnackBar.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -257,7 +257,7 @@ class BodyWidget extends StatelessWidget {
 
 #### BottomSheet
 
-![BottomSheet](image-widgets/material-BottomSheet.png)
+![BottomSheet](image-widgets/material-BottomSheet.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -311,7 +311,7 @@ class BodyWidget extends StatelessWidget {
 
 #### AlertDialog
 
-![AlertDialog](image-widgets/material-AlertDialog.png)
+![AlertDialog](image-widgets/material-AlertDialog.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -364,7 +364,7 @@ class BodyWidget extends StatelessWidget {
 
 #### SimpleDialog
 
-![SimpleDialog](image-widgets/material-SimpleDialog.png)
+![SimpleDialog](image-widgets/material-SimpleDialog.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -429,7 +429,7 @@ class BodyWidget extends StatelessWidget {
 
 #### Card
 
-![Card](image-widgets/material-Card.png)
+![Card](image-widgets/material-Card.png){width="300"}
 
 ```dart
 Card(
@@ -442,7 +442,7 @@ Card(
 
 #### Chip
 
-![Chip](image-widgets/material-Chip.png)
+![Chip](image-widgets/material-Chip.png){width="300"}
 
 ```dart
 Chip(
@@ -455,7 +455,7 @@ Chip(
 
 #### DataTable
 
-![DataTable](image-widgets/material-DataTable.png)
+![DataTable](image-widgets/material-DataTable.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -535,7 +535,7 @@ class ContentWidget extends StatelessWidget {
 
 #### CircularProgressIndicator
 
-![CircularProgressIndicator](image-widgets/material-CircularProgressIndicator.png)
+![CircularProgressIndicator](image-widgets/material-CircularProgressIndicator.png){width="200"}
 
 ```dart
 // 转圈到一半的指示圆
@@ -546,7 +546,7 @@ CircularProgressIndicator(value: null)
 
 #### LinearProgressIndicator
 
-![LinearProgressIndicator](image-widgets/material-LinearProgressIndicator.png)
+![LinearProgressIndicator](image-widgets/material-LinearProgressIndicator.png){width="200"}
 
 ```dart
 // 走到一半的指示条
@@ -565,7 +565,7 @@ LinearProgressIndicator(value: null)
 
 [TextField](https://api.flutter.dev/flutter/material/TextField-class.html)
 
-![TextField](image-widgets/material-TextField.png)
+![TextField](image-widgets/material-TextField.png){width="300"}
 
 在代码中，我们使用 `TextEditingController` 来获取 `TextField` 的内容，其需要被放置在 `StatefulWidget` 中。
 
@@ -630,7 +630,7 @@ class _ContentWidgetState extends State<ContentWidget> {
 
 #### Switch
 
-![Switch](image-widgets/material-Switch.png)
+![Switch](image-widgets/material-Switch.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -672,7 +672,7 @@ class _SwitchExampleState extends State<SwitchExample> {
 
 #### Radio
 
-![Radio](image-widgets/material-Radio.png)
+![Radio](image-widgets/material-Radio.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -733,7 +733,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 #### Checkbox
 
-![Checkbox](image-widgets/material-Checkbox.png)
+![Checkbox](image-widgets/material-Checkbox.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -786,7 +786,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 #### Slider
 
-![Slider](image-widgets/material-Slider.png)
+![Slider](image-widgets/material-Slider.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -824,7 +824,7 @@ class _SliderExampleState extends State<SliderExample> {
 
 #### DatePicker & TimePicker
 
-![DatePicker](image-widgets/material-DatePicker.png)
+![DatePicker](image-widgets/material-DatePicker.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -916,11 +916,11 @@ class MyWidget extends StatelessWidget {
 - [FloatingActionButton](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
     - 作为应用的一个主要操作入口的悬浮按钮
 
-![TextButton](image-widgets/material-TextButton.png)
-![OutlinedButton](image-widgets/material-OutlinedButton.png)
-![IconButton](image-widgets/material-IconButton.png)
-![ElevatedButton](image-widgets/material-ElevatedButton.png)
-![FloatingActionButton](image-widgets/material-FloatingActionButton.png)
+![TextButton](image-widgets/material-TextButton.png){width="300"}
+![OutlinedButton](image-widgets/material-OutlinedButton.png){width="300"}
+![IconButton](image-widgets/material-IconButton.png){width="300"}
+![ElevatedButton](image-widgets/material-ElevatedButton.png){width="300"}
+![FloatingActionButton](image-widgets/material-FloatingActionButton.png){width="300"}
 
 ### 其他手势
 
@@ -949,7 +949,7 @@ class MyWidget extends StatelessWidget {
 
 #### DropdownButton
 
-![DropdownButton](image-widgets/material-DropdownButton.png)
+![DropdownButton](image-widgets/material-DropdownButton.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1006,7 +1006,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
 #### PopupMenuButton
 
-![PopupMenuButton](image-widgets/material-PopupMenuButton.png)
+![PopupMenuButton](image-widgets/material-PopupMenuButton.png){width="300"}
 
 使用方法与 `DropdownButton` 完全一致。
 
@@ -1027,9 +1027,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
 #### Row & Column
 
-![Row](image-widgets/Row.png)
-![Column](image-widgets/Column.png)
-![Divider](image-widgets/material-Divider.png)
+![Row](image-widgets/Row.png){width="300"}
+![Column](image-widgets/Column.png){width="300"}
+![Divider](image-widgets/material-Divider.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1077,7 +1077,7 @@ class ContentWidget extends StatelessWidget {
 
 #### Stack
 
-![Stack](image-widgets/Stack.png)
+![Stack](image-widgets/Stack.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1182,8 +1182,8 @@ class ContentWidget extends StatelessWidget {
 
 #### Container
 
-![Container](image-widgets/Container.png)
-![Padding](image-widgets/Padding.png)
+![Container](image-widgets/Container.png){width="300"}
+![Padding](image-widgets/Padding.png){width="300"}
 
 ```dart
 Container({Key? key, AlignmentGeometry? alignment, EdgeInsetsGeometry? padding, Color? color, Decoration? decoration, Decoration? foregroundDecoration, double? width, double? height, BoxConstraints? constraints, EdgeInsetsGeometry? margin, Matrix4? transform, AlignmentGeometry? transformAlignment, Widget? child, Clip clipBehavior = Clip.none})
@@ -1203,8 +1203,8 @@ SizedBox({Key? key, double? width, double? height, Widget? child})
 
 #### Align
 
-![Align](image-widgets/Align.png)
-![Center](image-widgets/Center.png)
+![Align](image-widgets/Align.png){width="300"}
+![Center](image-widgets/Center.png){width="300"}
 
 ```dart
 Align({Key? key, AlignmentGeometry alignment = Alignment.center, double? widthFactor, double? heightFactor, Widget? child})
@@ -1212,7 +1212,7 @@ Align({Key? key, AlignmentGeometry alignment = Alignment.center, double? widthFa
 
 #### AspectRatio
 
-![AspectRatio](image-widgets/AspectRatio.png)
+![AspectRatio](image-widgets/AspectRatio.png){width="300"}
 
 `AspectRatio` 可以对子 Widget 的长宽比做限制。
 
@@ -1233,7 +1233,7 @@ AspectRatio({Key? key, required double aspectRatio, Widget? child})
 
 #### ListView
 
-![ListView](image-widgets/ListView.png)
+![ListView](image-widgets/ListView.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1284,7 +1284,7 @@ class ContentWidget extends StatelessWidget {
 
 #### GridView
 
-![GridView](image-widgets/GridView.png)
+![GridView](image-widgets/GridView.png){width="300"}
 
 `GridView` 用的比较多的是下面的一个构造函数：
 
@@ -1507,9 +1507,8 @@ class SecondRoute extends StatelessWidget {
 }
 ```
 
-![](image-widgets/navigator-1.png)
-
-![](image-widgets/navigator-2.png)
+![](image-widgets/navigator-1.png){width="300"}
+![](image-widgets/navigator-2.png){width="300"}
 
 - 使用 `Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondRoute()))` 来创建 Route 并跳转到新的界面。
 - 使用 `Navigator.pop(context);` 返回上级界面。
@@ -1530,7 +1529,7 @@ Material Design 也提供了很多其他的导航方式：
 
 #### AppBar
 
-![AppBar](image-widgets/material-AppBar.png)
+![AppBar](image-widgets/material-AppBar.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1557,7 +1556,7 @@ class BodyWidget extends StatelessWidget {
 
 #### BottomNavigationBar
 
-![BottomNavigationBar](image-widgets/material-BottomNavigationBar.png)
+![BottomNavigationBar](image-widgets/material-BottomNavigationBar.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1630,7 +1629,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 #### TabBarView
 
-![TabBarView](image-widgets/material-TabBarView.png)
+![TabBarView](image-widgets/material-TabBarView.png){width="300"}
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1687,7 +1686,7 @@ class MyStatelessWidget extends StatelessWidget {
 
 #### Drawer
 
-![Drawer](image-widgets/material-Drawer.png)
+![Drawer](image-widgets/material-Drawer.png){width="300"}
 
 TODO 案例在电脑上无法验证
 

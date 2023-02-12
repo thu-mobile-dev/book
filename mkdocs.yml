@@ -22,8 +22,8 @@ nav:
       - LECTURE/1/simulator-macos-ios.md
   - 第二讲 背景:
     - LECTURE/2/introduction.md
-    - LECTURE/2/main-flutter-intro.md
     - LECTURE/2/main-design.md
+    - LECTURE/2/main-flutter-intro.md
     - LECTURE/2/homework.md
   - 第三讲 Dart:
     - LECTURE/3/introduction.md
@@ -39,8 +39,8 @@ nav:
   - 第五讲 进阶:
     - LECTURE/5/introduction.md
     - LECTURE/5/main-layout.md
-    - LECTURE/5/main-examples.md
     - LECTURE/5/main-animation.md
+    - LECTURE/5/main-examples.md
     - LECTURE/5/homework.md
   - 第六讲 数据持久化:
     - LECTURE/6/introduction.md

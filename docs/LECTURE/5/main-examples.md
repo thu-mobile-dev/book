@@ -22,19 +22,19 @@
 
 可以看到，应用界面主要分为上方的菜单和下方的顾客栏，菜单中每个食物显示一行，包含图片、名称和价格，顾客栏则包含顾客头像、名字、价格、已点的菜品数量：
 
-![](images-drag-to-order/screenshot-0.png)
+![](images-drag-to-order/screenshot-0.png){width="300"}
 
 当用户长按上方的某个食物时，界面上会多出一个半透明的食物图片跟着用户手指移动：
 
-![](images-drag-to-order/screenshot-1.png)
+![](images-drag-to-order/screenshot-1.png){width="300"}
 
 当食物被拖拽到下方顾客处，顾客的名片会高亮，此时松手即算作对应的顾客点一份视频：
 
-![](images-drag-to-order/screenshot-2.png)
+![](images-drag-to-order/screenshot-2.png){width="300"}
 
 同时下方每位顾客的食物总金额也会被计算得到：
 
-![](images-drag-to-order/screenshot-3.png)
+![](images-drag-to-order/screenshot-3.png){width="300"}
 
 此示例的核心知识点有：
 
@@ -43,7 +43,7 @@
 
 ### 整体讲解
 
-代码总共包含两个源文件：`lib/main.dart`（数据部分）和 `lib/model.dart`（界面部分）。
+代码总共包含两个源文件：`lib/main.dart`（界面部分）和 `lib/model.dart`（数据部分）。
 
 #### 数据部分
 
@@ -173,7 +173,7 @@ Icon(
 
 开启 `debugPaintSizeEnabled = true;` 截图如下：
 
-![](images-photo-filter/debug.png)
+![](images-photo-filter/debug.png){width="300"}
 
 #### 手势冲突
 

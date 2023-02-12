@@ -188,8 +188,8 @@ class _MyPageState extends State<MyPage> {
     - 在 `initState()` 中，状态 `isDarkModeOn` 的初值被赋为 `isDarkModeOnDefault`（使用 `widget.xxx` 来获取参数）。由于赋值在声明之后，我们需要使用 `late` 关键字标记 `isDarkModeOn`。
 - 在 `Container` 外部，我们使用 `GestureDetector` 添加一个点击回调函数，其中使用 `setState()` 来改变 `isDarkModeOn` 的值。
 
-![](image-statefulwidget/dark-true.png)
-![](image-statefulwidget/dark-false.png)
+![](image-statefulwidget/dark-true.png){width="300"}
+![](image-statefulwidget/dark-false.png){width="300"}
 
 事实上，我们可以发现当 `isDarkModeOn` 被作为一个状态之后，`_MyPageState` 的 `build()` 相当于一个 `StatelessWidget`，我们可以进一步做封装，变为类似上面的 `StatelessWidget` 案例的样子：
 

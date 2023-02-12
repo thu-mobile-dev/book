@@ -45,17 +45,17 @@ $ dart run
 - 如果不希望在声明变量时立即赋值，也可以将变量声明为「可空」类型：
     ```dart
     void main(List<String> arguments) {
-    int? a; // a 的类型为「可空的整形」，默认赋值为 null
-    print(a); // null
-    a = 16;
-    print(a); // 16
+      int? a; // a 的类型为「可空的整形」，默认赋值为 null
+      print(a); // null
+      a = 16;
+      print(a); // 16
     }
     ```
 - 在类中声明变量不能立即初始化，需要使用 `late` 关键字：
     ```dart
     class A {
-    late int a;
-    A(this.a);
+      late int a;
+      A(this.a);
     }
     ```
 

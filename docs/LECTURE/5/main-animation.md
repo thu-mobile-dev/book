@@ -123,7 +123,7 @@ class ClockBorderView extends StatelessWidget {
 - `ClockHandView` 使用 `Transform.rotate` 来确定秒针位置
 - 查看布局情况，可以将 `main()` 中的 `debugPaintSizeEnabled = true;` 取消注释。
 
-![](images-animation/clock.png)
+![](images-animation/clock.png){width="300"}
 
 #### 有状态
 
@@ -367,8 +367,6 @@ class AnimatedClockView extends AnimatedWidget {
 我们完全可以用 [`RotationTransition`](https://api.flutter.dev/flutter/widgets/RotationTransition-class.html)（`RotationTransition({Key? key, required Animation<double> turns, Alignment alignment = Alignment.center, FilterQuality? filterQuality, Widget? child})`）改写上面的案例，将 `ClockHandView` 用 `RotationTransition` 包裹，将 `AnimationController` 转为 `Animation` 传入 `turns` 参数。
 
 这里不提供具体的代码实现，在当前的案例中 `RotationTransition` 的意义不大，需要逐层传递 `animation` 或 `controller` 与直接传递 `seconds` 的思路是一样的。
-
-
 
 ## Implicit Animation
 

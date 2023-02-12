@@ -131,7 +131,7 @@ void main(List<String> arguments) {
 
 打开网站之后注册或者登陆账号，新建一个 Draft 就可以开始画 UI 了。左上角点击长方形的框，我们先把手机的框画出来。随便画一个长方形就行了。
 
-![](images-main/figma-0.png)
+![](images-main/figma-0.png){ width="400" }
 
 画好之后点击这个矩形，在右侧可以调整宽高、圆角度数、颜色等信息。
 
@@ -285,9 +285,9 @@ Chrome (web) • chrome • web-javascript • Google Chrome
 我们使用 Chrome 来运行 `Hello, world!` 程序，在终端输入 `flutter run -d chrome --web-renderer html` 回车稍等片刻即可看到运行的应用了。
 
 - `-d` 后面跟的是目标平台，只要输入 `flutter devices` 结果中的前几个字母就行了，可以匹配
-- `flutter run -d chrome` 运行得到的程序对 Unicode 的支持很差，这里我们选择另一种构建方式。关于网页应用两种构建方式的区别见 https://docs.flutter.dev/development/platform-integration/web/renderers
+- `flutter run -d chrome` 运行得到的程序对 Unicode 的支持很差，这里我们选择另一种构建方式。关于网页应用两种构建方式的区别见 [Flutter | Web renderers](https://docs.flutter.dev/development/platform-integration/web/renderers)
 
-![](images-main/todoapp-0.png)
+![](images-main/todoapp-0.png){ width="500" }
 
 - 拖拽 Chrome 边框，可以看到 `Hello, world!` 总是在屏幕中心。
 - 修改 `Text("Hello, world!")` 中的字符串为任意内容，在终端按 `r` 或 `R` 即可热更新，Chrome 呈现的应用会更新显示内容。
@@ -439,7 +439,7 @@ class TodoWidget extends StatelessWidget {
 
 效果：
 
-![](./images-main/todoapp-1.png)
+![](./images-main/todoapp-1.png){ width="500" }
 
 代码解释：
 
@@ -505,7 +505,7 @@ class ContentWidget extends StatelessWidget {
 
 修改好后保存按 `R` 热加载，可以看到下面的情况：
 
-![](images-main/todoapp-2.png)
+![](images-main/todoapp-2.png){ width="500" }
 
 这是因为 `Column` 这个 Widget 是不支持滚动的，超过显示范围的话就无法显示了。这里我们换用 `ListView` 这个 Widget：直接将上面代码的 `Column` 换成 `ListView` 即可，它们都有 `children` 这个参数。
 
@@ -547,9 +547,9 @@ class ContentWidget extends StatelessWidget {
 
 运行应用，可以看到下方的效果：
 
-![](images-main/todoapp-3.png)
+![](images-main/todoapp-3.png){ width="500" }
 
-![](images-main/todoapp-4.png)
+![](images-main/todoapp-4.png){ width="500" }
 
 ## 添加新增 Todo
 
@@ -609,7 +609,7 @@ class AddTodoWidget extends StatelessWidget {
 
 这里也用到了 `Expanded` 这个 `Widget`，否则 `TextField` 的宽度会无限增长导致界面无法显示。这里 `TextButton` 是一种效果最简单的 `Button`，在点击这个按钮时，控制台会输出「添加按钮按下」。
 
-![](images-main/todoapp-5.png)
+![](images-main/todoapp-5.png){ width="500" }
 
 然后我们需要将输入框和「添加」按钮关联起来，这里我们用一个 `Controller` 拿出 `TextField` 的文字值，然后按下 `TextButton` 的时候将新的 Todo 添加到 `todoList.data` 中：
 
@@ -1189,7 +1189,7 @@ ListView(
 
 再次运行，可以看到应用已经可以完成我们想要的功能了。
 
-![](./images-main/todoapp-6.png)
+![](./images-main/todoapp-6.png){width="500"}
 
 ## 发布应用
 
@@ -1221,7 +1221,7 @@ void main() {
 
 这时我们使用 `flutter run -d chrome --web-renderer html` 可以看到应用刚刚打开可以看到有多条 Todo 方便调试。但使用 `flutter run -d chrome --web-renderer html --release` 可以看到打开应用之后一条 Todo 也没有了。
 
-![](images-main/todoapp-7.png)
+![](images-main/todoapp-7.png){width="500"}
 
 #### 展示使用提示
 
@@ -1263,7 +1263,7 @@ class ContentWidget extends StatelessWidget {
 
 可以看到这里用 `if-else` 判断 `model.data` 是否为空，从而返回不同的 Widget。
 
-![](images-main/todoapp-8.png)
+![](images-main/todoapp-8.png){width="500"}
 
 #### 设计应用图标
 
