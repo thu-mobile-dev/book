@@ -1,70 +1,74 @@
 # [Info]
-site_name: THU 移动应用开发 Flutter 教程 # 左上角标题
+site_name: THU 移动应用开发教程 # 左上角标题
 site_url: https://thu-mobile-dev.github.io/book
 site_author: 杨希杰
-site_description: THU 移动应用开发 Flutter 教程
+site_description: THU 移动应用开发教程
 
 # [Navigtion]
 nav:
-  - 前言:
-    - LECTURE/0/introduction.md
-    - LECTURE/0/homework-requirements.md
-    - LECTURE/0/contact-us.md
-    - LECTURE/0/welcome-edit.md
-  - 第一讲 体验:
-    - LECTURE/1/introduction.md
-    - LECTURE/1/main-todoapp.md
-    - LECTURE/1/homework.md
-    - 补充:
-      - LECTURE/1/flutter-installation.md
-      - LECTURE/1/simulator-windows-android.md
-      - LECTURE/1/simulator-macos-android.md
-      - LECTURE/1/simulator-macos-ios.md
-  - 第二讲 背景:
-    - LECTURE/2/introduction.md
-    - LECTURE/2/main-design.md
-    - LECTURE/2/main-flutter-intro.md
-    - LECTURE/2/homework.md
-  - 第三讲 Dart:
-    - LECTURE/3/introduction.md
-    - LECTURE/3/main-dart.md
-    - LECTURE/3/homework.md
-  - 第四讲 入门:
-    - LECTURE/4/introduction.md
-    - LECTURE/4/main-widgets.md
-    - LECTURE/4/main-stateful.md
-    - LECTURE/4/homework.md
-    - 补充:
-      - LECTURE/4/assets.md
-  - 第五讲 进阶:
-    - LECTURE/5/introduction.md
-    - LECTURE/5/main-layout.md
-    - LECTURE/5/main-animation.md
-    - LECTURE/5/main-examples.md
-    - LECTURE/5/homework.md
-  - 第六讲 数据持久化:
-    - LECTURE/6/introduction.md
-    - LECTURE/6/main-local.md
-    - LECTURE/6/main-cloud.md
-    - LECTURE/6/homework.md
-  - 第七讲 后续工作:
-    - LECTURE/7/introduction.md
-    - LECTURE/7/main-debug-and-test.md
-    - LECTURE/7/main-ci-and-cd.md
-    - LECTURE/7/main-release.md
-    - LECTURE/7/homework.md
-  - 第八讲 扩展:
-    - LECTURE/8/introduction.md
-    - LECTURE/8/main-adaptive-and-responsive.md
-    - LECTURE/8/main-packages.md
-  - 后记:
-    - LECTURE/9/introduction.md
-  - 其他:
-    - LECTURE/10/quick-start.md
-    - LECTURE/10/teaching-notes.md
-    - LECTURE/10/docs-differences.md
-    - LECTURE/10/improvement.md
-    - LECTURE/10/221120-consideration.md
+  - Android:
+    - 前言:
+      - ANDROID/introduction.md
+  - Flutter:
+    - 前言:
+      - LECTURE/0/introduction.md
+      - LECTURE/0/homework-requirements.md
+      - LECTURE/0/contact-us.md
+      - LECTURE/0/welcome-edit.md
+    - 第一讲 体验:
+      - LECTURE/1/introduction.md
+      - LECTURE/1/main-todoapp.md
+      - LECTURE/1/homework.md
+      - 补充:
+        - LECTURE/1/flutter-installation.md
+        - LECTURE/1/simulator-windows-android.md
+        - LECTURE/1/simulator-macos-android.md
+        - LECTURE/1/simulator-macos-ios.md
+    - 第二讲 背景:
+      - LECTURE/2/introduction.md
+      - LECTURE/2/main-design.md
+      - LECTURE/2/main-flutter-intro.md
+      - LECTURE/2/homework.md
+    - 第三讲 Dart:
+      - LECTURE/3/introduction.md
+      - LECTURE/3/main-dart.md
+      - LECTURE/3/homework.md
+    - 第四讲 入门:
+      - LECTURE/4/introduction.md
+      - LECTURE/4/main-widgets.md
+      - LECTURE/4/main-stateful.md
+      - LECTURE/4/homework.md
+      - 补充:
+        - LECTURE/4/assets.md
+    - 第五讲 进阶:
+      - LECTURE/5/introduction.md
+      - LECTURE/5/main-layout.md
+      - LECTURE/5/main-animation.md
+      - LECTURE/5/main-examples.md
+      - LECTURE/5/homework.md
+    - 第六讲 数据持久化:
+      - LECTURE/6/introduction.md
+      - LECTURE/6/main-local.md
+      - LECTURE/6/main-cloud.md
+      - LECTURE/6/homework.md
+    - 第七讲 后续工作:
+      - LECTURE/7/introduction.md
+      - LECTURE/7/main-debug-and-test.md
+      - LECTURE/7/main-ci-and-cd.md
+      - LECTURE/7/main-release.md
+      - LECTURE/7/homework.md
+    - 第八讲 扩展:
+      - LECTURE/8/introduction.md
+      - LECTURE/8/main-adaptive-and-responsive.md
+      - LECTURE/8/main-packages.md
+    - 后记:
+      - LECTURE/9/introduction.md
+    - 其他:
+      - LECTURE/10/quick-start.md
+      - LECTURE/10/teaching-notes.md
+      - LECTURE/10/docs-differences.md
+      - LECTURE/10/improvement.md
+      - LECTURE/10/221120-consideration.md
 
 # [Extensions]
 plugins:
@@ -105,7 +109,7 @@ theme:
         icon: material/weather-sunny
         name: 切换至日间模式
   features:
-    # - navigation.tabs # 使用Tab来进行分类
+    - navigation.tabs # 使用Tab来进行分类
     - navigation.top # 返回顶部的按钮 在上滑时出现
     - navigation.indexes # Tab会有一个index.md 而不是在打开Tab时打开第一篇文章
     - navigation.expand # 打开Tab时左侧目录全部展开
