@@ -680,7 +680,7 @@ textFieldController.text = "";
 
 那么问题就出在数据源 `todoList.data` 和 Flutter 框架构建的 UI 并没有建立某种联系。我们希望 `todoList.data` 被改动时 UI 也能进行刷新。一听这个需求，这不就是 `StatefulWidget` 做的事情吗？接下来我们将 `todoList` 改为 `StatefulWidget` 里面的一个变量/状态。
 
-## StatefullWidget 呈现 todoList
+## StatefulWidget 呈现 todoList
 
 首先我们需要考虑什么东西是变的：不是 `todoList`，而是 `todoList.data` 和 `todoList.count`；但是在 Flutter 框架中，为了简洁我们不需要声明两个变量/状态（`List<String>` 和 `int`），我们只需要一个状态 `todoList` 就可以了。
 
@@ -1199,7 +1199,7 @@ ListView(
 
 #### 清除调试数据
 
-我们之前生命了一个全局变量 `defaultTodoContents` 用来调试查看效果，但是发布应用时我们肯定不希望用户看到这些。我们可以在启动应用之前对数据列表进行不同的初始化来实现这一点。
+我们之前声明了一个全局变量 `defaultTodoContents` 用来调试查看效果，但是发布应用时我们肯定不希望用户看到这些。我们可以在启动应用之前对数据列表进行不同的初始化来实现这一点。
 
 在 `lib/main.dart` 中引入 `kDebugMode`:
 
@@ -1296,7 +1296,7 @@ class ContentWidget extends StatelessWidget {
 
 新建 `.github/workflows/` 文件夹，在其中新建文件 `deploy-apk-and-web.yml`，添加如下内容：
 
-```yml
+```yaml
 # Reference: https://github.com/subosito/flutter-action
 
 name: Deploy - GitHub Pages
