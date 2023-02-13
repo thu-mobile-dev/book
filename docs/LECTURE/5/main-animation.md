@@ -21,7 +21,7 @@ UI = f(states)
 
 我们来制作一个钟表来感受通过改变数值来改变对动画的刷新。案例中的钟表只显示秒针，每当用户点击，秒数加一，秒针往前走一格。
 
-注：本节课的所有钟表秒针案例代码可以在 [GitHub | thu-flutter-dev/running_clock](https://github.com/thu-flutter-dev/running_clock) 的 `codes/` 文件夹中获取，复制粘贴至 `lib/main.dart` 中即可运行查看效果。
+注：本节课的所有钟表秒针案例代码可以在 [GitHub | thu-mobile-dev/running_clock](https://github.com/thu-mobile-dev/running_clock) 的 `codes/` 文件夹中获取，复制粘贴至 `lib/main.dart` 中即可运行查看效果。
 
 #### 无状态
 

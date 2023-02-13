@@ -1,6 +1,6 @@
 # THU 移动应用开发 Flutter 教程
 
-<https://thu-flutter-dev.github.io/book>
+<https://thu-mobile-dev.github.io/book>
 
 - 生成 [MkDocs](https://www.mkdocs.org) 
 - 主题 [Material](https://github.com/squidfunk/mkdocs-material)
@@ -33,4 +33,4 @@ mkdocs serve
 
 ### 使用 GitHub Pages
 
-本仓库已经添加 `.github/workflows/issueMySite.yml`，将仓库设置为 public，并在仓库页的 `Settings > Pages` 选择 `gh-pages` 等待片刻即可在 <https://thu-flutter-dev.github.io/book> 看到本网站。
+本仓库已经添加 `.github/workflows/issueMySite.yml`，将仓库设置为 public，并在仓库页的 `Settings > Pages` 选择 `gh-pages` 等待片刻即可在 <https://thu-mobile-dev.github.io/book> 看到本网站。

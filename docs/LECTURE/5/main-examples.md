@@ -4,7 +4,7 @@
 
 ## 拖拽点餐
 
-案例代码 [GitHub | drag_to_order](https://github.com/thu-flutter-dev/drag_to_order)
+案例代码 [GitHub | drag_to_order](https://github.com/thu-mobile-dev/drag_to_order)
 
 > 此案例源自 [Flutter Cookbook | Effects: Drag a UI element](https://docs.flutter.dev/cookbook/effects/drag-a-widget)。
 >
@@ -87,7 +87,7 @@
 
 ## 多态下载按钮
 
-案例代码 [GitHub | multi_state_download_button](https://github.com/thu-flutter-dev/multi_state_download_button)
+案例代码 [GitHub | multi_state_download_button](https://github.com/thu-mobile-dev/multi_state_download_button)
 
 > 此案例源自 [Flutter Cookbook | Create a download button](https://docs.flutter.dev/cookbook/effects/download-button)。
 
@@ -146,7 +146,7 @@ Icon(
 
 ## 简易照片滤镜
 
-案例代码 [GitHub | photo_filter](https://github.com/thu-flutter-dev/photo_filter)
+案例代码 [GitHub | photo_filter](https://github.com/thu-mobile-dev/photo_filter)
 
 > 此案例源自 [Flutter Cookbook | Create a photo filter carousel](https://docs.flutter.dev/cookbook/effects/photo-filter-carousel)，为了呈现更加清晰的结构，修改的地方比较多。
 

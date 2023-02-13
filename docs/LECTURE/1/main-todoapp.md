@@ -1364,7 +1364,7 @@ emmm 这其实就牵扯到持久存储的东西了。我们之前的 todoList �
 
 这些内容我们之后在第六课都会讲到，并且会配有详细的案例，现在只需要了解持久化存储的概念即可。
 
-加上持久存储后的 TodoApp 的源代码可以在 [GitHub | thu-flutter-dev/todoapp](https://github.com/thu-flutter-dev/todoapp) 查看。
+加上持久存储后的 TodoApp 的源代码可以在 [GitHub | thu-mobile-dev/todoapp](https://github.com/thu-mobile-dev/todoapp) 查看。
 
 ## 可改进的地方
 
