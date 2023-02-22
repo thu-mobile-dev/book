@@ -38,6 +38,8 @@ Flutter 团队相信：
 
 ![](./images-flutter/flutter-site.png)
 
+在中国也有不少互联网企业使用 Flutter 构建跨平台多端应用，成为 Flutter 开源社区的一份子。在官网的 [Showcase](https://flutter.dev/showcase) 中给出了 [腾讯](https://flutter.dev/showcase/tencent)、[阿里巴巴](https://flutter.dev/showcase/alibaba-group) 和 [字节跳动](https://flutter.dev/showcase/bytedance) 使用 Flutter 的故事，感兴趣的同学可以课下观看网页中的视频。
+
 ## 声明式
 
 > [Flutter | Introduction to declarative UI](https://docs.flutter.dev/get-started/flutter-for/declarative)
