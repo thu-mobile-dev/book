@@ -124,7 +124,7 @@ enum DownloadStatus {
 
 ### 动画讲解
 
-我们可以看到，`DownloadButton` 是一个 `StatelessWidget`。下载状态的存储和更新是在 `_downloadController` 中，当 `_downloadController.downloadStatus` 或 `_downloadController.progress` 更新时，`AnimatedBuilder` 重新渲染 `DownloadButton`。
+我们可以看到，`DownloadButton` 是一个 `StatelessWidget`。下载状态的存储和更新是在 `_downloadController` 中。`SimulatedDownloadController` 是一个 `ChangeNotifier`，在函数 `_doSimulatedDownload()` 中，每当 `_downloadController.downloadStatus` 或 `_downloadController.progress` 更新时，调用 `notifyListeners()`，从而使得 `AnimatedBuilder` 重新渲染 `DownloadButton`。
 
 代码中还使用了三处 [`AnimatedWidget`](https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html)，两个 `AnimatedOpacity` 是为了让各个阶段出现和消失的更流畅，`AnimatedContainer` 则是使用动画去使得比较生硬的形状更改变流畅。
 
