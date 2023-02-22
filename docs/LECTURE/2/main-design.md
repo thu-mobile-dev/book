@@ -35,7 +35,7 @@
 - 比如想和小伙伴交流问题，然后知乎就有了
 - 比如有人觉得 C/C++ 虽然功能齐全，但相对老旧、代码编写起来很困难，于是各种现代编程语言就被设计出来
 
-总之如果你想做有用的应用，你需要做到**问题导向**的——去解决什么问题，目标用户有哪些需求**，脑子里面带着问题去想**解决方案**，然后去设计应用。
+总之如果你想做有用的应用，你需要做到**问题导向**——去解决什么问题，目标用户有哪些需求，脑子里面带着问题去想**解决方案**，然后去设计应用。
 
 很多时候，不要为了开发应用而去开发应用，而是面向问题来思考是否开发某个应用。可以头脑风暴一下自己身边有哪些**问题和机遇**——
 
@@ -96,7 +96,7 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 - 数据结构 Data Structure：应用基本上都是数据驱动的，你需要管理应用中的数据流。比如用表格列出了应用需要所有的数据类型，使用关系型数据库定义数据关系。
 - 界面 UI：用户一眼看到的就是你的 UI，好的 UI 很容易给用户带来好的印象。一些显著的 UI 也可以帮助用户找到应用中比较核心的功能。
 - 交互 UX：符合直觉的交互、或者简明的交互不至于让用户在你的应用中迷路。
-- 代码组织 Project Management：基本上就是几个人如何合作的问题，因为开发应用很难是一个人的事情。在代码细节上，更多是哪些文件要放到哪些文件夹，项目到底有几份可执行文件，Git 使用的规范是怎样的……等等。这些都会影响实际的开发效率。如果组织的好，打开工程看到的就是清楚的思路和逻辑；组织的不好，想修一个 bug 半天都找不见要改的地方在哪里。
+- 代码组织 Project Management：基本上就是几个人如何合作的问题，因为开发应用很难是一个人的事情。在代码细节上，更多是哪些文件要放到哪些文件夹，项目到底有几份可执行文件，Git 使用的规范是怎样的……。这些都会影响实际的开发效率。如果组织的好，打开工程看到的就是清楚的思路和逻辑；组织的不好，想修一个 bug 半天都找不见要改的地方在哪里。
 
 设计其实是一个整体规划，如果不知道从哪里下手，可以先看看官方的一些设计文档。下面我们也会讲到 Google 推出的一种设计规则 Material Design 和 Apple 提出的 Human Interface Guidelines。
 
@@ -173,20 +173,20 @@ Apple 公司为什么成功？是硬件软件的科技嘛？其实更多的是**
 
 - Accessibility: 让更多人满足的设计
 - Adaptive design: 针对不同设备做不同的适配
-- Cutomizing Material: 应用基于 Material Design 的个性化
+- Customizing Material: 应用基于 Material Design 的个性化
 - Interaction states: 交互时的状态
 - Design Tokens: Material Design 使用的一些一些名词
 
 在 [Material 3 | Styles](https://m3.material.io/styles) 中也有很多关于设计的内容：
 
 - Color
-- Elavation
+- Elevation
 - Icons
 - Motion
 - Shape
 - Typography
 
-这些页面中都有很多关于 Material Design 的介绍、使用。比如从 Interaction states 和 Elavation 你会了解到 Material Design 比较核心的概念是「抬升 Elavation」，结合「状态层 state layers」呈现出动画。
+这些页面中都有很多关于 Material Design 的介绍、使用。比如从 Interaction states 和 Elevation 你会了解到 Material Design 比较核心的概念是「抬升 Elevation」，结合「状态层 state layers」呈现出动画。
 
 ![](images-material/material-design-styles.png)
 
@@ -281,7 +281,7 @@ Apple 有着软硬件融合的 iOS、iPadOS、macOS、tvOS、watchOS 平台，Ap
     - Deference
         - 动画呈现页面、元素间的逻辑
     - Depth
-        - 用深度呈现层级（注：Material Design 强调的是 Elavation）
+        - 用深度呈现层级（注：Material Design 强调的是 Elevation）
 - principles
     - Aesthetic Integrity
         - 有冲击力

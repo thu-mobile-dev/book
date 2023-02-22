@@ -184,7 +184,7 @@ Flutter 是 Google 推出的一款是声明式 UI 构建框架，其借鉴了前
 
 > 关于创建时使用的项目名称规范，可以查看 [Dart | The pubspec file: name](https://dart.dev/tools/pub/pubspec#name)。
 
-打开之后我们最好先用 Git 初始化一下（`.gitignore` 文件在创建项目的时候已经创建了），结合 VS Code 的源代码管理能够看到代码的修改情况。 `git init` `git add` `git commit -m "init"`。
+打开之后我们最好先用 Git 初始化一下（`.gitignore` 文件在创建项目的时候已经创建了），结合 VS Code 的源代码管理能够看到代码的修改情况。 `git init` `git add .` `git commit -m "init"`。
 
 ### 项目结构
 
