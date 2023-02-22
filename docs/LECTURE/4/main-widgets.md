@@ -1034,13 +1034,15 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 - [Row](https://api.flutter.dev/flutter/widgets/Row-class.html) & [Column](https://api.flutter.dev/flutter/widgets/Column-class.html)
     - 使用 children 横向和竖向组织 Widgets。
     - [Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html)
-        - 让 Row 和 Column 中的 Widget 占尽可能大的地方
+        - 让 `Row` 和 `Column` 中的 Widget 占尽可能大的空间。
+    - [Flexible](https://api.flutter.dev/flutter/widgets/Flexible-class.html)
+        - 让 `Row` 和 `Column` 中的 Widget 在主轴上占尽可能大的长度。
     - [Divider](https://api.flutter.dev/flutter/material/Divider-class.html)
         - 水平分割线，可以自定义粗细、颜色、padding。
 - [Stack](https://api.flutter.dev/flutter/widgets/Stack-class.html)
     - 使用 children 纵向组织 Widgets。
     - [Positioned](https://api.flutter.dev/flutter/widgets/Positioned-class.html)
-        - 添加 Stack 中的 Widget 的位置信息。
+        - 添加 `Stack` 中的 Widget 的位置信息。
 
 #### Row & Column
 
@@ -1090,7 +1092,7 @@ class ContentWidget extends StatelessWidget {
 - `Row` 的宽度不能超过给定的最大宽度（`constraints.maxWidth`），否则会报错，这时应该使用 `ListView`。
 - `Row` 通过设置 `mainAxisAlignment` 可以调整子 Widget 之间的布局，默认是左对齐的。
 - children 中使用 `Expanded` 可以让 Widget 占据所有剩余的空间，有两个及以上 `Expanded` 则所有 `Expanded` 平分剩余的空间。
-- `Flexible` 可以让某个 Widget 所占空间是其他的整数倍。
+- `Flexible` 与 `Expanded` 类似，但只是让 Widget 在 `Row` 和 `Column` 的主轴方向占据全部的空间，而不是剩余的所有空间。通过参数 `flex` 可以调整不同 Widget 的主轴长度比例。
 - `Divider` 是一个 Widget，可以直接加入到 `Row` 的 children 中。
 - 通过 `import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;` 并设置 `debugPaintSizeEnabled = true;` 可以在界面中看到布局的提示。这有助于调试界面。
 
