@@ -59,6 +59,30 @@ BoxConstraints.loose(Size size)
      maxHeight = size.height;
 ```
 
+## LayoutBuilder
+
+由于约束向下传递，我们可以在下层的 Widget 树上方包裹一个 [`LayoutBuilder`](https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html) 来获取当前的约束。
+
+`LayoutBuilder` 的构造函数：
+
+```dart
+LayoutBuilder({Key? key, required Widget builder(BuildContext, BoxConstraints)})
+```
+
+通过匿名函数 `builder()` 的第二项参数，我们可以获取到上层 Widget 传给下层 Widget 的约束，例如：
+
+```dart
+LayoutBuilder(
+  builder: (BuildContext context, BoxConstraints constraints) {
+    if (constraints.maxWidth > 600) {
+      return _buildWideContainers();
+    } else {
+      return _buildNormalContainer();
+    }
+  },
+)
+```
+
 ## Widget 布局特性
 
 通过上面的例子可以看到，每个 Widget 都有着自己的布局特性，这是由它们本身的功能决定的。你可以通过文档或者源码来了解。
