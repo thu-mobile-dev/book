@@ -391,17 +391,11 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 在左上角工具栏找到对应的元素点击，再在中间的画布上点击就可以添加一个基础元素。移动位置进行组合就可以画出简单的用户界面。对于图标，可以直接复制粘贴至 Figma。
 
+![](images-figma/element.png){width=300}
+
 不同的元素会在左侧的边栏显示，双击可以修改元素的名称。点击元素在右侧可以做一些设置。
 
 提示：只使用 Figma 自带的元素很难创建出比较好看的用户界面，一般设计团队会基于一些比较底层的设计库来做，比如下方提到的 Material Design。
-
-### 使用 Material Design 模板文件
-
-如果你的团队希望使用 Material Design 进行设计和开发，你可以直接使用 [Material 3 Design Kit](https://www.figma.com/community/file/1035203688168086460)，打开之后点击右上角的 Get a copy，即可将这份 Figma 文稿复制一份到你的账户下。之后要使用什么 Material Design 的组件，直接从中复制粘贴到项目的设计稿即可。关于 Material 3 Design Kit 的更多信息，你可以查看 [Introducing the M3 design kit for Figma](https://material.io/blog/material-3-figma-design-kit)。
-
-### 成组
-
-一个组件可能由多个小元素组合而成。在左侧选中多个元素，右键使用「成组（Group selection）」将它们放在一个文件夹里面。当设计文稿越来越大时，这会让你的项目变得非常有条理。
 
 ### 层级
 
@@ -409,11 +403,27 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 在 Figma 中，你可以在左侧的边栏上下挪动元素的位置来调整覆盖关系，上方的元素覆盖下方的元素。
 
+![](images-figma/layer.png){width=400}
+
+### 成组
+
+一个组件可能由多个小元素组合而成。在左侧选中多个元素，右键使用「成组（Group selection）」将它们放在一个文件夹里面。当设计文稿越来越大时，这会让你的项目变得非常有条理。
+
+![](images-figma/group.png)
+
+### 使用 Material Design 模板文件
+
+如果你的团队希望使用 Material Design 进行设计和开发，你可以直接使用 [Material 3 Design Kit](https://www.figma.com/community/file/1035203688168086460)，打开之后点击右上角的 Get a copy，即可将这份 Figma 文稿复制一份到你的账户下。之后要使用什么 Material Design 的组件，直接从中复制粘贴到项目的设计稿即可。关于 Material 3 Design Kit 的更多信息，你可以查看 [Introducing the M3 design kit for Figma](https://material.io/blog/material-3-figma-design-kit)。
+
+![](images-figma/material-design-kit.png)
+
 ### 组件
 
 在设计的过程中，有一些元素是重复的，比如列表视图中的分割线，比如每一页都要使用的应用导航栏。这时用复制粘贴存在一个问题，粘贴后的内容如果要修改，那就要把所有的元素挨个修改。
 
 在 Figma 中，对于重复利用的元素，我们可以创建一个组件（component）。选中元素，在网页最上方有一个四个实心菱形组成的图标，点击即可创建组件。复制粘贴后的组件，会与原来的组件保持关联。原组件被修改，所有复制粘贴出来的组件都会被统一修改。
+
+![](images-figma/component.png){width=300}
 
 ### 导出
 
@@ -421,8 +431,12 @@ WWDC 是每年六月 Apple 准备的全球开发者大会，每年都会发布�
 
 最简单的导出方式是，直接把 Figma 文稿链接发给小伙伴，或者在 Figma 中直接共享给对应的用户。如果对方不方便登录在线的 Figma，你也可以选中需要导出的内容，在右下方 Export 处点击加号，选择资源倍率和格式，点击 Export 即可。
 
+![](images-figma/export.png){width=300}
+
 ### 多人合作
 
 上面所说的功能，只要是一款 2D 设计软件，基本上都有相应的功能。Figma 独有的功能，属多人的协同最突出。
 
 当你和团队中的小伙伴一起看一份设计稿的时候，网页会以不同颜色的框标注出不同人正在查看的位置，你可以点击右上角小伙伴的头像来跟踪 ta 的当前位置。不仅是查看，修改也是同步的，一个小团队在一份设计稿上工作是完全没有问题的。用好了这一个功能，团队协作效率大大提升。
+
+![](images-figma/spotlight.png){width=300}
