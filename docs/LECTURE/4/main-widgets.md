@@ -615,6 +615,19 @@ class _ContentWidgetState extends State<ContentWidget> {
 }
 ```
 
+我们也可以使用 `TextField` 自带的 [`onChanged()`](https://api.flutter.dev/flutter/material/TextField/onChanged.html) 和 [`onSubmitted()`](https://api.flutter.dev/flutter/material/TextField/onSubmitted.html) 来获取输入框的值：
+
+```dart
+TextField(
+  onChanged: (text) {
+    checkFormatValid();
+  },
+  onSubmitted: (text) {
+    postUserInput();
+  },
+)
+```
+
 ### 选择
 
 - [Switch](https://api.flutter.dev/flutter/material/Switch-class.html)
