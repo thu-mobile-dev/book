@@ -177,3 +177,7 @@ Flutter 的开发者们在语言的选择上综合考虑了 Flutter 开发者、
 - 高速内存申请（Fast allocation）
 
 这里并未展开说，具体内容可以点击上面的链接查看原文。我们在下一节课会带大家了解 Dart 的基础知识和语法。
+
+## References
+
+- https://www.bilibili.com/read/cv16667806
