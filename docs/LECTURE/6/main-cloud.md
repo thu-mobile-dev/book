@@ -150,12 +150,68 @@ class _ContentWidgetState extends State<ContentWidget> {
 
 在实际应用场景中，只需要把 `Text(snapshot.data != null ? snapshot.data!.body : "获取到的数据为 null")` 替换为 Widget，将 `snapshot.data!.body` 的 JSON 数据取出呈现即可。
 
+## JSON 处理
+
+### jsonDecode()
+
+对于前面案例中使用的 JSON 串 `{"max": [6, 1, 1, 7, 3, 8, 5], "min": [-2, -6, -6, -1, -4, -5, -6]}`，我们可以使用 `dart:convert` 中的 `jsonDecode()` 来将其转为字典：
+
+```dart
+import 'dart:convert';
+
+void main(List<String> arguments) async {
+  final jsonString =
+      '{"max": [6, 1, 1, 7, 3, 8, 5], "min": [-2, -6, -6, -1, -4, -5, -6]}';
+  final Map<String, dynamic> temperature = jsonDecode(jsonString);
+  print(temperature["max"]);
+  print(temperature["min"]);
+}
+```
+
+这种方法的缺点是，由于返回的字典是 `Map<String, dynamic>`，在运行时才能获得对象的类型。
+
+### fromJson() toJson()
+
+为了有更好的类型支持，增强对数据的封装，我们可以创建一个 `Temperature` 类，添加 `fromJson()` 和 `toJson()` 方法做一层封装：
+
+```dart
+import 'dart:convert';
+
+class Temperature {
+  final List<int> max;
+  final List<int> min;
+
+  Temperature(this.max, this.min);
+
+  Temperature.fromJson(Map<String, dynamic> json)
+      : max = (json["max"] as List).map((e) => e as int).toList(),
+        min = (json["min"] as List).map((e) => e as int).toList();
+
+  Map<String, dynamic> toJson() => {
+        "max": max,
+        "min": min,
+      };
+}
+
+void main(List<String> arguments) async {
+  final jsonString =
+      '{"max": [6, 1, 1, 7, 3, 8, 5], "min": [-2, -6, -6, -1, -4, -5, -6]}';
+  final Map<String, dynamic> jsonDict = jsonDecode(jsonString);
+  final temperature = Temperature.fromJson(jsonDict);
+  print(temperature.max);
+  print(temperature.min);
+}
+```
+
+### 使用代码生成库
+
+如果项目需要交互的数据很多，JSON 文件非常复杂，可以使用 [Serializing JSON using code generation libraries](https://docs.flutter.dev/development/data-and-backend/json#serializing-json-using-code-generation-libraries) 中介绍的第三方库，课内不进行讲解，感兴趣的同学可以课下查看。
+
 ## Firebase
 
 > Firebase is a Backend-as-a-Service (BaaS) app development platform that provides hosted backend services such as a realtime database, cloud storage, authentication, crash reporting, machine learning, remote configuration, and hosting for your static files. -- [Flutter Data & backend | Firebase](https://docs.flutter.dev/development/data-and-backend/firebase)
 
-结合 Firebase 和 Flutter，你可以很快完成一款需要后端的应用，比如官方推荐的案例 [Building chat app with Flutter and Firebase
-](https://medium.com/flutter-community/building-a-chat-app-with-flutter-and-firebase-from-scratch-9eaa7f41782e)。
+结合 Firebase 和 Flutter，你可以很快完成一款需要后端的应用，比如官方推荐的案例 [Building chat app with Flutter and Firebase](https://medium.com/flutter-community/building-a-chat-app-with-flutter-and-firebase-from-scratch-9eaa7f41782e)。
 
 ## References
 
