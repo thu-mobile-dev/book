@@ -1763,6 +1763,14 @@ class BodyWidget extends StatelessWidget {
 }
 ```
 
+## 更多资源
+
+上面所提到的都是一些常用的 Widget。
+
+如果你想看到更多有用的 Widget，可以查看 Flutter 在 YouTube 频道推出的 [Flutter Widget of the Week](https://www.youtube.com/playlist?list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG)。
+
+如果你希望看到所有的 Widget，可以查看 widgets.dart 的 [API 文档](https://api.flutter.dev/flutter/widgets/widgets-library.html)。
+
 ## References
 
 - https://docs.flutter.dev/development/ui/widgets-intro

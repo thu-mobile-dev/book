@@ -12,15 +12,23 @@ TODO
 
 TODO 或者用 flutter pub add 或者在 .yml 中添加
 
-## 常用插件
+### 版本
+
+semetic version
+
+## 常用包
 
 ### Flutter Favorite packages
 
 TODO 说明 https://docs.flutter.dev/development/packages-and-plugins/favorites
 
-[Flutter Favorite packages](https://pub.dev/packages?q=is%3Aflutter-favorite) 现在（2022.1.19）有 67 个
+[Flutter Favorite packages](https://pub.dev/packages?q=is%3Aflutter-favorite) 现在（2022.3.7）有 67 个
 
-### 个人推荐
+### Flutter Package of the Week
+
+Flutter 官方在 YouTube 开设了 [Flutter Package of the Week](https://www.youtube.com/playlist?list=PLjxrf2q8roU1quF6ny8oFHJ2gBdrYN_AK) 这一合集，其中介绍了很多常用的第三方包，能够极大提高开发效率；课程中用到的很多包也都包含在其中。每一集时间不长，感兴趣的同学应该可以很快看完。
+
+### 推荐的包
 
 TODO 可以简单分个类
 
