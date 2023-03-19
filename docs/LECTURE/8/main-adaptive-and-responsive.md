@@ -49,7 +49,7 @@ bool get isDesktopDeviceOrWeb => kIsWeb || isDesktopDevice;
 
 ### Android 与 iOS 系统交互的差异
 
-Android 与 iOS 的交互方式有很多差异。一些是系统层面的，一些是组件行为层面上的。这些差异主要体验在设计语言上。在第二讲我们提到，Android 官方使用 [Material Design]((https://m3.material.io)) 作为设计语言，iOS 使用 [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/) 作为设计语言。Flutter 作为跨平台的框架，在考虑多平台适配时也注意到了这些差异，一些通用的组件在不同平台上的实现也考虑了不同平台的设计语言和组件的默认行为。感兴趣的同学可以阅读 [Platform-specific behaviors and adaptations](https://docs.flutter.dev/resources/platform-adaptations)。
+Android 与 iOS 的交互方式有很多差异。一些是系统层面的，一些是组件行为层面上的。这些差异主要体验在设计语言上。在第二讲我们提到，Android 官方使用 [Material Design](https://m3.material.io) 作为设计语言，iOS 使用 [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/) 作为设计语言。Flutter 作为跨平台的框架，在考虑多平台适配时也注意到了这些差异，一些通用的组件在不同平台上的实现也考虑了不同平台的设计语言和组件的默认行为。感兴趣的同学可以阅读 [Platform-specific behaviors and adaptations](https://docs.flutter.dev/resources/platform-adaptations)。
 
 ## References
 
