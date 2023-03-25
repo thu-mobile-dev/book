@@ -75,6 +75,8 @@ jobs:
 
 ![](images-main/github-ci-apk.png)
 
+Dart 官网的测试部分也推荐了一篇简单易懂的基于 GitHub Actions 结合 coverage 的测试教程，同学可以参考 [Testing Dart packages with GitHub Actions](https://poetryincode.dev/testing-dart-packages-with-github-actions)。
+
 ## 官方资源
 
 我们刚刚讲了通过 GitHub workflows 进行自动化操作，这事实上是一种通用的处理方式。如果仅仅针对应用测试和发布，有很多很不错的工具使用体验超过 GitHub workflows 的手动配置，官方也提到了一些工具，有需求的同学可以查看：

@@ -88,11 +88,34 @@ void showLayoutGuidelines() {
 
 ## 测试
 
-测试在软件开发的过程中起着非常重要的作用，程序员很难保证每一行代码、每一个函数、每一个功能不出问题，因此需要对每个模块进行测试。最常见的测试方式就是每次 `flutter run` 之后打开程序实际使用查看功能是否都正常。
+测试在软件开发的过程中起着非常重要的作用，程序员很难保证每一行代码、每一个函数、每一个功能不出问题，因此需要对每个模块进行测试；在发布前为了确保应用不出现闪退或功能异常的情况，对应用整体也会进行测试。最常见的测试方式就是每次 `flutter run` 之后打开程序实际使用查看功能是否都正常。但是当你的应用越来越大，手动去做测试也是越来越难。
 
-TODO https://docs.flutter.dev/cookbook#testing 主要用实例教学 https://docs.flutter.dev/testing#continuous-integration-services
+Dart 和 Flutter 也支持了很多与代码集成的自动化测试的方式，自动化的测试能够在确保新功能添加和修复 bug 的速度的基础上帮助你在发布应用前确保应用执行正确。
 
-TODO https://docs.flutter.dev/testing
+Dart / Flutter 聚焦于以下的三种测试：
+
+- 单元测试（unit tests）：测试程序的最小部分（如一个函数、方法或类）。
+- 组件测试（component / Widget tests）：测试一个组件（一般由多个类组成）是否正常工作 / 测试一个 Widget 的界面和交互正常。
+- 整体和端到端测试（integration / end-to-end / GUI tests）：测试应用整体或者大部分的表现（如性能），这类测试往往会运行在虚拟机或实际的物理设备上。
+
+### Dart 测试
+
+> 主要参考内容：
+> 
+> - [Dart | Dart testing](https://dart.dev/guides/testing)
+> - [pub.dev | package:test](https://pub.dev/packages/test)
+
+我们一般会使用 [package:test](https://pub.dev/packages/test) 向代码中添加测试的部分，然后用 `dart test` 这个命令启动测试。你可以查看这个包的 README 来了解简单的测试方式。由于这部分并不是课程重点，且在后面的 Flutter 测试部分我们讲的内容和 Dart 的测试高度重叠，所以这里不做讲解。
+
+### Flutter
+
+> 主要参考内容：
+> 
+> - [Flutter | Testing Flutter apps](https://docs.flutter.dev/testing)
+> - [Flutter Cookbook | Testing](https://docs.flutter.dev/cookbook#testing)
+> - [Flutter API | flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
+> - [Flutter API | flutter_driver](https://api.flutter.dev/flutter/flutter_driver/flutter_driver-library.html)
+> - [Codelabs | How to test a Flutter app](https://codelabs.developers.google.com/codelabs/flutter-app-testing)
 
 ### 单元测试
 
@@ -104,15 +127,15 @@ TODO
 
 ### 整体测试
 
-TODO
+TODO https://docs.flutter.dev/testing/integration-tests
 
 ## 性能
 
 > https://docs.flutter.dev/perf
 >
-> - What is performance?
-> - Why is performance important?
-> - How do I improve performance?
+> - What is performance?（什么是性能？）
+> - Why is performance important?（为什么性能很重要？）
+> - How do I improve performance?（我如何提升性能？）
 
 关于前两个问题，详见 [Flutter | Appendix: More thoughts about performance](https://docs.flutter.dev/perf/appendix)。简单来说，「性能（performance）」是「性能测试器（performer）」根据「性能标准（metric）」得到的一系列属性；「性能」提供给开发者一个相对客观准确的评价应用某些方面的方式。
 
@@ -132,3 +155,5 @@ TODO
 - 最佳实践 [Flutter | Performance best practices](https://docs.flutter.dev/perf/best-practices)
 - 优化帧率 [Flutter | Improving rendering performance](https://docs.flutter.dev/perf/rendering-performance)
 - 优化包体大小 [Flutter | Measuring your app's size](https://docs.flutter.dev/perf/app-size)
+
+在实际的项目中，优化程序的性能可能并不会是从一开始就需要考虑的东西。你可以先开发一版应用程序，开发之后再进行整体测试，如果性能达不到项目要求，这时可以考虑再去优化。当然在实际的场景中，你可能还需要在多台不同的设备上进行测试，确保一些持有相对较早的机型的用户也能够有很好的体验。
