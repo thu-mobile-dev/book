@@ -49,6 +49,9 @@ nav:
     - LECTURE/8/introduction.md
     - LECTURE/8/main-adaptive-and-responsive.md
     - LECTURE/8/main-packages.md
+    - 补充:
+      - LECTURE/8/native-battery-android.md
+      - LECTURE/8/native-battery-ios.md
   - 后记:
     - LECTURE/9/introduction.md
   - 其他:
