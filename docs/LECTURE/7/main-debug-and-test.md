@@ -119,7 +119,17 @@ Flutter 测试主要参考内容：
 
 ### 单元测试
 
-使用 `flutter create learn_flutter` 创建一个名为 learn_flutter 的项目，使用编辑器打开。创建如下两个文件：
+使用 `flutter create learn_flutter` 创建一个名为 learn_flutter 的项目，使用编辑器打开。
+
+在 `pubspec.yaml` 的 `dev_dependencies` 中添加 `test`：
+
+```yml
+dev_dependencies:
+  ...
+  test:
+```
+
+创建如下两个文件：
 
 **lib/counter.dart**:
 
@@ -222,12 +232,61 @@ TODO
 
 ### 组件测试
 
-TODO
+我们也是使用 `flutter create learn_flutter` 来创建一个点击按钮加加的 Flutter 默认模板应用。不做任何修改：
 
-https://docs.flutter.dev/cookbook/testing/widget/introduction
-https://docs.flutter.dev/cookbook/testing/widget/finders
-https://docs.flutter.dev/cookbook/testing/widget/scrolling
-https://docs.flutter.dev/cookbook/testing/widget/tap-drag
+可以看到 `pubspec.yaml` 的 `dev_dependencies` 中添加了 `flutter_test`；与 `test` 相比，`flutter_test` 添加了对 Widget 的测试：
+
+```yml
+dev_dependencies:
+  ...
+  flutter_test:
+    sdk: flutter
+```
+
+可以看到 `test/widget_test.dart` 中已经有了一些代码，在 `main()` 中调用 `testWidgets()`，其前两个参数为 `String description` 和 `Future<void> Function(WidgetTester) callback`，通过 `callback` 的参数拿到 `tester WidgetTester`，在函数体中就可以使用 `tester` 来进行测试了：
+
+```dart
+// Build our app and trigger a frame.
+await tester.pumpWidget(const MyApp());
+
+// Verify that our counter starts at 0.
+expect(find.text('0'), findsOneWidget);
+expect(find.text('1'), findsNothing);
+
+// Tap the '+' icon and trigger a frame.
+await tester.tap(find.byIcon(Icons.add));
+await tester.pump();
+
+// Verify that our counter has incremented.
+expect(find.text('0'), findsNothing);
+expect(find.text('1'), findsOneWidget);
+```
+
+`pumpWidget()` 会构建传入的 Widget 并且（在测试环境）渲染出这个 Widget。之后我们主要使用 `find()` 来确定渲染得到的界面是否符合我们的预期，比如最开始应该只有一个呈现 0 的 Widget。
+
+接下来我们调用 `tester.tap()`，模拟点击界面中的 FAB，再调用 `tester.pump()` 渲染一帧。这时，界面中应该有一个呈现 1 的 Widget。
+
+我们可以在命令行使用 `flutter test test/widget_test.dart` 进行测试，看到 `All tests passed!` 说明测试成功。
+
+我们也可以点击 VS Code 代码左侧的播放键来进行测试：
+
+![](images-test/vscode-test-button.png)
+
+点击之后可以在下方的 Debug Console 处看到输出的信息：
+
+![](images-test/vscode-debug-console.png)
+
+在左侧的 TESTING panel 可以看到不同的测试样例的测试结果：
+
+![](images-test/vscode-testing-panel.png)
+
+以上呈现的就是一个最简单的 Widget 测试。
+
+关于更多 Widget 测试的示例，可以查阅：
+
+- [Cookbook Testing Widget | Find widgets](https://docs.flutter.dev/cookbook/testing/widget/finders)
+- [Cookbook Testing Widget | Handle scrolling](https://docs.flutter.dev/cookbook/testing/widget/scrolling)
+- [Cookbook Testing Widget | Tap, drag, and enter text](https://docs.flutter.dev/cookbook/testing/widget/tap-drag)
 
 ### 整体测试
 
