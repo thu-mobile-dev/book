@@ -98,36 +98,144 @@ Dart / Flutter 聚焦于以下的三种测试：
 - 组件测试（component / Widget tests）：测试一个组件（一般由多个类组成）是否正常工作 / 测试一个 Widget 的界面和交互正常。
 - 整体和端到端测试（integration / end-to-end / GUI tests）：测试应用整体或者大部分的表现（如性能），这类测试往往会运行在虚拟机或实际的物理设备上。
 
-### Dart 测试
+Dart 测试主要参考内容：
 
-> 主要参考内容：
-> 
 > - [Dart | Dart testing](https://dart.dev/guides/testing)
 > - [pub.dev | package:test](https://pub.dev/packages/test)
 
 我们一般会使用 [package:test](https://pub.dev/packages/test) 向代码中添加测试的部分，然后用 `dart test` 这个命令启动测试。你可以查看这个包的 README 来了解简单的测试方式。由于这部分并不是课程重点，且在后面的 Flutter 测试部分我们讲的内容和 Dart 的测试高度重叠，所以这里不做讲解。
 
-### Flutter
+Flutter 测试主要参考内容：
 
-> 主要参考内容：
-> 
 > - [Flutter | Testing Flutter apps](https://docs.flutter.dev/testing)
 > - [Flutter Cookbook | Testing](https://docs.flutter.dev/cookbook#testing)
 > - [Flutter API | flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
 > - [Flutter API | flutter_driver](https://api.flutter.dev/flutter/flutter_driver/flutter_driver-library.html)
 > - [Codelabs | How to test a Flutter app](https://codelabs.developers.google.com/codelabs/flutter-app-testing)
 
+<!-- 你也可以在命令行使用 `flutter test --help` 来查看关于 Flutter 测试的相关帮助。（感觉这一个命令的输出完全没有用，先注释掉了。） -->
+
+下面我们会结合一些案例来讲解如何对一个 Flutter 工程进行测试——
+
 ### 单元测试
 
+使用 `flutter create learn_flutter` 创建一个名为 learn_flutter 的项目，使用编辑器打开。创建如下两个文件：
+
+**lib/counter.dart**:
+
+```dart
+class Counter {
+  int value = 0;
+  void increment() => value++;
+  void decrement() => value--;
+}
+```
+
+**test/counter_test.dart**:
+
+```dart
+import 'package:learn_flutter/counter.dart';
+import 'package:test/test.dart';
+
+void main() {
+  test('Counter value should be incremented', () {
+    final counter = Counter();
+    counter.increment();
+    expect(counter.value, 1);
+  });
+}
+```
+
+在 test 文件夹下，我们可以根据测试的目的新建很多个测试文件。这里我们新建 counter_test.dart，里面调用 `test()` 这个函数，第一个 `dynamic description` 参数传入测试的内容，第二个 `dynamic Function() body` 参数传入要测试的函数。这样我们就写好了一个测试样例。当进行测试时，这个文件中的 `main()` 会作为一个 Dart 程序被执行，从而得到测试结果。
+
+在命令行执行 `flutter test test/counter_test.dart`:
+
+```
+$ flutter test test/counter_test.dart
+00:00 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:01 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:02 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:02 +1: All tests passed!
+```
+
+看到 **All tests passed!** 说明 test/counter_test.dart 这个文件对应的测试都已经通过。
+
+我们可以修改 lib/counter.dart 中的 `increment()` 使每次调用 `counter += 2;`；或者修改 test/counter_test.dart，重复 `counter.increment();` 这行代码（加两次）。之后再次执行 `flutter test test/counter_test.dart`，会得到类似下面呈现的报错：
+
+```
+$ flutter test test/counter_test.dart
+00:00 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:01 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:02 +0: loading /xxx/learn_flutter/test/counter_test.dart
+00:02 +0 -1: Counter value should be incremented 
+[E]
+  Expected: <1>
+    Actual: <2>
+
+  package:test_api            expect
+  test/counter_test.dart 9:5  main.<fn>
+
+
+To run this test again: /path/to/dart test /xxx/learn_flutter/test/counter_test.dart -p vm --plain-name 'Counter value should be incremented'
+00:02 +0 -1: Some tests failed.
+```
+
+看到 **Some tests failed.** 说明有一些测试样例未通过。这时我们就要查看代码是不是哪里出现了问题（当然也有可能是测试样例有问题）我们需要对应进行修改。
+
+#### 使用 group 将多个测试样例成组
+
+与 `test()` 类似，`group()` 的前两个参数是 `dynamic description` 和 `dynamic Function() body`。
+
+```dart
+import 'package:learn_flutter/counter.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group('Counter', () {
+    test('value should start at 0', () {
+      expect(Counter().value, 0);
+    });
+
+    test('value should be incremented', () {
+      final counter = Counter();
+      counter.increment();
+      expect(counter.value, 1);
+    });
+
+    test('value should be decremented', () {
+      final counter = Counter();
+      counter.decrement();
+      expect(counter.value, -1);
+    });
+  });
+}
+```
+
+```
+$ flutter test test/counter_test.dart
+00:00 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:01 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:02 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:02 +3: All tests passed!
+```
+
+#### TODO https://pub.dev/packages/test
+
 TODO
 
-### 界面测试
+### 组件测试
 
 TODO
+
+https://docs.flutter.dev/cookbook/testing/widget/introduction
+https://docs.flutter.dev/cookbook/testing/widget/finders
+https://docs.flutter.dev/cookbook/testing/widget/scrolling
+https://docs.flutter.dev/cookbook/testing/widget/tap-drag
 
 ### 整体测试
 
-TODO https://docs.flutter.dev/testing/integration-tests
+TODO
+
+https://docs.flutter.dev/testing/integration-tests
+https://docs.flutter.dev/cookbook/testing/integration/introduction
+https://docs.flutter.dev/cookbook/testing/integration/profiling
 
 ## 性能
 
