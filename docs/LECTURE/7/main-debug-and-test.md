@@ -194,9 +194,7 @@ To run this test again: /path/to/dart test /xxx/learn_flutter/test/counter_test.
 
 看到 **Some tests failed.** 说明有一些测试样例未通过。这时我们就要查看代码是不是哪里出现了问题（当然也有可能是测试样例有问题）我们需要对应进行修改。
 
-#### 使用 group 将多个测试样例成组
-
-与 `test()` 类似，`group()` 的前两个参数是 `dynamic description` 和 `dynamic Function() body`。
+我们也可以使用 group 将多个测试样例成组。与 `test()` 类似，`group()` 的前两个参数是 `dynamic description` 和 `dynamic Function() body`：
 
 ```dart
 import 'package:learn_flutter/counter.dart';
@@ -228,9 +226,7 @@ $ flutter test test/counter_test.dart
 00:00 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:01 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:02 +0: loading /xxx/learn_flutter/test/counter_test.dart                                          00:02 +3: All tests passed!
 ```
 
-#### TODO https://pub.dev/packages/test
-
-TODO
+以上提到的单元测试是最简单的一些内容，如果你希望了解更多，可以查看 [test](https://pub.dev/packages/test) 这个测试包。
 
 ### 组件测试
 
