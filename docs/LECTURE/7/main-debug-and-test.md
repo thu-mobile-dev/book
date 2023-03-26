@@ -117,6 +117,8 @@ Flutter 测试主要参考内容：
 
 下面我们会结合一些案例来讲解如何对一个 Flutter 工程进行测试——
 
+> 如果你希望一个更加完整的案例，也可以查看 [Codelabs | How to test a Flutter app](https://codelabs.developers.google.com/codelabs/flutter-app-testing#0)。
+
 ### 单元测试
 
 使用 `flutter create learn_flutter` 创建一个名为 learn_flutter 的项目，使用编辑器打开。
@@ -290,11 +292,77 @@ expect(find.text('1'), findsOneWidget);
 
 ### 整体测试
 
-TODO
+首先我们需要在 `pubspec.yaml` 的 `dev_dependencies` 中添加 `flutter_test` 和 `integration_test`：
 
-https://docs.flutter.dev/testing/integration-tests
-https://docs.flutter.dev/cookbook/testing/integration/introduction
-https://docs.flutter.dev/cookbook/testing/integration/profiling
+```yml
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+```
+
+接下来我们来编辑整体测试的文件。在项目的根目录新建文件夹 `integration_test/`（名称不可更改），在其中新建文件 `app_test.dart`（名称可更改），其中写入：
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+
+import 'package:learn_flutter/main.dart' as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  group('app test', () {
+    testWidgets('tap on the floating action button, verify counter',
+        (tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // Verify the counter starts at 0.
+      expect(find.text('0'), findsOneWidget);
+      expect(find.text('1'), findsNothing);
+
+      // Tap the '+' icon and trigger a frame.
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.pumpAndSettle();
+
+      // Verify that our counter has incremented.
+      expect(find.text('0'), findsNothing);
+      expect(find.text('1'), findsOneWidget);
+    });
+  });
+}
+```
+
+- 可以看到整体测试和 Widget 测试最大的区别是，调用了 `IntegrationTestWidgetsFlutterBinding.ensureInitialized()`。这个函数会初始化一些参数，使得之后的测试在目标机平台进行。
+- 这里更新一帧主要使用 `tester.pumpAndSettle()`，它会持续调用 `tester.pump()` 知道没有新的帧要刷新，这会等待所有动画完成。
+- 其他内容基本上与 Widget 测试一致。
+
+在命令行，使用 `flutter test integration_test/app_test.dart` 即可执行整体测试：
+
+```
+$ flutter test integration_test/app_test.dart       
+Multiple devices found:
+macOS (desktop) • macos  • darwin-x64     • macOS 12.6.3 21G419 darwin-x64
+Chrome (web)    • chrome • web-javascript • Google Chrome 111.0.5563.110
+[1]: macOS (macos)
+[2]: Chrome (chrome)
+Please choose one (To quit, press "q/Q"): 2
+Web devices are not supported for integration tests yet.
+```
+
+这里会提示选择一个设备，选择 Chrome 会提示 web 现在不支持整体测试。使用 ChromeDrive 看起来可以进行测试，感兴趣的同学可以参考 [flutter/packages/integration_test](https://github.com/flutter/flutter/tree/main/packages/integration_test) 进行尝试。
+
+这里我们使用 `flutter test integration_test/app_test.dart -d mac` 选择本机的其他平台进行测试。可以看到应用自动被构建，开启，执行测试，被关闭的过程。整个过程结束，测试结束。
+
+![](images-test/integration-0.png)
+![](images-test/integration-1.png)
+![](images-test/integration-2.png)
+
+以上所说的整体测试并没有对性能进行测试，对这方面感兴趣的同学可以课后查看 [Cookbook Testing Integration | Performance profiling](https://docs.flutter.dev/cookbook/testing/integration/profiling)。
 
 ## 性能
 
