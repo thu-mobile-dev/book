@@ -8,6 +8,7 @@ site_description: THU 移动应用开发 Flutter 教程
 nav:
   - 前言:
     - LECTURE/0/introduction.md
+    - LECTURE/0/plan.md
     - LECTURE/0/contact-us.md
     - LECTURE/0/welcome-edit.md
   - 第一讲 体验:
