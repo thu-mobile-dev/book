@@ -24,9 +24,9 @@ void Function(String?, {int? wrapWidth}) debugPrint
 - `debugShowMaterialGrid` 可以显示 Material Design 的网格
 - `showSemanticsDebugger` 不显示 UI 而显示每个元素的外框和意义
 
-![](images-debug/debugShowMaterialGrid.png)
+![](images-debug/debugShowMaterialGrid.png){ width="400" }
 
-![](images-debug/showSemanticsDebugger.png)
+![](images-debug/showSemanticsDebugger.png){ width="400" }
 
 ### 断点调试
 
@@ -38,7 +38,7 @@ void Function(String?, {int? wrapWidth}) debugPrint
 
 在 VS Code 最右下角的地方可以选择调试使用的设备：
 
-![](images-debug/select-device.png)
+![](images-debug/select-device.png){ width="400" }
 
 然后使用快捷键 F5 或者在菜单栏里面点击「开始调试」（注意不是使用命令行的 `flutter run`）：
 
@@ -59,7 +59,7 @@ void Function(String?, {int? wrapWidth}) debugPrint
 
 最后一个 Inspector 打开之后可以看待界面的布局和组件的树状结构：
 
-![](images-debug/inspector.png)
+![](images-debug/inspector.png){ width="500" }
 
 感兴趣的同学可以在官网查看 [Flutter | Using the Flutter inspector](https://docs.flutter.dev/development/tools/devtools/inspector) 了解 Inspector 的更多使用方法。
 
@@ -77,7 +77,7 @@ void showLayoutGuidelines() {
 }
 ```
 
-![](images-debug/debugPaintSizeEnabled.png)
+![](images-debug/debugPaintSizeEnabled.png){ width="400" }
 
 ### 其他资源
 
@@ -272,11 +272,11 @@ expect(find.text('1'), findsOneWidget);
 
 点击之后可以在下方的 Debug Console 处看到输出的信息：
 
-![](images-test/vscode-debug-console.png)
+![](images-test/vscode-debug-console.png){ width="300" }
 
 在左侧的 TESTING panel 可以看到不同的测试样例的测试结果：
 
-![](images-test/vscode-testing-panel.png)
+![](images-test/vscode-testing-panel.png){ width="300" }
 
 以上呈现的就是一个最简单的 Widget 测试。
 

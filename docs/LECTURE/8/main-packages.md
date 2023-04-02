@@ -90,7 +90,7 @@ flutter create --org io.github.thu-mobile-dev --template=plugin --platforms=andr
 
 创建好后，在 example/ 文件夹中，我们可以直接通过 flutter run 命令查看默认的模板创建的样例应用。该应用会显示目标平台的名称，效果如下：
 
-![](images-flutter-plugin/android-template.jpeg)
+![](images-flutter-plugin/android-template.jpeg){ width="300" }
 ![](images-flutter-plugin/ios-template.png)
 
 查看具体的代码：
@@ -120,8 +120,8 @@ iOS 与 Android 部分需要查看 Google 和 Apple 提供的 API 文档找到�
 
 在 example/ 文件夹中执行 flutter run 将应用安装到 Android 或 iOS 真机上（虚拟机可能不支持获取电量），可以看到效果如下所示：
 
-![](images-flutter-plugin/android-not-charging.jpeg)
-![](images-flutter-plugin/android-charging.jpeg)
+![](images-flutter-plugin/android-not-charging.jpeg){ width="300" }
+![](images-flutter-plugin/android-charging.jpeg){ width="300" }
 ![](images-flutter-plugin/ios-not-charging.png)
 ![](images-flutter-plugin/ios-charging.png)
 
