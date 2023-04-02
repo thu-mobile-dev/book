@@ -13,7 +13,7 @@ Flutter 与原生应用的交互主要有两种：
 
 我们的课程主要聚焦在「嵌入原生」，也就是「Platform integration」，后面我们简称为包、（第三方）包。
 
-## 什么是包
+## 什么是包（package）
 
 - 提供一些常用的函数库（如数学运算库）
 - 提供一些常用的 Widget（如 Material Design 的组件）
@@ -59,10 +59,70 @@ dependencies:
 
 Flutter 官方在 YouTube 开设了 [Flutter Package of the Week](https://www.youtube.com/playlist?list=PLjxrf2q8roU1quF6ny8oFHJ2gBdrYN_AK) 这一合集，其中介绍了很多常用的第三方包，能够极大提高开发效率；课程中用到的很多包也都包含在其中。每一集时间不长，感兴趣的同学应该可以很快看完。
 
-## 创建包
+## 创建插件
 
-TODO https://docs.flutter.dev/development/packages-and-plugins/developing-packages
+> 当我们创建的包调用了目标平台的 API，我们往往将这种包称作插件（plugin）。
+>
+> 主要参考资料：
+>
+> - [Flutter | Developing packages & plugins](https://docs.flutter.dev/development/packages-and-plugins/developing-packages)
+> - [Flutter | Writing custom platform-specific code](https://docs.flutter.dev/development/platform-integration/platform-channels)
+> - [Flutter API | MethodCall class](https://api.flutter.dev/flutter/services/MethodCall-class.html)
+> - [Flutter API | Result class](https://api.flutter.dev/flutter/flutter_driver/Result-class.html)
 
-### 实践
+在创建插件这个章节，我们主要通过实践来学习：
 
-TODO 创建一个包，可以获取当前设备的电量、充电情况，至少支持 Android 和 iOS，进一步支持 Windows 和 macOS，查看网页端是否支持该功能。并发布到 pub.dev 上。
+我们希望创建一个插件，可以获取当前设备的充电情况和电池电量，支持 Android 和 iOS。
+
+### 默认模板
+
+用下面的命令创建一个插件模板。
+
+```
+flutter create --org io.github.thu-mobile-dev --template=plugin --platforms=android,ios -a java -i swift plugin_example
+```
+
+- `--org` 给出企业、组织、个人的反向域名，一些代码中会使用到。
+- `--template=plugin` 表示我们使用插件模板。
+- `--platforms` 给出插件支持的平台，这里我们暂时只关注 Android 和 iOS 平台
+    - `-a` 给出 Android 平台代码的默认语言。
+    - `-i` 给出 iOS 平台代码的默认语言。
+
+创建好后，在 example/ 文件夹中，我们可以直接通过 flutter run 命令查看默认的模板创建的样例应用。该应用会显示目标平台的名称，效果如下：
+
+![](images-flutter-plugin/android-template.jpeg)
+![](images-flutter-plugin/ios-template.png)
+
+查看具体的代码：
+
+- 在 example/lib/main.dart 中，创建了一个实例 `final _pluginExamplePlugin = PluginExample();`，通过实例的 `getPlatformVersion()` 方法，获取目标平台的名称。
+- `PluginExample` 这个类则是由我们刚刚创建的插件提供的，在 lib/plugin_example.dart 中。可以看到在 example/pubspec.yaml 中，有一行 `plugin_example: path: ../` 导入了插件。
+- 在 lib/plugin_example_platform_interface.dart 中，`PluginExamplePlatform` 类继承 `PlatformInterface`，作为目标平台调用代码的类的基类。可以看到里面就有默认的 `getPlatformVersion()`，如果子类没有重载这个方法，就会返回错误提示。
+- 在 lib/plugin_example_method_channel.dart 中，通过 `MethodChannel` 类的 `invokeMethod()` 方法来调用目标平台代码。
+    - 在 android/src/main/java/io/github/thumobiledev/plugin_example/PluginExamplePlugin.java 中，`PluginExamplePlugin` 的 `onMethodCall()` 方法处理从 Flutter 发起的函数调用，通过判断 `call.method` 来确定调用什么功能。通过 `result.success()` 返回。
+    - 在 ios/Classes/PluginExamplePlugin.swift 中，`PluginExamplePlugin` 类的 `handle()` 方法处理从 Flutter 发起的函数调用，同样可以通过 `call.method` 来确定调用什么功能。通过 `result()` 返回。
+
+### 添加获取电池状态的函数
+
+> 完整的项目地址 https://github.com/thu-mobile-dev/battery_status，
+
+用下面的命令创建电池信息插件：
+
+```
+flutter create --org io.github.thu-mobile-dev --template=plugin --platforms=android,ios -a java -i swift battery_status
+```
+
+与上面的模板一样，我们只需要对应添加函数来获取电池电量和电池是否充电即可。
+
+在 lib/battery_status_platform_interface.dart 的 BatteryStatusPlatform 类中，我们添加两个方法 `Future<bool?> isCharging()` 和 `Future<double?> value()`。在 lib/battery_status_method_channel.dart 的 MethodChannelBatteryStatus 类中，我们重载刚刚的两个方法，进一步调用目标平台代码。
+
+iOS 与 Android 部分需要查看 Google 和 Apple 提供的 API 文档找到原生的 API，调用并返回。感兴趣的同学可以查看 android/src/main/java/io/github/thumobiledev/battery_status/BatteryStatusPlugin.java 和 ios/Classes/BatteryStatusPlugin.swift。
+
+在 example/ 文件夹中执行 flutter run 将应用安装到 Android 或 iOS 真机上（虚拟机可能不支持获取电量），可以看到效果如下所示：
+
+![](images-flutter-plugin/android-not-charging.jpeg)
+![](images-flutter-plugin/android-charging.jpeg)
+![](images-flutter-plugin/ios-not-charging.png)
+![](images-flutter-plugin/ios-charging.png)
+
+ps. 如果同学有兴趣，也可以进一步支持 Windows、macOS、Linux、Web 端查看设备电量。欢迎提 Pull Request！
