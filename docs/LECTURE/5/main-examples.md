@@ -97,6 +97,13 @@
 
 这个案例我们就用 Flutter 构建这个下载按钮。
 
+![](images-multi-state-download-button/0.png){width="200"}
+![](images-multi-state-download-button/1.png){width="200"}
+![](images-multi-state-download-button/2.png){width="200"}
+![](images-multi-state-download-button/3.png){width="200"}
+![](images-multi-state-download-button/4.png){width="200"}
+![](images-multi-state-download-button/5.png){width="200"}
+
 首先可以看到，这个按钮有几个阶段：
 
 ```dart
