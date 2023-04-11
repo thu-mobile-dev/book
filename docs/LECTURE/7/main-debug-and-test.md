@@ -14,7 +14,7 @@ void Function(String?, {int? wrapWidth}) debugPrint
 
 > Prints a message to the console, which you can access using the "flutter" tool's "logs" command ("flutter logs").
 
-输入为 `String`，要想输出一个对象，使用字符串差值即可。
+输入为 `String`，要想输出一个对象，使用字符串插值即可。
 
 ### MaterialApp
 

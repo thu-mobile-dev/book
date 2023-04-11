@@ -661,7 +661,7 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
 }
 ```
 
-- Dart 使用 `$` 进行字符串差值，比如 `print("i=$i");` `内容为${textFieldController.text}`；简单变量可以不加大括号。
+- Dart 使用 `$` 进行字符串插值，比如 `print("i=$i");` `内容为${textFieldController.text}`；简单变量可以不加大括号。
 - 这里我们给 `TextField` 添加了一个 controller `textFieldController`，使用 `textFieldController.text` 即可拿到 `TextField` 的当前值。
 - 我们之前用的都是 `StatelessWidget`，这里因为需要一个跟随 `Widget` 的变量——`textFieldController`，因此我们需要将 `AddTodoWidget` 改为 `StatefulWidget`。
     - 在 Flutter 中，`StatefulWidget` 可以有很多个变量作为 Widget 的状态，每当这些状态有变化的时候，Widget 会对应「刷新」——但是不会销毁之前的 Widget 而重新创建。对比 `StatelessWidget`，尽管其可以传入参数，当参数改变的时候，其也会「刷新」，但是这里的「刷新」是指销毁之前的 Widget，然后重新创建一个。
