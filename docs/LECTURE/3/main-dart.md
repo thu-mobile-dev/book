@@ -4,12 +4,12 @@
 
 Dart 在有 C / C++ / Python 基础时非常容易入手，最好的方式是自己阅读官方文档。
 
-- 结合之前已经学习掌握的 C / C++ / Python，阅读 [Dart ｜ A tour of the Dart language](https://dart.dev/guides/language/language-tour) 快速上手熟悉 Dart，了解 Dart 和 C / C++ / Python 的异同。
+- 结合之前已经学习掌握的 C / C++ / Python，阅读 [Dart ｜ Introduction to Dart](https://dart.dev/language) 快速上手熟悉 Dart，了解 Dart 和 C / C++ / Python 的异同。
     - 如果你熟悉 JavaScript，可以阅读 [Dart | Learning Dart as a JavaScript developer](https://dart.dev/guides/language/coming-from/js-to-dart)。
     - 如果你熟悉 Swift，可以阅读 [Dart | Learning Dart as a Swift developer](https://dart.dev/guides/language/coming-from/swift-to-dart)。
-- 通过 [Dart | Language samples](https://dart.dev/samples) 中的一些案例熟悉 Dart。
-- 阅读 [Dart | Asynchronous programming: futures, async, await](https://dart.dev/codelabs/async-await) 熟悉 Dart 的异步编程方式。
+- 通过 [Dart | Codelabs](https://dart.dev/codelabs) 中的一些案例熟悉 Dart。
 - 阅读 [Dart | A tour of the core libraries](https://dart.dev/guides/libraries/library-tour) 了解 Dart 的核心库。
+- 阅读 [Dart | Asynchronous programming: futures, async, await](https://dart.dev/codelabs/async-await) 熟悉 Dart 的异步编程方式。
 
 你可以使用 [Dart 的在线编辑器](https://dart.dev/#try-dart) 尝试 Dart 的语法，你也可以在安装好 Flutter 之后，在本地使用下面的命令来创建项目并编译运行：
 
