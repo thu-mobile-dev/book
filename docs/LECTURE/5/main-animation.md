@@ -142,18 +142,18 @@ void main() {
   runApp(const MaterialApp(
       home: Scaffold(
           body: Center(
-    child: ClickableClickView(),
+    child: ClickableClockView(),
   ))));
 }
 
-class ClickableClickView extends StatefulWidget {
-  const ClickableClickView({super.key});
+class ClickableClockView extends StatefulWidget {
+  const ClickableClockView({super.key});
 
   @override
-  State<ClickableClickView> createState() => _ClickableClickViewState();
+  State<ClickableClockView> createState() => _ClickableClockViewState();
 }
 
-class _ClickableClickViewState extends State<ClickableClickView> {
+class _ClickableClockViewState extends State<ClickableClockView> {
   int seconds = 0;
 
   @override
@@ -169,7 +169,7 @@ class _ClickableClickViewState extends State<ClickableClickView> {
 }
 ```
 
-- `ClickableClickView` 有一个状态 `seconds`，在 `GestureDetector.onTap()` 中我们在 `setState()` 中对其进行修改，这样 `ClockView` 会得到刷新。
+- `ClickableClockView` 有一个状态 `seconds`，在 `GestureDetector.onTap()` 中我们在 `setState()` 中对其进行修改，这样 `ClockView` 会得到刷新。
 
 这样我们就实现了一个最简单的动画，用户点击，界面变化。
 
@@ -387,18 +387,18 @@ void main() {
   runApp(const MaterialApp(
       home: Scaffold(
           body: Center(
-    child: ClickableClickView(),
+    child: ClickableClockView(),
   ))));
 }
 
-class ClickableClickView extends StatefulWidget {
-  const ClickableClickView({super.key});
+class ClickableClockView extends StatefulWidget {
+  const ClickableClockView({super.key});
 
   @override
-  State<ClickableClickView> createState() => _ClickableClickViewState();
+  State<ClickableClockView> createState() => _ClickableClockViewState();
 }
 
-class _ClickableClickViewState extends State<ClickableClickView> {
+class _ClickableClockViewState extends State<ClickableClockView> {
   double seconds = 0.0;
 
   @override

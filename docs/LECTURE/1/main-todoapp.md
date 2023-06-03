@@ -553,7 +553,7 @@ class ContentWidget extends StatelessWidget {
 
 ## 添加新增 Todo
 
-我们需要往下方添加的内容开始增多，我们选择将下方的这个 `Widget` 单独提出来命名为 `AddTodoWidget`（注：在 VS Code `中敲stl` 回车就可以选择快速补全 `StatelessWidget`）：
+我们需要往下方添加的内容开始增多，我们选择将下方的这个 `Widget` 单独提出来命名为 `AddTodoWidget`（注：在 VS Code 中敲`stl` 回车就可以选择快速补全 `StatelessWidget`）：
 
 ```dart
 class ContentWidget extends StatelessWidget {
